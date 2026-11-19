@@ -227,5 +227,42 @@
   "charts": {
     "other": "Autres",
     "total": "Total"
+  },
+  "analytics": {
+    "period": "Période",
+    "ranges": {
+      "week": "7 jours",
+      "month": "Ce mois-ci",
+      "prev": "Mois dernier",
+      "quarter": "3 mois",
+      "year": "12 mois",
+      "custom": "Personnalisée"
+    },
+    "from": "Du",
+    "to": "Au",
+    "apply": "Appliquer",
+    "errors": {
+      "invalidRange": "Choisissez une période valide (début avant fin, 5 ans maximum)"
+    },
+    "title": "Analyses",
+    "income": "Revenus",
+    "expenses": "Dépenses",
+    "balance": "Solde",
+    "new": "nouveau",
+    "comparedWith": "Comparé à {range}",
+    "dynamicsTitle": "Revenus et dépenses",
+    "dynamicsAria": "Graphique en aires des revenus et des dépenses sur la période choisie",
+    "structureTitle": "Dépenses par catégorie",
+    "structureAria": "Graphique en anneau des dépenses par catégorie",
+    "monthsTitle": "Revenus et dépenses par mois",
+    "monthsCount": "Nombre de mois",
+    "monthsN": "{n} mois",
+    "monthsAria": "Histogramme des revenus et des dépenses pour chaque mois",
+    "topTitle": "Principales catégories",
+    "topCaption": "Plus grosses catégories de dépenses et évolution par rapport à la période précédente",
+    "colCategory": "Catégorie",
+    "colAmount": "Montant",
+    "colChange": "Évolution",
+    "noData": "Aucune donnée pour cette période"
   }
 }

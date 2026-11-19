@@ -83,3 +83,95 @@ export function rangeBounds(
   const back = range === "quarter" ? 2 : 11;
   return { from: todayISO(new Date(y, m - 1 - back, d)), to: current.to };
 }
+
+/* ---------- Analytics periods ---------- */
+
+export function addDays(iso: string, n: number): string {
+  const { y, m, d } = parseISO(iso);
+  return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
+}
+
+/** Number of days from `from` to `to`, counting both ends. */
+export function daysBetween(from: string, to: string): number {
+  const a = parseISO(from);
+  const b = parseISO(to);
+  return Math.round((Date.UTC(b.y, b.m - 1, b.d) - Date.UTC(a.y, a.m - 1, a.d)) / 86_400_000) + 1;
+}
+
+function isRealDate(s: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
+  const { y, m, d } = parseISO(s);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d && y >= 1970;
+}
+
+export const ANALYTICS_RANGES = ["week", "month", "prev", "quarter", "year", "custom"] as const;
+export type AnalyticsRange = (typeof ANALYTICS_RANGES)[number];
+
+export function isAnalyticsRange(value: unknown): value is AnalyticsRange {
+  return typeof value === "string" && (ANALYTICS_RANGES as readonly string[]).includes(value);
+}
+
+export const MAX_CUSTOM_DAYS = 1830; // about 5 years
+
+/** Checks a user-typed date range. Returns null when it is not usable. */
+export function parseCustomRange(from?: string, to?: string): { from: string; to: string } | null {
+  if (!from || !to || !isRealDate(from) || !isRealDate(to) || from > to) return null;
+  if (daysBetween(from, to) > MAX_CUSTOM_DAYS) return null;
+  return { from, to };
+}
+
+export function analyticsBounds(
+  range: AnalyticsRange,
+  monthStartDay: number,
+  custom: { from: string; to: string } | null,
+  now = new Date(),
+): { from: string; to: string } {
+  if (range === "custom" && custom) return custom;
+  if (range === "week") {
+    const to = todayISO(now);
+    return { from: addDays(to, -6), to };
+  }
+  const r = range === "custom" ? "month" : range;
+  return rangeBounds(r, monthStartDay, now) as { from: string; to: string };
+}
+
+/**
+ * The period to compare with. It covers the same number of days as the part of the
+ * current period that has already happened, so "this month so far" is compared with the
+ * same days of last month rather than with a whole month.
+ */
+export function comparisonBounds(
+  range: AnalyticsRange,
+  bounds: { from: string; to: string },
+  monthStartDay: number,
+  now = new Date(),
+): { from: string; to: string } {
+  const today = todayISO(now);
+  const effectiveTo = bounds.to > today ? (bounds.from > today ? bounds.from : today) : bounds.to;
+  const days = daysBetween(bounds.from, effectiveTo);
+
+  if (range === "month") {
+    const prev = rangeBounds("prev", monthStartDay, now) as { from: string; to: string };
+    const to = addDays(prev.from, days - 1);
+    return { from: prev.from, to: to > prev.to ? prev.to : to };
+  }
+  if (range === "prev") {
+    const { y, m, d } = parseISO(addDays(bounds.from, -1));
+    return currentPeriod(monthStartDay, new Date(y, m - 1, d));
+  }
+  const to = addDays(bounds.from, -1);
+  return { from: addDays(to, -(days - 1)), to };
+}
+
+/** Relative change, or null when there is nothing to compare with (previous value is 0). */
+export function percentChange(current: number, previous: number): number | null {
+  return previous === 0 ? null : (current - previous) / previous;
+}
+
+/** The last `n` calendar months including the current one: from the 1st of the oldest to (about) today. */
+export function lastMonths(n: number, now = new Date()): { from: string; to: string } {
+  const from = todayISO(new Date(now.getFullYear(), now.getMonth() - (n - 1), 1));
+  const endOfMonth = todayISO(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+  return { from, to: capAtTomorrow(endOfMonth, now) };
+}

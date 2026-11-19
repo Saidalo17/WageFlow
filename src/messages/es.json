@@ -227,5 +227,42 @@
   "charts": {
     "other": "Otros",
     "total": "Total"
+  },
+  "analytics": {
+    "period": "Periodo",
+    "ranges": {
+      "week": "7 días",
+      "month": "Este mes",
+      "prev": "Mes pasado",
+      "quarter": "3 meses",
+      "year": "12 meses",
+      "custom": "Personalizado"
+    },
+    "from": "Desde",
+    "to": "Hasta",
+    "apply": "Aplicar",
+    "errors": {
+      "invalidRange": "Elige un rango válido (inicio antes del fin, máximo 5 años)"
+    },
+    "title": "Análisis",
+    "income": "Ingresos",
+    "expenses": "Gastos",
+    "balance": "Saldo",
+    "new": "nuevo",
+    "comparedWith": "Comparado con {range}",
+    "dynamicsTitle": "Ingresos y gastos",
+    "dynamicsAria": "Gráfico de áreas de ingresos y gastos en el periodo elegido",
+    "structureTitle": "Gastos por categoría",
+    "structureAria": "Gráfico de anillo de gastos por categoría",
+    "monthsTitle": "Ingresos y gastos por mes",
+    "monthsCount": "Número de meses",
+    "monthsN": "{n} meses",
+    "monthsAria": "Gráfico de barras de ingresos y gastos de cada mes",
+    "topTitle": "Principales categorías",
+    "topCaption": "Categorías de gasto más grandes y su variación respecto al periodo anterior",
+    "colCategory": "Categoría",
+    "colAmount": "Importe",
+    "colChange": "Variación",
+    "noData": "No hay datos para este periodo"
   }
 }

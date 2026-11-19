@@ -227,5 +227,42 @@
   "charts": {
     "other": "Sonstige",
     "total": "Gesamt"
+  },
+  "analytics": {
+    "period": "Zeitraum",
+    "ranges": {
+      "week": "7 Tage",
+      "month": "Dieser Monat",
+      "prev": "Letzter Monat",
+      "quarter": "3 Monate",
+      "year": "12 Monate",
+      "custom": "Eigener"
+    },
+    "from": "Von",
+    "to": "Bis",
+    "apply": "Anwenden",
+    "errors": {
+      "invalidRange": "Wählen Sie einen gültigen Zeitraum (Start vor Ende, höchstens 5 Jahre)"
+    },
+    "title": "Analyse",
+    "income": "Einnahmen",
+    "expenses": "Ausgaben",
+    "balance": "Saldo",
+    "new": "neu",
+    "comparedWith": "Verglichen mit {range}",
+    "dynamicsTitle": "Einnahmen und Ausgaben",
+    "dynamicsAria": "Flächendiagramm der Einnahmen und Ausgaben im gewählten Zeitraum",
+    "structureTitle": "Ausgaben nach Kategorie",
+    "structureAria": "Ringdiagramm der Ausgaben nach Kategorie",
+    "monthsTitle": "Einnahmen und Ausgaben pro Monat",
+    "monthsCount": "Anzahl der Monate",
+    "monthsN": "{n} Monate",
+    "monthsAria": "Balkendiagramm der Einnahmen und Ausgaben je Monat",
+    "topTitle": "Top-Kategorien",
+    "topCaption": "Größte Ausgabenkategorien mit Veränderung zum vorherigen Zeitraum",
+    "colCategory": "Kategorie",
+    "colAmount": "Betrag",
+    "colChange": "Änderung",
+    "noData": "Keine Daten für diesen Zeitraum"
   }
 }

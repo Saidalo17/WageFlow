@@ -227,5 +227,42 @@
   "charts": {
     "other": "其他",
     "total": "合计"
+  },
+  "analytics": {
+    "period": "时间范围",
+    "ranges": {
+      "week": "7 天",
+      "month": "本月",
+      "prev": "上月",
+      "quarter": "3 个月",
+      "year": "12 个月",
+      "custom": "自定义"
+    },
+    "from": "从",
+    "to": "到",
+    "apply": "应用",
+    "errors": {
+      "invalidRange": "请选择有效的范围（开始日期早于结束日期，最长 5 年）"
+    },
+    "title": "分析",
+    "income": "收入",
+    "expenses": "支出",
+    "balance": "结余",
+    "new": "新增",
+    "comparedWith": "对比 {range}",
+    "dynamicsTitle": "收入与支出",
+    "dynamicsAria": "所选时间范围内收入与支出的面积图",
+    "structureTitle": "支出分类占比",
+    "structureAria": "按分类统计支出的环形图",
+    "monthsTitle": "每月收入与支出",
+    "monthsCount": "月数",
+    "monthsN": "{n} 个月",
+    "monthsAria": "每月收入与支出的柱状图",
+    "topTitle": "主要分类",
+    "topCaption": "支出最多的分类及与上一时期相比的变化",
+    "colCategory": "分类",
+    "colAmount": "金额",
+    "colChange": "变化",
+    "noData": "此时间范围内暂无数据"
   }
 }

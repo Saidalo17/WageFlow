@@ -227,5 +227,42 @@
   "charts": {
     "other": "Other",
     "total": "Total"
+  },
+  "analytics": {
+    "period": "Period",
+    "ranges": {
+      "week": "7 days",
+      "month": "This month",
+      "prev": "Last month",
+      "quarter": "3 months",
+      "year": "12 months",
+      "custom": "Custom"
+    },
+    "from": "From",
+    "to": "To",
+    "apply": "Apply",
+    "errors": {
+      "invalidRange": "Choose a valid range (start date before end date, up to 5 years)"
+    },
+    "title": "Analytics",
+    "income": "Income",
+    "expenses": "Expenses",
+    "balance": "Balance",
+    "new": "new",
+    "comparedWith": "Compared with {range}",
+    "dynamicsTitle": "Income and expenses",
+    "dynamicsAria": "Area chart of income and expenses over the selected period",
+    "structureTitle": "Spending by category",
+    "structureAria": "Donut chart of expenses by category",
+    "monthsTitle": "Income vs expenses by month",
+    "monthsCount": "Number of months",
+    "monthsN": "{n} months",
+    "monthsAria": "Bar chart of income and expenses for each month",
+    "topTitle": "Top categories",
+    "topCaption": "Biggest expense categories with change versus the previous period",
+    "colCategory": "Category",
+    "colAmount": "Amount",
+    "colChange": "Change",
+    "noData": "No data for this period"
   }
 }
