@@ -382,5 +382,20 @@
       "invalid": "Please check the form",
       "generic": "Something went wrong. Please try again"
     }
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "text": "We could not load this page. Your data is safe. Please try again.",
+    "retry": "Try again",
+    "home": "Go to overview",
+    "code": "Error code: {code}"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page does not exist or has been moved.",
+    "button": "Go to overview"
+  },
+  "a11y": {
+    "skip": "Skip to main content"
   }
 }

@@ -3,9 +3,9 @@ import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { RangePicker } from "@/components/analytics/range-picker";
 import { Card } from "@/components/card";
-import { AreaChart } from "@/components/charts/area-chart";
-import { BarChart } from "@/components/charts/bar-chart";
-import { DonutChart } from "@/components/charts/donut-chart";
+import { AreaChart } from "@/components/charts/lazy";
+import { BarChart } from "@/components/charts/lazy";
+import { DonutChart } from "@/components/charts/lazy";
 import { formatDate } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
 import {
@@ -146,7 +146,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
 
       {/* Dynamics + structure */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card title={t("dynamicsTitle")} className="lg:col-span-2">
+        <Card title={t("dynamicsTitle")} className="lg:col-span-2" index={3}>
           {hasData ? (
             <>
               <AreaChart
@@ -164,7 +164,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
           )}
         </Card>
 
-        <Card title={t("structureTitle")}>
+        <Card title={t("structureTitle")} index={4}>
           {byCategory.length > 0 ? (
             <DonutChart data={byCategory} currency={user.currency} ariaLabel={t("structureAria")} />
           ) : (
@@ -178,6 +178,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
         <Card
           title={t("monthsTitle")}
           className="lg:col-span-2"
+          index={5}
           action={
             <div className="flex gap-1 rounded-full bg-muted p-1" role="group" aria-label={t("monthsCount")}>
               {([6, 12] as const).map((n) => (
@@ -212,7 +213,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
           )}
         </Card>
 
-        <Card title={t("topTitle")}>
+        <Card title={t("topTitle")} index={6}>
           {topRows.length > 0 ? (
             <table className="w-full text-sm">
               <caption className="sr-only">{t("topCaption")}</caption>
@@ -352,7 +353,7 @@ function MetricCard({
   t: (key: string) => string;
 }) {
   return (
-    <div className="flex items-center gap-4 rounded-3xl border bg-card p-6 shadow-[var(--shadow-card)]">
+    <div className="reveal flex items-center gap-4 rounded-3xl border bg-card p-6 shadow-[var(--shadow-card)]">
       <span
         className={cn(
           "grid size-12 shrink-0 place-items-center rounded-full",

@@ -122,7 +122,7 @@ export function BudgetsView({ budgets, available, currency, periodLabel }: Props
       ) : (
         <>
           {/* All limits together */}
-          <section className="space-y-3 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)] sm:p-6">
+          <section className="reveal space-y-3 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)] sm:p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
               <h2 className="text-lg font-bold">{t("totalTitle")}</h2>
               <p className="amount text-muted-foreground">
@@ -134,7 +134,7 @@ export function BudgetsView({ budgets, available, currency, periodLabel }: Props
           </section>
 
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {sorted.map((b) => {
+            {sorted.map((b, i) => {
               const ratio = b.limit ? b.spent / b.limit : 0;
               const status = budgetStatus(ratio);
               const left = b.limit - b.spent;
@@ -142,7 +142,8 @@ export function BudgetsView({ budgets, available, currency, periodLabel }: Props
               return (
                 <li
                   key={b.id}
-                  className="flex flex-col gap-4 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)]"
+                  style={{ "--i": Math.min(i + 1, 8) } as React.CSSProperties}
+                  className="reveal flex flex-col gap-4 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)]"
                 >
                   <div className="flex items-center gap-3">
                     <CategoryBadge icon={b.icon} color={b.color} />

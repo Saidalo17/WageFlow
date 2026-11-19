@@ -24,6 +24,7 @@
   --brand-700: #4338ca;
 
   --primary: #4f46e5;
+  --link: #4f46e5;
   --primary-foreground: #ffffff;
   --secondary: #f1f1f7;
   --secondary-foreground: #14142b;
@@ -31,16 +32,16 @@
   --muted-foreground: #6b6b80;
   --accent: #eef2ff;
   --accent-foreground: #4338ca;
-  --destructive: #dc2626;
+  --destructive: #b91c1c;
   --border: #e6e6ef;
   --input: #e6e6ef;
   --ring: #6366f1;
 
-  --income: #16a34a;
+  --income: #15803d;
   --income-bg: #dcfce7;
-  --expense: #dc2626;
+  --expense: #b91c1c;
   --expense-bg: #fee2e2;
-  --warning: #d97706;
+  --warning: #b45309;
 
   --chart-1: #6366f1;
   --chart-2: #8b5cf6;
@@ -66,7 +67,8 @@
   --brand-600: #6366f1;
   --brand-700: #a5b4fc;
 
-  --primary: #6366f1;
+  --primary: #5b5ef0; /* white text 4.9:1; #6366f1 gave 4.47 */
+  --link: #818cf8; /* readable as text on dark cards (6:1) */
   --primary-foreground: #ffffff;
   --secondary: #1f1f2a;
   --secondary-foreground: #f2f2f8;
@@ -100,6 +102,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-surface-2: var(--surface-2);
   --color-primary: var(--primary);
+  --color-link: var(--link);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -162,11 +165,34 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Soft appearance of cards and list items: fade in and rise 8px, one after another via --i. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  animation: reveal 250ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+
+/* Visitors who asked their system for less motion get none of it. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    animation: none;
   }
 }

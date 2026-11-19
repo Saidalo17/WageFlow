@@ -124,7 +124,7 @@ function BudgetForm({
           {available.length === 0 ? (
             <p className="rounded-xl bg-muted px-4 py-3 text-sm text-muted-foreground">
               {t("noCategories")}{" "}
-              <Link href="/categories" onClick={onDone} className="font-semibold text-primary hover:underline">
+              <Link href="/categories" onClick={onDone} className="font-semibold text-link hover:underline">
                 {t("createCategory")}
               </Link>
             </p>

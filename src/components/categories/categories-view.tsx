@@ -164,13 +164,14 @@ export function CategoriesView({
         </div>
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((c) => {
+          {visible.map((c, i) => {
             const isIncome = c.type === "income";
             return (
               <li
                 key={c.id}
+                style={{ "--i": Math.min(i, 8) } as React.CSSProperties}
                 className={cn(
-                  "flex items-center gap-4 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)] transition-shadow",
+                  "reveal flex items-center gap-4 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)] transition-shadow",
                   c.isArchived && "opacity-60",
                 )}
               >

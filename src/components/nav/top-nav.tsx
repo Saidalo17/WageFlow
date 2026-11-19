@@ -81,10 +81,10 @@ export function TopNav({ user }: { user: { name: string | null; email: string } 
         </Sheet>
 
         <Link href="/" className="flex items-center gap-2 text-lg font-extrabold tracking-tight">
-          <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-violet-500 text-white">
+          <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-[#4f46e5] to-[#7c3aed] text-white">
             <Wallet className="size-5" />
           </span>
-          <span className="hidden sm:inline">{tApp("name")}</span>
+          <span className="sr-only sm:not-sr-only">{tApp("name")}</span>
         </Link>
 
         {/* Desktop links */}

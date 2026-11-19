@@ -382,5 +382,20 @@
       "invalid": "Vérifiez le formulaire",
       "generic": "Une erreur est survenue. Veuillez réessayer"
     }
+  },
+  "errorPage": {
+    "title": "Une erreur est survenue",
+    "text": "Cette page n’a pas pu être chargée. Vos données sont en sécurité. Veuillez réessayer.",
+    "retry": "Réessayer",
+    "home": "Aller à l’aperçu",
+    "code": "Code d’erreur : {code}"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "Cette page n’existe pas ou a été déplacée.",
+    "button": "Aller à l’aperçu"
+  },
+  "a11y": {
+    "skip": "Aller au contenu principal"
   }
 }

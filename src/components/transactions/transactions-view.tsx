@@ -201,10 +201,15 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
         </div>
       ) : (
         <div className="space-y-5">
-          {groups.map((g) => {
+          {groups.map((g, gi) => {
             const net = dayNet(g.items);
             return (
-              <section key={g.date} aria-label={dayLabel(g.date)} className="space-y-2">
+              <section
+                key={g.date}
+                aria-label={dayLabel(g.date)}
+                className="reveal space-y-2"
+                style={{ "--i": Math.min(gi, 6) } as React.CSSProperties}
+              >
                 <div className="flex items-baseline justify-between gap-3 px-1">
                   <h2 className="block text-sm font-bold text-muted-foreground first-letter:uppercase">{dayLabel(g.date)}</h2>
                   <span className="amount text-sm font-semibold text-muted-foreground">

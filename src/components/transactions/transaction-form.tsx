@@ -177,7 +177,7 @@ export function TransactionForm({
         {options.length === 0 ? (
           <p className="rounded-xl bg-muted px-4 py-3 text-sm text-muted-foreground">
             {t("form.noCategories")}{" "}
-            <Link href="/categories" onClick={onDone} className="font-semibold text-primary hover:underline">
+            <Link href="/categories" onClick={onDone} className="font-semibold text-link hover:underline">
               {t("form.createCategory")}
             </Link>
           </p>

@@ -1,8 +1,8 @@
 import { ArrowDownLeft, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { AreaChart } from "@/components/charts/area-chart";
-import { DonutChart } from "@/components/charts/donut-chart";
+import { AreaChart } from "@/components/charts/lazy";
+import { DonutChart } from "@/components/charts/lazy";
 import { Card } from "@/components/card";
 import { BudgetProgress } from "@/components/budgets/budget-progress";
 import { CategoryBadge } from "@/components/category-icon";
@@ -103,7 +103,10 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
 
       {/* Balance, income, expenses */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="rounded-3xl bg-gradient-to-br from-brand-600 to-violet-500 p-6 text-white shadow-lg">
+        <div
+          className="reveal rounded-3xl bg-gradient-to-br from-[#4f46e5] to-[#7c3aed] p-6 text-white shadow-lg"
+          style={{ "--i": 0 } as React.CSSProperties}
+        >
           <p className="text-sm font-semibold text-white/80">{t("balance")}</p>
           <p className="amount mt-1 text-[40px] leading-tight font-extrabold break-words">
             {balance > 0 ? "+" : balance < 0 ? "−" : ""}
@@ -114,19 +117,21 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
           label={t("income")}
           value={`${totals.income > 0 ? "+" : ""}${money(totals.income)}`}
           tone="income"
+          index={1}
           icon={<ArrowUpRight className="size-5" />}
         />
         <StatCard
           label={t("expenses")}
           value={`${totals.expense > 0 ? "−" : ""}${money(totals.expense)}`}
           tone="expense"
+          index={2}
           icon={<ArrowDownLeft className="size-5" />}
         />
       </div>
 
       {/* Charts */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card title={t("dynamicsTitle")} className="lg:col-span-2">
+        <Card title={t("dynamicsTitle")} className="lg:col-span-2" index={3}>
           {hasData ? (
             <>
               <AreaChart
@@ -152,7 +157,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
           )}
         </Card>
 
-        <Card title={t("structureTitle")}>
+        <Card title={t("structureTitle")} index={4}>
           {byCategory.length > 0 ? (
             <DonutChart data={byCategory} currency={user.currency} ariaLabel={t("structureAria")} />
           ) : (
@@ -163,6 +168,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
 
       {/* Limits */}
       <Card
+        index={5}
         title={t("budgetsTitle")}
         action={
           <Link href="/budgets" className={buttonVariants({ variant: "ghost", size: "sm" })}>
@@ -208,6 +214,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
 
       {/* Latest transactions */}
       <Card
+        index={6}
         title={t("recentTitle")}
         action={
           <Link href="/transactions?range=all" className={buttonVariants({ variant: "ghost", size: "sm" })}>
@@ -226,14 +233,19 @@ function StatCard({
   value,
   tone,
   icon,
+  index,
 }: {
   label: string;
   value: string;
   tone: "income" | "expense";
   icon: React.ReactNode;
+  index: number;
 }) {
   return (
-    <div className="flex items-center gap-4 rounded-3xl border bg-card p-6 shadow-[var(--shadow-card)]">
+    <div
+      className="reveal flex items-center gap-4 rounded-3xl border bg-card p-6 shadow-[var(--shadow-card)]"
+      style={{ "--i": index } as React.CSSProperties}
+    >
       <span
         className={cn(
           "grid size-12 shrink-0 place-items-center rounded-full",

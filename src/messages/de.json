@@ -382,5 +382,20 @@
       "invalid": "Bitte prüfen Sie das Formular",
       "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
     }
+  },
+  "errorPage": {
+    "title": "Etwas ist schiefgelaufen",
+    "text": "Diese Seite konnte nicht geladen werden. Ihre Daten sind sicher. Bitte versuchen Sie es erneut.",
+    "retry": "Erneut versuchen",
+    "home": "Zur Übersicht",
+    "code": "Fehlercode: {code}"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Diese Seite existiert nicht oder wurde verschoben.",
+    "button": "Zur Übersicht"
+  },
+  "a11y": {
+    "skip": "Zum Hauptinhalt springen"
   }
 }

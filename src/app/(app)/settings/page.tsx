@@ -20,7 +20,7 @@ export default async function SettingsPage() {
     <div className="space-y-6">
       <h1 className="text-[28px] font-extrabold tracking-tight">{t("title")}</h1>
 
-      <Card title={t("sections.profile")}>
+      <Card title={t("sections.profile")} index={1}>
         <ProfileForm
           initial={{
             name: user.name ?? "",
@@ -32,15 +32,15 @@ export default async function SettingsPage() {
         />
       </Card>
 
-      <Card title={t("sections.security")}>
+      <Card title={t("sections.security")} index={2}>
         <PasswordForm />
       </Card>
 
-      <Card title={t("sections.data")}>
+      <Card title={t("sections.data")} index={3}>
         <ExportSection />
       </Card>
 
-      <Card title={t("sections.danger")} className="border-expense/40">
+      <Card title={t("sections.danger")} className="border-expense/40" index={4}>
         <DeleteAccount />
       </Card>
     </div>

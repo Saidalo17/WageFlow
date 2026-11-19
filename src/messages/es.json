@@ -382,5 +382,20 @@
       "invalid": "Revisa el formulario",
       "generic": "Algo salió mal. Inténtalo de nuevo"
     }
+  },
+  "errorPage": {
+    "title": "Algo salió mal",
+    "text": "No pudimos cargar esta página. Tus datos están a salvo. Inténtalo de nuevo.",
+    "retry": "Reintentar",
+    "home": "Ir al resumen",
+    "code": "Código de error: {code}"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "text": "Esta página no existe o se ha movido.",
+    "button": "Ir al resumen"
+  },
+  "a11y": {
+    "skip": "Saltar al contenido principal"
   }
 }

@@ -32,11 +32,14 @@ export function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="ghost" className="gap-1.5 px-3" aria-label={t("label")} disabled={pending} />
+          <Button variant="ghost" className="gap-1.5 px-3" disabled={pending} />
         }
       >
-        <Globe className="size-5" />
-        <span className="text-sm font-bold uppercase">{current}</span>
+        <Globe className="size-5" aria-hidden />
+        <span className="text-sm font-bold uppercase">
+          <span className="sr-only">{t("label")}: </span>
+          {current}
+        </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
         {locales.map((locale) => (
