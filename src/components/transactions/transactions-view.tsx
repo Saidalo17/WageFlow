@@ -11,7 +11,7 @@ import {
   SearchX,
   Trash2,
 } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -61,7 +61,6 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const params = useSearchParams();
   const categoryName = useCategoryName();
   const { openAdd, openEdit } = useTransactionModal();
 
@@ -100,7 +99,7 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
   }
 
   function setParams(changes: Record<string, string | null>) {
-    const next = new URLSearchParams(params.toString());
+    const next = new URLSearchParams(window.location.search);
     for (const [k, v] of Object.entries(changes)) {
       if (v === null) next.delete(k);
       else next.set(k, v);

@@ -1,7 +1,7 @@
 "use client";
 
 import { Search, X } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useCategoryName } from "@/components/categories/use-category-name";
@@ -28,14 +28,14 @@ export function TransactionFilters({
   const t = useTranslations("transactions.filters");
   const router = useRouter();
   const pathname = usePathname();
-  const params = useSearchParams();
   const categoryName = useCategoryName();
   const [search, setSearch] = useState(q);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   /** Updates one URL parameter; changing a filter always goes back to the first page. */
   function update(changes: Record<string, string | null>) {
-    const next = new URLSearchParams(params.toString());
+    // Read the address as it is *now*: the delayed search update must not overwrite a filter chosen in the meantime.
+    const next = new URLSearchParams(window.location.search);
     next.delete("limit");
     for (const [k, v] of Object.entries(changes)) {
       if (v === null || v === "") next.delete(k);

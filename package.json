@@ -11,7 +11,12 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:check": "tsx scripts/db-check.ts",
     "test:isolation": "tsx scripts/test-isolation.ts",
-    "check:contrast": "node scripts/check-contrast.mjs"
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "i18n:check": "node scripts/i18n-check.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "npm run build && playwright test",
+    "verify": "tsc --noEmit && eslint src tests && npm run i18n:check && npm run check:contrast && vitest run"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -39,9 +44,10 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^20",
+    "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^18.0.10",
@@ -50,6 +56,7 @@
     "eslint-config-next": "16.4.6",
     "tailwindcss": "4.3.3",
     "tsx": "^4.23.15",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.1.1"
   }
 }

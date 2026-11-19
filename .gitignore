@@ -45,3 +45,8 @@ next-env.d.ts
 
 # local test db
 *.db
+
+# test artefacts
+/.test/
+/test-results/
+/playwright-report/
