@@ -207,5 +207,25 @@
       "invalid": "Please check the form",
       "generic": "Something went wrong. Please try again"
     }
+  },
+  "overview": {
+    "greeting": "Hello, {name}",
+    "greetingAnon": "Hello",
+    "period": "Period",
+    "balance": "Balance",
+    "income": "Income",
+    "expenses": "Expenses",
+    "dynamicsTitle": "Income and expenses",
+    "dynamicsAria": "Area chart of income and expenses over the selected period",
+    "structureTitle": "Spending by category",
+    "structureAria": "Donut chart of expenses by category",
+    "recentTitle": "Latest transactions",
+    "viewAll": "View all",
+    "addFirst": "Add transaction",
+    "noData": "No data for this period"
+  },
+  "charts": {
+    "other": "Other",
+    "total": "Total"
   }
 }

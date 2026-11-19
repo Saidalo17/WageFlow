@@ -207,5 +207,25 @@
       "invalid": "Revisa el formulario",
       "generic": "Algo salió mal. Inténtalo de nuevo"
     }
+  },
+  "overview": {
+    "greeting": "Hola, {name}",
+    "greetingAnon": "Hola",
+    "period": "Periodo",
+    "balance": "Saldo",
+    "income": "Ingresos",
+    "expenses": "Gastos",
+    "dynamicsTitle": "Ingresos y gastos",
+    "dynamicsAria": "Gráfico de áreas de ingresos y gastos en el periodo elegido",
+    "structureTitle": "Gastos por categoría",
+    "structureAria": "Gráfico de anillo de gastos por categoría",
+    "recentTitle": "Últimas operaciones",
+    "viewAll": "Ver todo",
+    "addFirst": "Añadir operación",
+    "noData": "No hay datos para este periodo"
+  },
+  "charts": {
+    "other": "Otros",
+    "total": "Total"
   }
 }

@@ -207,5 +207,25 @@
       "invalid": "Bitte prüfen Sie das Formular",
       "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
     }
+  },
+  "overview": {
+    "greeting": "Hallo, {name}",
+    "greetingAnon": "Hallo",
+    "period": "Zeitraum",
+    "balance": "Saldo",
+    "income": "Einnahmen",
+    "expenses": "Ausgaben",
+    "dynamicsTitle": "Einnahmen und Ausgaben",
+    "dynamicsAria": "Flächendiagramm der Einnahmen und Ausgaben im gewählten Zeitraum",
+    "structureTitle": "Ausgaben nach Kategorie",
+    "structureAria": "Ringdiagramm der Ausgaben nach Kategorie",
+    "recentTitle": "Letzte Transaktionen",
+    "viewAll": "Alle anzeigen",
+    "addFirst": "Transaktion hinzufügen",
+    "noData": "Keine Daten für diesen Zeitraum"
+  },
+  "charts": {
+    "other": "Sonstige",
+    "total": "Gesamt"
   }
 }

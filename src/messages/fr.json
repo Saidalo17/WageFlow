@@ -207,5 +207,25 @@
       "invalid": "Vérifiez le formulaire",
       "generic": "Une erreur est survenue. Veuillez réessayer"
     }
+  },
+  "overview": {
+    "greeting": "Bonjour, {name}",
+    "greetingAnon": "Bonjour",
+    "period": "Période",
+    "balance": "Solde",
+    "income": "Revenus",
+    "expenses": "Dépenses",
+    "dynamicsTitle": "Revenus et dépenses",
+    "dynamicsAria": "Graphique en aires des revenus et des dépenses sur la période choisie",
+    "structureTitle": "Dépenses par catégorie",
+    "structureAria": "Graphique en anneau des dépenses par catégorie",
+    "recentTitle": "Dernières opérations",
+    "viewAll": "Tout voir",
+    "addFirst": "Ajouter une opération",
+    "noData": "Aucune donnée pour cette période"
+  },
+  "charts": {
+    "other": "Autres",
+    "total": "Total"
   }
 }

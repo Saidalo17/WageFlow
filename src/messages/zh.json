@@ -207,5 +207,25 @@
       "invalid": "请检查表单",
       "generic": "出了点问题，请重试"
     }
+  },
+  "overview": {
+    "greeting": "你好，{name}",
+    "greetingAnon": "你好",
+    "period": "时间范围",
+    "balance": "结余",
+    "income": "收入",
+    "expenses": "支出",
+    "dynamicsTitle": "收入与支出",
+    "dynamicsAria": "所选时间范围内收入与支出的面积图",
+    "structureTitle": "支出分类占比",
+    "structureAria": "按分类统计支出的环形图",
+    "recentTitle": "最近交易",
+    "viewAll": "查看全部",
+    "addFirst": "添加交易",
+    "noData": "此时间范围内暂无数据"
+  },
+  "charts": {
+    "other": "其他",
+    "total": "合计"
   }
 }
