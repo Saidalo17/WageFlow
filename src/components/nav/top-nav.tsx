@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { useTransactionModal } from "@/components/transactions/transaction-modal-provider";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
@@ -38,6 +39,7 @@ export function TopNav({ user }: { user: { name: string | null; email: string } 
   const tActions = useTranslations("actions");
   const tProfile = useTranslations("profile");
   const isActive = useIsActive();
+  const { openAdd } = useTransactionModal();
   const [open, setOpen] = useState(false);
   const [signingOut, startTransition] = useTransition();
 
@@ -105,7 +107,7 @@ export function TopNav({ user }: { user: { name: string | null; email: string } 
         </nav>
 
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
-          <Button render={<Link href="/transactions?new=1" />} nativeButton={false} className="gap-1.5">
+          <Button onClick={() => openAdd()} className="gap-1.5">
             <Plus className="size-4" />
             <span className="hidden sm:inline">{tActions("add")}</span>
             <span className="sr-only sm:hidden">{tActions("add")}</span>

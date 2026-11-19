@@ -122,5 +122,90 @@
       "gifts": "Geschenke",
       "other_income": "Sonstiges"
     }
+  },
+  "transactions": {
+    "title": "Transaktionen",
+    "summary": {
+      "income": "Einnahmen",
+      "expenses": "Ausgaben",
+      "balance": "Saldo"
+    },
+    "filters": {
+      "search": "Transaktionen suchen",
+      "clearSearch": "Suche löschen",
+      "period": "Zeitraum",
+      "type": "Art",
+      "category": "Kategorie",
+      "allCategories": "Alle Kategorien",
+      "ranges": {
+        "month": "Dieser Monat",
+        "prev": "Letzter Monat",
+        "quarter": "3 Monate",
+        "year": "12 Monate",
+        "all": "Gesamter Zeitraum"
+      },
+      "types": {
+        "all": "Alle",
+        "expense": "Ausgaben",
+        "income": "Einnahmen"
+      }
+    },
+    "form": {
+      "type": "Transaktionsart",
+      "expense": "Ausgabe",
+      "income": "Einnahme",
+      "amount": "Betrag",
+      "category": "Kategorie",
+      "date": "Datum",
+      "note": "Notiz (optional)",
+      "notePlaceholder": "z. B. Mittagessen mit Freund",
+      "add": "Hinzufügen",
+      "save": "Speichern",
+      "newTitle": "Neue Transaktion",
+      "editTitle": "Transaktion bearbeiten",
+      "noCategories": "Für diese Art gibt es noch keine Kategorien.",
+      "createCategory": "Kategorie erstellen"
+    },
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "showMore": "Mehr anzeigen",
+    "showAll": "Gesamten Zeitraum anzeigen",
+    "empty": {
+      "title": "Noch keine Transaktionen",
+      "hint": "Fügen Sie Ihre erste Einnahme oder Ausgabe hinzu, um sie hier zu sehen."
+    },
+    "noResults": {
+      "title": "Nichts gefunden",
+      "hint": "Versuchen Sie einen anderen Zeitraum oder setzen Sie die Filter zurück."
+    },
+    "row": {
+      "actions": "Aktionen für Transaktion",
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    },
+    "delete": {
+      "title": "Transaktion löschen?",
+      "body": "{category}: {amount} ({date}). Sie können das einige Sekunden lang rückgängig machen."
+    },
+    "undo": "Rückgängig",
+    "toasts": {
+      "created": "Transaktion hinzugefügt",
+      "updated": "Transaktion gespeichert",
+      "deleted": "Transaktion gelöscht",
+      "restored": "Transaktion wiederhergestellt"
+    },
+    "errors": {
+      "amountRequired": "Geben Sie einen Betrag ein",
+      "amountInvalid": "Geben Sie einen gültigen Betrag für diese Währung ein",
+      "amountTooLarge": "Der Betrag ist zu groß",
+      "categoryRequired": "Wählen Sie eine Kategorie",
+      "dateInvalid": "Wählen Sie ein gültiges Datum",
+      "noteLong": "Die Notiz darf höchstens 200 Zeichen lang sein",
+      "categoryArchived": "Diese Kategorie ist archiviert",
+      "typeMismatch": "Die Kategorie passt nicht zur Transaktionsart",
+      "notFound": "Transaktion oder Kategorie nicht gefunden",
+      "invalid": "Bitte prüfen Sie das Formular",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+    }
   }
 }

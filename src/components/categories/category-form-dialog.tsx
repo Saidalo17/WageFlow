@@ -8,13 +8,8 @@ import { toast } from "sonner";
 import { createCategory, updateCategory } from "@/app/(app)/categories/actions";
 import { CategoryBadge, CategoryIcon } from "@/components/category-icon";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { ResponsiveModal } from "@/components/responsive-modal";
+import { DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CATEGORY_COLORS, CATEGORY_ICON_KEYS } from "@/lib/category-meta";
@@ -34,22 +29,19 @@ type Props = {
 export function CategoryFormDialog({ open, onOpenChange, category, defaultType }: Props) {
   const t = useTranslations("categories");
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] gap-5 overflow-y-auto sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-extrabold">
-            {t(category ? "editTitle" : "newTitle")}
-          </DialogTitle>
-        </DialogHeader>
-        {/* Mounted only while the dialog is open, so the form starts fresh every time. */}
-        <CategoryForm
-          key={category?.id ?? "new"}
-          category={category}
-          defaultType={defaultType}
-          onDone={() => onOpenChange(false)}
-        />
-      </DialogContent>
-    </Dialog>
+    <ResponsiveModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t(category ? "editTitle" : "newTitle")}
+    >
+      {/* Mounted only while the modal is open, so the form starts fresh every time. */}
+      <CategoryForm
+        key={category?.id ?? "new"}
+        category={category}
+        defaultType={defaultType}
+        onDone={() => onOpenChange(false)}
+      />
+    </ResponsiveModal>
   );
 }
 

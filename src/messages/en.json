@@ -122,5 +122,90 @@
       "gifts": "Gifts",
       "other_income": "Other"
     }
+  },
+  "transactions": {
+    "title": "Transactions",
+    "summary": {
+      "income": "Income",
+      "expenses": "Expenses",
+      "balance": "Balance"
+    },
+    "filters": {
+      "search": "Search transactions",
+      "clearSearch": "Clear search",
+      "period": "Period",
+      "type": "Type",
+      "category": "Category",
+      "allCategories": "All categories",
+      "ranges": {
+        "month": "This month",
+        "prev": "Last month",
+        "quarter": "3 months",
+        "year": "12 months",
+        "all": "All time"
+      },
+      "types": {
+        "all": "All",
+        "expense": "Expenses",
+        "income": "Income"
+      }
+    },
+    "form": {
+      "type": "Transaction type",
+      "expense": "Expense",
+      "income": "Income",
+      "amount": "Amount",
+      "category": "Category",
+      "date": "Date",
+      "note": "Note (optional)",
+      "notePlaceholder": "e.g. Lunch with a friend",
+      "add": "Add",
+      "save": "Save",
+      "newTitle": "New transaction",
+      "editTitle": "Edit transaction",
+      "noCategories": "There are no categories of this type yet.",
+      "createCategory": "Create one"
+    },
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "showMore": "Show more",
+    "showAll": "Show all time",
+    "empty": {
+      "title": "No transactions yet",
+      "hint": "Add your first income or expense to see it here."
+    },
+    "noResults": {
+      "title": "Nothing found",
+      "hint": "Try another period or clear the filters."
+    },
+    "row": {
+      "actions": "Transaction actions",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "delete": {
+      "title": "Delete transaction?",
+      "body": "{category}: {amount} ({date}). You will be able to undo this for a few seconds."
+    },
+    "undo": "Undo",
+    "toasts": {
+      "created": "Transaction added",
+      "updated": "Transaction saved",
+      "deleted": "Transaction deleted",
+      "restored": "Transaction restored"
+    },
+    "errors": {
+      "amountRequired": "Enter an amount",
+      "amountInvalid": "Enter a valid amount for this currency",
+      "amountTooLarge": "The amount is too large",
+      "categoryRequired": "Choose a category",
+      "dateInvalid": "Choose a valid date",
+      "noteLong": "Note must be at most 200 characters",
+      "categoryArchived": "This category is archived",
+      "typeMismatch": "The category does not match the transaction type",
+      "notFound": "Transaction or category not found",
+      "invalid": "Please check the form",
+      "generic": "Something went wrong. Please try again"
+    }
   }
 }

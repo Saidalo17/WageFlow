@@ -122,5 +122,90 @@
       "gifts": "礼物",
       "other_income": "其他"
     }
+  },
+  "transactions": {
+    "title": "交易",
+    "summary": {
+      "income": "收入",
+      "expenses": "支出",
+      "balance": "结余"
+    },
+    "filters": {
+      "search": "搜索交易",
+      "clearSearch": "清除搜索",
+      "period": "时间范围",
+      "type": "类型",
+      "category": "分类",
+      "allCategories": "全部分类",
+      "ranges": {
+        "month": "本月",
+        "prev": "上月",
+        "quarter": "3 个月",
+        "year": "12 个月",
+        "all": "全部"
+      },
+      "types": {
+        "all": "全部",
+        "expense": "支出",
+        "income": "收入"
+      }
+    },
+    "form": {
+      "type": "交易类型",
+      "expense": "支出",
+      "income": "收入",
+      "amount": "金额",
+      "category": "分类",
+      "date": "日期",
+      "note": "备注（可选）",
+      "notePlaceholder": "例如：和朋友吃午饭",
+      "add": "添加",
+      "save": "保存",
+      "newTitle": "新建交易",
+      "editTitle": "编辑交易",
+      "noCategories": "此类型还没有分类。",
+      "createCategory": "去创建"
+    },
+    "today": "今天",
+    "yesterday": "昨天",
+    "showMore": "显示更多",
+    "showAll": "显示全部",
+    "empty": {
+      "title": "还没有交易",
+      "hint": "添加第一笔收入或支出，它会显示在这里。"
+    },
+    "noResults": {
+      "title": "没有找到结果",
+      "hint": "试试其他时间范围，或清除筛选条件。"
+    },
+    "row": {
+      "actions": "交易操作",
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "delete": {
+      "title": "删除交易？",
+      "body": "{category}：{amount}（{date}）。几秒内可以撤销。"
+    },
+    "undo": "撤销",
+    "toasts": {
+      "created": "交易已添加",
+      "updated": "交易已保存",
+      "deleted": "交易已删除",
+      "restored": "交易已恢复"
+    },
+    "errors": {
+      "amountRequired": "请输入金额",
+      "amountInvalid": "请输入适用于该货币的有效金额",
+      "amountTooLarge": "金额过大",
+      "categoryRequired": "请选择分类",
+      "dateInvalid": "请选择有效日期",
+      "noteLong": "备注最多 200 个字符",
+      "categoryArchived": "该分类已归档",
+      "typeMismatch": "分类与交易类型不匹配",
+      "notFound": "未找到交易或分类",
+      "invalid": "请检查表单",
+      "generic": "出了点问题，请重试"
+    }
   }
 }

@@ -122,5 +122,90 @@
       "gifts": "Regalos",
       "other_income": "Otros"
     }
+  },
+  "transactions": {
+    "title": "Operaciones",
+    "summary": {
+      "income": "Ingresos",
+      "expenses": "Gastos",
+      "balance": "Saldo"
+    },
+    "filters": {
+      "search": "Buscar operaciones",
+      "clearSearch": "Borrar búsqueda",
+      "period": "Periodo",
+      "type": "Tipo",
+      "category": "Categoría",
+      "allCategories": "Todas las categorías",
+      "ranges": {
+        "month": "Este mes",
+        "prev": "Mes pasado",
+        "quarter": "3 meses",
+        "year": "12 meses",
+        "all": "Todo"
+      },
+      "types": {
+        "all": "Todo",
+        "expense": "Gastos",
+        "income": "Ingresos"
+      }
+    },
+    "form": {
+      "type": "Tipo de operación",
+      "expense": "Gasto",
+      "income": "Ingreso",
+      "amount": "Importe",
+      "category": "Categoría",
+      "date": "Fecha",
+      "note": "Nota (opcional)",
+      "notePlaceholder": "p. ej. Comida con un amigo",
+      "add": "Añadir",
+      "save": "Guardar",
+      "newTitle": "Nueva operación",
+      "editTitle": "Editar operación",
+      "noCategories": "Aún no hay categorías de este tipo.",
+      "createCategory": "Crear una"
+    },
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "showMore": "Mostrar más",
+    "showAll": "Mostrar todo",
+    "empty": {
+      "title": "Aún no hay operaciones",
+      "hint": "Añade tu primer ingreso o gasto para verlo aquí."
+    },
+    "noResults": {
+      "title": "Sin resultados",
+      "hint": "Prueba otro periodo o borra los filtros."
+    },
+    "row": {
+      "actions": "Acciones de la operación",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "delete": {
+      "title": "¿Eliminar la operación?",
+      "body": "{category}: {amount} ({date}). Podrás deshacerlo durante unos segundos."
+    },
+    "undo": "Deshacer",
+    "toasts": {
+      "created": "Operación añadida",
+      "updated": "Operación guardada",
+      "deleted": "Operación eliminada",
+      "restored": "Operación restaurada"
+    },
+    "errors": {
+      "amountRequired": "Introduce un importe",
+      "amountInvalid": "Introduce un importe válido para esta moneda",
+      "amountTooLarge": "El importe es demasiado grande",
+      "categoryRequired": "Elige una categoría",
+      "dateInvalid": "Elige una fecha válida",
+      "noteLong": "La nota debe tener como máximo 200 caracteres",
+      "categoryArchived": "Esta categoría está archivada",
+      "typeMismatch": "La categoría no coincide con el tipo de operación",
+      "notFound": "Operación o categoría no encontrada",
+      "invalid": "Revisa el formulario",
+      "generic": "Algo salió mal. Inténtalo de nuevo"
+    }
   }
 }

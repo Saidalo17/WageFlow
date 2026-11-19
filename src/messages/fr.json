@@ -122,5 +122,90 @@
       "gifts": "Cadeaux",
       "other_income": "Autres"
     }
+  },
+  "transactions": {
+    "title": "Opérations",
+    "summary": {
+      "income": "Revenus",
+      "expenses": "Dépenses",
+      "balance": "Solde"
+    },
+    "filters": {
+      "search": "Rechercher une opération",
+      "clearSearch": "Effacer la recherche",
+      "period": "Période",
+      "type": "Type",
+      "category": "Catégorie",
+      "allCategories": "Toutes les catégories",
+      "ranges": {
+        "month": "Ce mois-ci",
+        "prev": "Mois dernier",
+        "quarter": "3 mois",
+        "year": "12 mois",
+        "all": "Tout"
+      },
+      "types": {
+        "all": "Tout",
+        "expense": "Dépenses",
+        "income": "Revenus"
+      }
+    },
+    "form": {
+      "type": "Type d’opération",
+      "expense": "Dépense",
+      "income": "Revenu",
+      "amount": "Montant",
+      "category": "Catégorie",
+      "date": "Date",
+      "note": "Note (facultatif)",
+      "notePlaceholder": "p. ex. Déjeuner avec un ami",
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "newTitle": "Nouvelle opération",
+      "editTitle": "Modifier l’opération",
+      "noCategories": "Il n’y a pas encore de catégorie de ce type.",
+      "createCategory": "En créer une"
+    },
+    "today": "Aujourd’hui",
+    "yesterday": "Hier",
+    "showMore": "Afficher plus",
+    "showAll": "Tout afficher",
+    "empty": {
+      "title": "Aucune opération",
+      "hint": "Ajoutez votre premier revenu ou votre première dépense pour la voir ici."
+    },
+    "noResults": {
+      "title": "Aucun résultat",
+      "hint": "Essayez une autre période ou réinitialisez les filtres."
+    },
+    "row": {
+      "actions": "Actions de l’opération",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "delete": {
+      "title": "Supprimer l’opération ?",
+      "body": "{category}: {amount} ({date}). Vous pourrez annuler pendant quelques secondes."
+    },
+    "undo": "Annuler",
+    "toasts": {
+      "created": "Opération ajoutée",
+      "updated": "Opération enregistrée",
+      "deleted": "Opération supprimée",
+      "restored": "Opération restaurée"
+    },
+    "errors": {
+      "amountRequired": "Saisissez un montant",
+      "amountInvalid": "Saisissez un montant valide pour cette devise",
+      "amountTooLarge": "Le montant est trop élevé",
+      "categoryRequired": "Choisissez une catégorie",
+      "dateInvalid": "Choisissez une date valide",
+      "noteLong": "La note doit contenir au plus 200 caractères",
+      "categoryArchived": "Cette catégorie est archivée",
+      "typeMismatch": "La catégorie ne correspond pas au type d’opération",
+      "notFound": "Opération ou catégorie introuvable",
+      "invalid": "Vérifiez le formulaire",
+      "generic": "Une erreur est survenue. Veuillez réessayer"
+    }
   }
 }

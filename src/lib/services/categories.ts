@@ -38,6 +38,22 @@ export async function listCategoriesWithTotals(
     .orderBy(asc(categories.isArchived), sql`categories.rowid`);
 }
 
+export async function listCategories(userId: string) {
+  return db
+    .select({
+      id: categories.id,
+      name: categories.name,
+      type: categories.type,
+      color: categories.color,
+      icon: categories.icon,
+      isArchived: categories.isArchived,
+      systemKey: categories.systemKey,
+    })
+    .from(categories)
+    .where(eq(categories.userId, userId))
+    .orderBy(asc(categories.isArchived), sql`categories.rowid`);
+}
+
 export async function getCategory(userId: string, id: string) {
   const [row] = await db
     .select()
