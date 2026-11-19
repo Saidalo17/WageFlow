@@ -28,7 +28,8 @@
     "logout": "Log out"
   },
   "common": {
-    "comingSoon": "This section is coming soon."
+    "comingSoon": "This section is coming soon.",
+    "cancel": "Cancel"
   },
   "auth": {
     "login": {
@@ -63,6 +64,63 @@
       "invalidCredentials": "Incorrect email or password",
       "tooManyAttempts": "Too many attempts. Try again in 15 minutes",
       "generic": "Something went wrong. Please try again"
+    }
+  },
+  "categories": {
+    "title": "Categories",
+    "expenses": "Expenses",
+    "income": "Income",
+    "add": "New category",
+    "newTitle": "New category",
+    "editTitle": "Edit category",
+    "name": "Name",
+    "icon": "Icon",
+    "color": "Color",
+    "save": "Save",
+    "create": "Create",
+    "edit": "Edit",
+    "archive": "Archive",
+    "restore": "Restore",
+    "delete": "Delete",
+    "showArchived": "Show archived",
+    "archived": "Archived",
+    "thisMonth": "This period",
+    "actions": "Category actions",
+    "emptyTitle": "No categories yet",
+    "emptyHint": "Create your first category to start organising transactions.",
+    "deleteTitle": "Delete category?",
+    "deleteBody": "“{name}” will be deleted permanently. This cannot be undone.",
+    "hasTransactionsTitle": "This category has transactions",
+    "hasTransactionsBody": "A category with transactions can’t be deleted, so your history stays complete. Archive it instead: it disappears from new entries but old ones are kept.",
+    "archiveInstead": "Archive instead",
+    "errors": {
+      "required": "Enter a name",
+      "nameLong": "Name must be at most 40 characters",
+      "nameTaken": "A category with this name already exists",
+      "hasTransactions": "This category has transactions and can’t be deleted",
+      "notFound": "Category not found",
+      "generic": "Something went wrong. Please try again"
+    },
+    "toasts": {
+      "created": "Category created",
+      "updated": "Category saved",
+      "archived": "Category archived",
+      "restored": "Category restored",
+      "deleted": "Category deleted"
+    },
+    "system": {
+      "food": "Food",
+      "transport": "Transport",
+      "housing": "Housing",
+      "health": "Health",
+      "entertainment": "Entertainment",
+      "shopping": "Shopping",
+      "subscriptions": "Subscriptions",
+      "other_expense": "Other",
+      "salary": "Salary",
+      "side_income": "Side income",
+      "gifts": "Gifts",
+      "other_income": "Other"
     }
   }
 }

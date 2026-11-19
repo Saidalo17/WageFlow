@@ -28,7 +28,8 @@
     "logout": "Se déconnecter"
   },
   "common": {
-    "comingSoon": "Cette section arrive bientôt."
+    "comingSoon": "Cette section arrive bientôt.",
+    "cancel": "Annuler"
   },
   "auth": {
     "login": {
@@ -63,6 +64,63 @@
       "invalidCredentials": "E-mail ou mot de passe incorrect",
       "tooManyAttempts": "Trop de tentatives. Réessayez dans 15 minutes",
       "generic": "Une erreur est survenue. Veuillez réessayer"
+    }
+  },
+  "categories": {
+    "title": "Catégories",
+    "expenses": "Dépenses",
+    "income": "Revenus",
+    "add": "Nouvelle catégorie",
+    "newTitle": "Nouvelle catégorie",
+    "editTitle": "Modifier la catégorie",
+    "name": "Nom",
+    "icon": "Icône",
+    "color": "Couleur",
+    "save": "Enregistrer",
+    "create": "Créer",
+    "edit": "Modifier",
+    "archive": "Archiver",
+    "restore": "Restaurer",
+    "delete": "Supprimer",
+    "showArchived": "Afficher les archivées",
+    "archived": "Archivée",
+    "thisMonth": "Cette période",
+    "actions": "Actions de la catégorie",
+    "emptyTitle": "Aucune catégorie",
+    "emptyHint": "Créez votre première catégorie pour organiser vos opérations.",
+    "deleteTitle": "Supprimer la catégorie ?",
+    "deleteBody": "« {name} » sera supprimée définitivement. Cette action est irréversible.",
+    "hasTransactionsTitle": "Cette catégorie contient des opérations",
+    "hasTransactionsBody": "Une catégorie contenant des opérations ne peut pas être supprimée, afin de conserver votre historique. Archivez-la plutôt : elle n’apparaît plus pour les nouvelles saisies, mais les anciennes sont conservées.",
+    "archiveInstead": "Archiver à la place",
+    "errors": {
+      "required": "Saisissez un nom",
+      "nameLong": "Le nom doit contenir au plus 40 caractères",
+      "nameTaken": "Une catégorie portant ce nom existe déjà",
+      "hasTransactions": "Cette catégorie contient des opérations et ne peut pas être supprimée",
+      "notFound": "Catégorie introuvable",
+      "generic": "Une erreur est survenue. Veuillez réessayer"
+    },
+    "toasts": {
+      "created": "Catégorie créée",
+      "updated": "Catégorie enregistrée",
+      "archived": "Catégorie archivée",
+      "restored": "Catégorie restaurée",
+      "deleted": "Catégorie supprimée"
+    },
+    "system": {
+      "food": "Alimentation",
+      "transport": "Transport",
+      "housing": "Logement",
+      "health": "Santé",
+      "entertainment": "Loisirs",
+      "shopping": "Achats",
+      "subscriptions": "Abonnements",
+      "other_expense": "Autres",
+      "salary": "Salaire",
+      "side_income": "Revenus annexes",
+      "gifts": "Cadeaux",
+      "other_income": "Autres"
     }
   }
 }

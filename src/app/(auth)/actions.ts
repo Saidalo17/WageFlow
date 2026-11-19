@@ -7,6 +7,7 @@ import { getLocale } from "next-intl/server";
 import { AuthError } from "next-auth";
 import { signIn, signOut } from "@/lib/auth";
 import { db } from "@/lib/db/client";
+import { isUniqueViolation } from "@/lib/db/errors";
 import { categories, users } from "@/lib/db/schema";
 import { DEFAULT_CATEGORIES, DEFAULT_CURRENCY_BY_LOCALE } from "@/lib/default-categories";
 import { loginSchema, registerSchema } from "@/lib/validators/auth";
@@ -79,7 +80,7 @@ export async function registerUser(input: unknown): Promise<AuthResult> {
       ),
     ]);
   } catch (e) {
-    if (e instanceof Error && /UNIQUE/i.test(e.message)) {
+    if (isUniqueViolation(e)) {
       return { ok: false, error: "emailTaken", fieldErrors: { email: "emailTaken" } };
     }
     console.error("registerUser failed", e instanceof Error ? e.message : e);

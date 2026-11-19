@@ -28,7 +28,8 @@
     "logout": "Abmelden"
   },
   "common": {
-    "comingSoon": "Dieser Bereich folgt in Kürze."
+    "comingSoon": "Dieser Bereich folgt in Kürze.",
+    "cancel": "Abbrechen"
   },
   "auth": {
     "login": {
@@ -63,6 +64,63 @@
       "invalidCredentials": "E-Mail oder Passwort ist falsch",
       "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
       "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+    }
+  },
+  "categories": {
+    "title": "Kategorien",
+    "expenses": "Ausgaben",
+    "income": "Einnahmen",
+    "add": "Neue Kategorie",
+    "newTitle": "Neue Kategorie",
+    "editTitle": "Kategorie bearbeiten",
+    "name": "Name",
+    "icon": "Symbol",
+    "color": "Farbe",
+    "save": "Speichern",
+    "create": "Erstellen",
+    "edit": "Bearbeiten",
+    "archive": "Archivieren",
+    "restore": "Wiederherstellen",
+    "delete": "Löschen",
+    "showArchived": "Archivierte anzeigen",
+    "archived": "Archiviert",
+    "thisMonth": "Dieser Zeitraum",
+    "actions": "Kategorie-Aktionen",
+    "emptyTitle": "Noch keine Kategorien",
+    "emptyHint": "Erstellen Sie Ihre erste Kategorie, um Transaktionen zu ordnen.",
+    "deleteTitle": "Kategorie löschen?",
+    "deleteBody": "„{name}“ wird endgültig gelöscht. Das kann nicht rückgängig gemacht werden.",
+    "hasTransactionsTitle": "Diese Kategorie enthält Transaktionen",
+    "hasTransactionsBody": "Eine Kategorie mit Transaktionen kann nicht gelöscht werden, damit Ihr Verlauf vollständig bleibt. Archivieren Sie sie stattdessen: Sie erscheint nicht mehr bei neuen Einträgen, alte bleiben erhalten.",
+    "archiveInstead": "Stattdessen archivieren",
+    "errors": {
+      "required": "Geben Sie einen Namen ein",
+      "nameLong": "Der Name darf höchstens 40 Zeichen lang sein",
+      "nameTaken": "Eine Kategorie mit diesem Namen existiert bereits",
+      "hasTransactions": "Diese Kategorie enthält Transaktionen und kann nicht gelöscht werden",
+      "notFound": "Kategorie nicht gefunden",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+    },
+    "toasts": {
+      "created": "Kategorie erstellt",
+      "updated": "Kategorie gespeichert",
+      "archived": "Kategorie archiviert",
+      "restored": "Kategorie wiederhergestellt",
+      "deleted": "Kategorie gelöscht"
+    },
+    "system": {
+      "food": "Essen",
+      "transport": "Verkehr",
+      "housing": "Wohnen",
+      "health": "Gesundheit",
+      "entertainment": "Unterhaltung",
+      "shopping": "Einkäufe",
+      "subscriptions": "Abonnements",
+      "other_expense": "Sonstiges",
+      "salary": "Gehalt",
+      "side_income": "Nebeneinkünfte",
+      "gifts": "Geschenke",
+      "other_income": "Sonstiges"
     }
   }
 }

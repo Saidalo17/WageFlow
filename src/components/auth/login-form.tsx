@@ -11,12 +11,14 @@ import { loginUser } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loginSchema, type LoginValues } from "@/lib/validators/auth";
+import { useHydrated } from "@/lib/use-hydrated";
 import { Field } from "./field";
 import { PasswordInput } from "./password-input";
 
 export function LoginForm() {
   const t = useTranslations("auth");
   const router = useRouter();
+  const hydrated = useHydrated();
   const [formError, setFormError] = useState<string | null>(null);
   const {
     register,
@@ -66,7 +68,7 @@ export function LoginForm() {
         </p>
       )}
 
-      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting || !hydrated}>
         {isSubmitting && <Loader2 className="size-4 animate-spin" />}
         {t("login.submit")}
       </Button>

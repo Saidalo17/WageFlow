@@ -28,7 +28,8 @@
     "logout": "Cerrar sesión"
   },
   "common": {
-    "comingSoon": "Esta sección estará disponible pronto."
+    "comingSoon": "Esta sección estará disponible pronto.",
+    "cancel": "Cancelar"
   },
   "auth": {
     "login": {
@@ -63,6 +64,63 @@
       "invalidCredentials": "Correo o contraseña incorrectos",
       "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo en 15 minutos",
       "generic": "Algo salió mal. Inténtalo de nuevo"
+    }
+  },
+  "categories": {
+    "title": "Categorías",
+    "expenses": "Gastos",
+    "income": "Ingresos",
+    "add": "Nueva categoría",
+    "newTitle": "Nueva categoría",
+    "editTitle": "Editar categoría",
+    "name": "Nombre",
+    "icon": "Icono",
+    "color": "Color",
+    "save": "Guardar",
+    "create": "Crear",
+    "edit": "Editar",
+    "archive": "Archivar",
+    "restore": "Restaurar",
+    "delete": "Eliminar",
+    "showArchived": "Mostrar archivadas",
+    "archived": "Archivada",
+    "thisMonth": "Este periodo",
+    "actions": "Acciones de la categoría",
+    "emptyTitle": "Aún no hay categorías",
+    "emptyHint": "Crea tu primera categoría para organizar tus operaciones.",
+    "deleteTitle": "¿Eliminar la categoría?",
+    "deleteBody": "«{name}» se eliminará de forma permanente. Esta acción no se puede deshacer.",
+    "hasTransactionsTitle": "Esta categoría tiene operaciones",
+    "hasTransactionsBody": "Una categoría con operaciones no se puede eliminar, para que tu historial quede completo. Archívala en su lugar: dejará de aparecer en nuevos registros, pero se conservan los antiguos.",
+    "archiveInstead": "Archivar en su lugar",
+    "errors": {
+      "required": "Introduce un nombre",
+      "nameLong": "El nombre debe tener como máximo 40 caracteres",
+      "nameTaken": "Ya existe una categoría con este nombre",
+      "hasTransactions": "Esta categoría tiene operaciones y no se puede eliminar",
+      "notFound": "Categoría no encontrada",
+      "generic": "Algo salió mal. Inténtalo de nuevo"
+    },
+    "toasts": {
+      "created": "Categoría creada",
+      "updated": "Categoría guardada",
+      "archived": "Categoría archivada",
+      "restored": "Categoría restaurada",
+      "deleted": "Categoría eliminada"
+    },
+    "system": {
+      "food": "Comida",
+      "transport": "Transporte",
+      "housing": "Vivienda",
+      "health": "Salud",
+      "entertainment": "Ocio",
+      "shopping": "Compras",
+      "subscriptions": "Suscripciones",
+      "other_expense": "Otros",
+      "salary": "Salario",
+      "side_income": "Ingresos extra",
+      "gifts": "Regalos",
+      "other_income": "Otros"
     }
   }
 }

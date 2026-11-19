@@ -26,7 +26,7 @@ export const getCurrentUser = cache(async () => {
     })
     .from(users)
     .where(eq(users.id, id));
-  // The account was deleted but the cookie is still valid.
-  if (!user) redirect("/login");
+  // The account was deleted but the cookie is still valid: clear it, then go to /login.
+  if (!user) redirect("/api/session-expired");
   return user;
 });

@@ -11,12 +11,14 @@ import { registerUser } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerSchema, type RegisterValues } from "@/lib/validators/auth";
+import { useHydrated } from "@/lib/use-hydrated";
 import { Field } from "./field";
 import { PasswordInput } from "./password-input";
 
 export function RegisterForm() {
   const t = useTranslations("auth");
   const router = useRouter();
+  const hydrated = useHydrated();
   const [formError, setFormError] = useState<string | null>(null);
   const {
     register,
@@ -93,7 +95,7 @@ export function RegisterForm() {
         </p>
       )}
 
-      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting || !hydrated}>
         {isSubmitting && <Loader2 className="size-4 animate-spin" />}
         {t("register.submit")}
       </Button>
