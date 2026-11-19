@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Salary — личный финансовый трекер
 
-## Getting Started
+Веб-приложение для учёта доходов и расходов: категории, операции, лимиты, графики и аналитика.
+Работает на 6 языках (English, Deutsch, Français, Español, Русский, 中文) и с любой валютой мира (ISO 4217).
+Данные хранятся в облачной базе **Turso**, приложение написано на **Next.js**.
 
-First, run the development server:
+Подробные документы лежат на уровень выше: `PRD.md` (что строим), `SPEC.md` (как устроено),
+`design.md` (внешний вид), `tasks.md` и `tasksGuide.md` (план работ).
+
+## Возможности
+
+- Регистрация и вход по email и паролю, смена пароля, удаление аккаунта.
+- Доходы и расходы по категориям (стандартные категории переводятся, свои можно создавать и архивировать).
+- Список операций с поиском, фильтрами и отменой удаления.
+- Обзор: баланс, доходы, расходы, графики, последние операции, ближайшие к исчерпанию лимиты.
+- Аналитика: периоды (7 дней, месяц, квартал, год, свой диапазон), сравнение с прошлым периодом, столбцы по месяцам, топ категорий.
+- Месячные лимиты по категориям с цветной индикацией.
+- Выбор языка и валюты, светлая и тёмная тема, экспорт данных в CSV.
+
+## Технологии
+
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, shadcn/ui (Base UI), Turso (libSQL) и Drizzle ORM,
+Auth.js (вход по email и паролю), next-intl (переводы), Recharts (графики), Zod (проверка данных),
+Vitest и Playwright (тесты).
+
+## Запуск на своём компьютере
+
+Нужны **Node.js 20 или новее** и **Git**.
+
+```bash
+npm install
+```
+
+1. Создайте базу на [turso.tech](https://turso.tech) и получите адрес (`libsql://…`) и токен доступа.
+2. Скопируйте `.env.example` в `.env.local` и заполните значения (описание ниже).
+3. Создайте таблицы в базе:
+
+```bash
+npm run db:migrate
+```
+
+4. Запустите приложение:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Переменные окружения
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Имя | Что это |
+|-----|---------|
+| `TURSO_DATABASE_URL` | Адрес базы, например `libsql://имя-базы.turso.io` |
+| `TURSO_AUTH_TOKEN` | Токен доступа к базе (хранится в секрете) |
+| `AUTH_SECRET` | Случайная строка для подписи сессий. Создайте командой `npx auth secret` или `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"` |
+| `AUTH_URL` | Адрес сайта в интернете, например `https://salary.vercel.app`. Локально не нужен |
 
-## Learn More
+Файл `.env.local` в репозиторий **не попадает**. Для боевого сайта создайте **новый** `AUTH_SECRET`, не копируйте локальный.
 
-To learn more about Next.js, take a look at the following resources:
+## Полезные команды
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Команда | Что делает |
+|---------|-----------|
+| `npm run dev` | Запуск для разработки |
+| `npm run build` и `npm start` | Сборка и запуск как на боевом сайте |
+| `npm run db:generate` | Создать новую миграцию после изменения `src/lib/db/schema.ts` |
+| `npm run db:migrate` | Применить миграции к базе из `.env.local` |
+| `npm run verify` | Всё сразу: типы, линтер, переводы, контраст цветов и тесты |
+| `npm test` | Модульные и интеграционные тесты (на временной локальной базе) |
+| `npm run test:e2e` | Сквозные тесты в Chrome (собирает приложение и использует временную базу) |
+| `npm run test:isolation` | Проверка, что один пользователь не видит данные другого |
+| `npm run i18n:check` | Во всех языках одинаковые ключи и подстановки |
+| `npm run check:contrast` | Проверка контраста цветов по WCAG AA |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Тесты никогда не трогают вашу настоящую базу Turso: они работают с файлами в папке `.test/`.
+Для сквозных тестов нужен установленный Google Chrome.
 
-## Deploy on Vercel
+## Публикация (Vercel + Turso)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Загрузите код в репозиторий на GitHub (убедитесь, что `.env.local` не добавлен: он в `.gitignore`).
+2. На [vercel.com](https://vercel.com) создайте проект из этого репозитория. Framework определится сам (Next.js).
+3. В настройках проекта, раздел **Environment Variables**, добавьте `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`,
+   `AUTH_SECRET` (новый!) и `AUTH_URL` (адрес вашего сайта на Vercel).
+4. Примените миграции к боевой базе (с вашего компьютера, один раз и после каждой новой миграции):
+   в `.env.local` должны стоять данные **боевой** базы, затем `npm run db:migrate`.
+5. Нажмите **Deploy** и пройдите на живом адресе путь: регистрация, добавление операции, график.
+6. По желанию подключите свой домен в разделе **Domains**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+В `vercel.json` для функций выбран регион `fra1` (Франкфурт): это тот же регион, что и у базы
+(`aws-eu-central-1`). Чем ближе сервер к базе, тем быстрее открываются страницы. Если ваша база в другом регионе,
+поменяйте значение.
+
+**Резервные копии.** Возможности восстановления зависят от тарифа Turso: проверьте раздел базы в панели Turso и
+включите доступные копии или регулярно выгружайте данные. Пользователи могут скачать свои данные сами
+(Настройки, «Скачать CSV»).
+
+## Безопасность
+
+- Пароли хранятся только как bcrypt-хэш. Сессия лежит в HttpOnly-cookie.
+- Пять неверных попыток входа или смены пароля за 15 минут временно блокируют попытки.
+- Каждый запрос к данным привязан к идентификатору пользователя из сессии, чужие данные недоступны
+  (проверяется тестами).
+- Заголовки безопасности (CSP, `X-Frame-Options` и другие) заданы в `next.config.ts`.
+- Деньги хранятся целыми числами в минимальных единицах валюты, без чисел с плавающей точкой.
+
+## Структура проекта
+
+```
+src/app/            страницы и серверные действия: (auth) вход, (app) всё, что за входом, api/
+src/components/     интерфейс: ui (кнопки и поля), charts, nav, transactions, budgets, settings…
+src/lib/            бизнес-логика: db (схема), services (запросы), validators, money, period, auth
+src/i18n/           настройка языков;  src/messages/ — переводы (en, de, fr, es, ru, zh)
+drizzle/            миграции базы
+tests/              unit, integration, e2e
+scripts/            миграции, проверки (переводы, контраст, изоляция данных)
+```
+
+## Что можно улучшить позже
+
+- Регулярные операции, импорт CSV, вход через Google, восстановление пароля по email.
+- Пересчёт сумм по курсу при смене валюты (сейчас суммы только показываются в новой валюте).
+- Более строгая политика CSP с одноразовыми метками (сейчас для скриптов разрешён `unsafe-inline`, его требует Next.js).
+- Вычитка переводов носителями языка.
