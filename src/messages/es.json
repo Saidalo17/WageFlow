@@ -1,0 +1,32 @@
+{
+    "app":  {
+                "name":  "Salary"
+            },
+    "nav":  {
+                "overview":  "Resumen",
+                "transactions":  "Operaciones",
+                "categories":  "Categorías",
+                "analytics":  "Análisis",
+                "budgets":  "Presupuestos",
+                "settings":  "Ajustes",
+                "menu":  "Menú"
+            },
+    "actions":  {
+                    "add":  "Añadir"
+                },
+    "theme":  {
+                  "label":  "Tema",
+                  "light":  "Claro",
+                  "dark":  "Oscuro",
+                  "system":  "Sistema"
+              },
+    "language":  {
+                     "label":  "Idioma"
+                 },
+    "profile":  {
+                    "label":  "Perfil"
+                },
+    "common":  {
+                   "comingSoon":  "Esta sección estará disponible pronto."
+               }
+}

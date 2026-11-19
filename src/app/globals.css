@@ -1,26 +1,172 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* Design tokens — see design.md. Never hard-code hex in components. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.875rem; /* 14px: buttons and inputs */
+  --radius-card: 1.5rem; /* 24px: cards */
+
+  --background: #f7f7fb;
+  --foreground: #14142b;
+  --card: #ffffff;
+  --card-foreground: #14142b;
+  --popover: #ffffff;
+  --popover-foreground: #14142b;
+  --surface-2: #f1f1f7;
+
+  --brand-50: #eef2ff;
+  --brand-100: #e0e7ff;
+  --brand-500: #6366f1;
+  --brand-600: #4f46e5;
+  --brand-700: #4338ca;
+
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f1f7;
+  --secondary-foreground: #14142b;
+  --muted: #f1f1f7;
+  --muted-foreground: #6b6b80;
+  --accent: #eef2ff;
+  --accent-foreground: #4338ca;
+  --destructive: #dc2626;
+  --border: #e6e6ef;
+  --input: #e6e6ef;
+  --ring: #6366f1;
+
+  --income: #16a34a;
+  --income-bg: #dcfce7;
+  --expense: #dc2626;
+  --expense-bg: #fee2e2;
+  --warning: #d97706;
+
+  --chart-1: #6366f1;
+  --chart-2: #8b5cf6;
+  --chart-3: #ec4899;
+  --chart-4: #f59e0b;
+  --chart-5: #10b981;
+
+  --shadow-card: 0 8px 30px rgba(20, 20, 43, 0.06);
+}
+
+.dark {
+  --background: #0e0e16;
+  --foreground: #f2f2f8;
+  --card: #17171f;
+  --card-foreground: #f2f2f8;
+  --popover: #17171f;
+  --popover-foreground: #f2f2f8;
+  --surface-2: #1f1f2a;
+
+  --brand-50: #1e1b4b;
+  --brand-100: #312e81;
+  --brand-500: #818cf8;
+  --brand-600: #6366f1;
+  --brand-700: #a5b4fc;
+
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #1f1f2a;
+  --secondary-foreground: #f2f2f8;
+  --muted: #1f1f2a;
+  --muted-foreground: #9a9aaf;
+  --accent: #1e1b4b;
+  --accent-foreground: #a5b4fc;
+  --destructive: #f87171;
+  --border: #2a2a38;
+  --input: #2a2a38;
+  --ring: #818cf8;
+
+  --income: #4ade80;
+  --income-bg: #052e16;
+  --expense: #f87171;
+  --expense-bg: #450a0a;
+  --warning: #fbbf24;
+
+  --shadow-card: none;
 }
 
 @theme inline {
+  --font-sans: var(--font-manrope), var(--font-noto-sc), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-surface-2: var(--surface-2);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+
+  --color-income: var(--income);
+  --color-income-bg: var(--income-bg);
+  --color-expense: var(--expense);
+  --color-expense-bg: var(--expense-bg);
+  --color-warning: var(--warning);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: var(--radius-card);
+
+  --shadow-card: var(--shadow-card);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    transition:
+      background-color 200ms ease-out,
+      color 200ms ease-out;
+  }
+  [lang="zh"] body {
+    line-height: 1.7;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Amounts: equal-width digits */
+.amount {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

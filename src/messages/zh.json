@@ -1,0 +1,32 @@
+{
+    "app":  {
+                "name":  "Salary"
+            },
+    "nav":  {
+                "overview":  "概览",
+                "transactions":  "交易",
+                "categories":  "分类",
+                "analytics":  "分析",
+                "budgets":  "预算",
+                "settings":  "设置",
+                "menu":  "菜单"
+            },
+    "actions":  {
+                    "add":  "添加"
+                },
+    "theme":  {
+                  "label":  "主题",
+                  "light":  "浅色",
+                  "dark":  "深色",
+                  "system":  "跟随系统"
+              },
+    "language":  {
+                     "label":  "语言"
+                 },
+    "profile":  {
+                    "label":  "个人资料"
+                },
+    "common":  {
+                   "comingSoon":  "此部分即将推出。"
+               }
+}

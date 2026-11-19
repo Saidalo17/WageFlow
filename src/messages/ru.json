@@ -1,0 +1,32 @@
+{
+    "app":  {
+                "name":  "Salary"
+            },
+    "nav":  {
+                "overview":  "Обзор",
+                "transactions":  "Операции",
+                "categories":  "Категории",
+                "analytics":  "Аналитика",
+                "budgets":  "Бюджеты",
+                "settings":  "Настройки",
+                "menu":  "Меню"
+            },
+    "actions":  {
+                    "add":  "Добавить"
+                },
+    "theme":  {
+                  "label":  "Тема",
+                  "light":  "Светлая",
+                  "dark":  "Тёмная",
+                  "system":  "Системная"
+              },
+    "language":  {
+                     "label":  "Язык"
+                 },
+    "profile":  {
+                    "label":  "Профиль"
+                },
+    "common":  {
+                   "comingSoon":  "Этот раздел скоро появится."
+               }
+}
