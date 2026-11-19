@@ -13,30 +13,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { todayISO } from "@/lib/format";
-import { fromMinor, minorDigits, parseAmount } from "@/lib/money";
+import { minorDigits, parseAmount } from "@/lib/money";
+import { currencySymbol, editableAmount } from "@/lib/money-input";
 import { cn } from "@/lib/utils";
 import { MAX_AMOUNT_MAJOR } from "@/lib/validators/transaction";
 import type { CategoryOption, TxItem } from "./types";
 
 type Type = "income" | "expense";
-
-function currencySymbol(locale: string, currency: string) {
-  return (
-    new Intl.NumberFormat(locale, { style: "currency", currency, currencyDisplay: "narrowSymbol" })
-      .formatToParts(0)
-      .find((p) => p.type === "currency")?.value ?? currency
-  );
-}
-
-/** "1250.5" -> "1250,50" in the user's language, without thousands separators, ready to edit. */
-function editableAmount(minor: number, currency: string, locale: string) {
-  const d = minorDigits(currency);
-  return new Intl.NumberFormat(locale, {
-    useGrouping: false,
-    minimumFractionDigits: d,
-    maximumFractionDigits: d,
-  }).format(fromMinor(minor, currency));
-}
 
 export function TransactionForm({
   transaction,

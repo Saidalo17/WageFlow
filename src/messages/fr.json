@@ -222,7 +222,13 @@
     "recentTitle": "Dernières opérations",
     "viewAll": "Tout voir",
     "addFirst": "Ajouter une opération",
-    "noData": "Aucune donnée pour cette période"
+    "noData": "Aucune donnée pour cette période",
+    "budgetsTitle": "Plafonds",
+    "setLimit": "Définir un plafond",
+    "budgetsEmpty": "Définissez un plafond mensuel pour une catégorie afin de voir ce qu’il vous reste.",
+    "budgetLeft": "Il reste {amount}",
+    "budgetOver": "Dépassé de {amount}",
+    "viewBudgets": "Tous les plafonds"
   },
   "charts": {
     "other": "Autres",
@@ -264,5 +270,47 @@
     "colAmount": "Montant",
     "colChange": "Évolution",
     "noData": "Aucune donnée pour cette période"
+  },
+  "budgets": {
+    "title": "Budgets",
+    "subtitle": "Plafonds mensuels · {period}",
+    "add": "Nouveau plafond",
+    "newTitle": "Nouveau plafond",
+    "editTitle": "Modifier le plafond",
+    "category": "Catégorie",
+    "limit": "Plafond mensuel",
+    "limitHint": "Le maximum que vous prévoyez de dépenser chaque mois dans cette catégorie.",
+    "save": "Enregistrer",
+    "create": "Définir le plafond",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "actions": "Actions du plafond",
+    "of": "sur {limit}",
+    "left": "Il reste {amount}",
+    "over": "Dépassé de {amount}",
+    "statusWarning": "Plafond presque atteint",
+    "statusOver": "Plafond dépassé",
+    "totalTitle": "Tous les plafonds réunis",
+    "emptyTitle": "Aucun plafond",
+    "emptyHint": "Définissez un plafond mensuel pour une catégorie, comme l’alimentation, et voyez ce qu’il vous reste.",
+    "noCategories": "Chaque catégorie de dépenses a déjà un plafond.",
+    "createCategory": "Créer une catégorie",
+    "deleteTitle": "Supprimer ce plafond ?",
+    "deleteBody": "Le plafond de « {name} » sera supprimé. Vos opérations restent inchangées.",
+    "toasts": {
+      "created": "Plafond défini",
+      "updated": "Plafond enregistré",
+      "deleted": "Plafond supprimé"
+    },
+    "errors": {
+      "amountRequired": "Saisissez un montant",
+      "amountInvalid": "Saisissez un montant valide pour cette devise",
+      "amountTooLarge": "Le montant est trop élevé",
+      "categoryRequired": "Choisissez une catégorie",
+      "exists": "Cette catégorie a déjà un plafond",
+      "notFound": "Plafond ou catégorie introuvable",
+      "invalid": "Vérifiez le formulaire",
+      "generic": "Une erreur est survenue. Veuillez réessayer"
+    }
   }
 }

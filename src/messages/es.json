@@ -222,7 +222,13 @@
     "recentTitle": "Últimas operaciones",
     "viewAll": "Ver todo",
     "addFirst": "Añadir operación",
-    "noData": "No hay datos para este periodo"
+    "noData": "No hay datos para este periodo",
+    "budgetsTitle": "Límites",
+    "setLimit": "Fijar un límite",
+    "budgetsEmpty": "Fija un límite mensual para una categoría y verás cuánto te queda.",
+    "budgetLeft": "Quedan {amount}",
+    "budgetOver": "Superado en {amount}",
+    "viewBudgets": "Todos los límites"
   },
   "charts": {
     "other": "Otros",
@@ -264,5 +270,47 @@
     "colAmount": "Importe",
     "colChange": "Variación",
     "noData": "No hay datos para este periodo"
+  },
+  "budgets": {
+    "title": "Presupuestos",
+    "subtitle": "Límites mensuales · {period}",
+    "add": "Nuevo límite",
+    "newTitle": "Nuevo límite",
+    "editTitle": "Editar límite",
+    "category": "Categoría",
+    "limit": "Límite mensual",
+    "limitHint": "Lo máximo que piensas gastar cada mes en esta categoría.",
+    "save": "Guardar",
+    "create": "Fijar límite",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "actions": "Acciones del límite",
+    "of": "de {limit}",
+    "left": "Quedan {amount}",
+    "over": "Superado en {amount}",
+    "statusWarning": "Cerca del límite",
+    "statusOver": "Límite superado",
+    "totalTitle": "Todos los límites juntos",
+    "emptyTitle": "Aún no hay límites",
+    "emptyHint": "Fija un límite mensual para una categoría, como Comida, y verás cuánto te queda.",
+    "noCategories": "Todas las categorías de gasto ya tienen un límite.",
+    "createCategory": "Crear una categoría",
+    "deleteTitle": "¿Quitar este límite?",
+    "deleteBody": "Se quitará el límite de «{name}». Tus operaciones no cambian.",
+    "toasts": {
+      "created": "Límite fijado",
+      "updated": "Límite guardado",
+      "deleted": "Límite eliminado"
+    },
+    "errors": {
+      "amountRequired": "Introduce un importe",
+      "amountInvalid": "Introduce un importe válido para esta moneda",
+      "amountTooLarge": "El importe es demasiado grande",
+      "categoryRequired": "Elige una categoría",
+      "exists": "Esta categoría ya tiene un límite",
+      "notFound": "Límite o categoría no encontrados",
+      "invalid": "Revisa el formulario",
+      "generic": "Algo salió mal. Inténtalo de nuevo"
+    }
   }
 }

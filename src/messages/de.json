@@ -222,7 +222,13 @@
     "recentTitle": "Letzte Transaktionen",
     "viewAll": "Alle anzeigen",
     "addFirst": "Transaktion hinzufügen",
-    "noData": "Keine Daten für diesen Zeitraum"
+    "noData": "Keine Daten für diesen Zeitraum",
+    "budgetsTitle": "Limits",
+    "setLimit": "Limit festlegen",
+    "budgetsEmpty": "Legen Sie ein Monatslimit für eine Kategorie fest, um zu sehen, wie viel übrig ist.",
+    "budgetLeft": "{amount} übrig",
+    "budgetOver": "{amount} überschritten",
+    "viewBudgets": "Alle Limits"
   },
   "charts": {
     "other": "Sonstige",
@@ -264,5 +270,47 @@
     "colAmount": "Betrag",
     "colChange": "Änderung",
     "noData": "Keine Daten für diesen Zeitraum"
+  },
+  "budgets": {
+    "title": "Budgets",
+    "subtitle": "Monatslimits · {period}",
+    "add": "Neues Limit",
+    "newTitle": "Neues Limit",
+    "editTitle": "Limit bearbeiten",
+    "category": "Kategorie",
+    "limit": "Monatslimit",
+    "limitHint": "Der Höchstbetrag, den Sie pro Monat in dieser Kategorie ausgeben möchten.",
+    "save": "Speichern",
+    "create": "Limit festlegen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "actions": "Aktionen für Limit",
+    "of": "von {limit}",
+    "left": "{amount} übrig",
+    "over": "{amount} überschritten",
+    "statusWarning": "Limit fast erreicht",
+    "statusOver": "Limit überschritten",
+    "totalTitle": "Alle Limits zusammen",
+    "emptyTitle": "Noch keine Limits",
+    "emptyHint": "Legen Sie ein Monatslimit für eine Kategorie fest, zum Beispiel Essen, und sehen Sie, wie viel übrig ist.",
+    "noCategories": "Jede Ausgabenkategorie hat bereits ein Limit.",
+    "createCategory": "Kategorie erstellen",
+    "deleteTitle": "Dieses Limit entfernen?",
+    "deleteBody": "Das Limit für „{name}“ wird entfernt. Ihre Transaktionen bleiben unverändert.",
+    "toasts": {
+      "created": "Limit festgelegt",
+      "updated": "Limit gespeichert",
+      "deleted": "Limit entfernt"
+    },
+    "errors": {
+      "amountRequired": "Geben Sie einen Betrag ein",
+      "amountInvalid": "Geben Sie einen gültigen Betrag für diese Währung ein",
+      "amountTooLarge": "Der Betrag ist zu groß",
+      "categoryRequired": "Wählen Sie eine Kategorie",
+      "exists": "Diese Kategorie hat bereits ein Limit",
+      "notFound": "Limit oder Kategorie nicht gefunden",
+      "invalid": "Bitte prüfen Sie das Formular",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+    }
   }
 }

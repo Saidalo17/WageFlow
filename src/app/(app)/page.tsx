@@ -4,11 +4,15 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { AreaChart } from "@/components/charts/area-chart";
 import { DonutChart } from "@/components/charts/donut-chart";
 import { Card } from "@/components/card";
+import { BudgetProgress } from "@/components/budgets/budget-progress";
+import { CategoryBadge } from "@/components/category-icon";
 import { RecentTransactions } from "@/components/overview/recent-transactions";
 import { buttonVariants } from "@/components/ui/button";
+import { budgetStatus } from "@/lib/budget-status";
 import { formatDate } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
-import { capAtTomorrow, isRange, rangeBounds, type Range } from "@/lib/period";
+import { capAtTomorrow, currentPeriod, isRange, rangeBounds, type Range } from "@/lib/period";
+import { listBudgets } from "@/lib/services/budgets";
 import { incomeExpenseSeries, totalsByCategory } from "@/lib/services/analytics";
 import { listTransactions, sumTransactions } from "@/lib/services/transactions";
 import { getCurrentUser } from "@/lib/session";
@@ -23,9 +27,10 @@ export async function generateMetadata() {
 
 export default async function OverviewPage({ searchParams }: PageProps<"/">) {
   const user = await getCurrentUser();
-  const [t, tRanges, locale, sp] = await Promise.all([
+  const [t, tRanges, tSys, locale, sp] = await Promise.all([
     getTranslations("overview"),
     getTranslations("transactions.filters.ranges"),
+    getTranslations("categories.system"),
     getLocale(),
     searchParams,
   ]);
@@ -38,12 +43,19 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
   const { from, to } = rangeBounds(range, user.monthStartDay) as { from: string; to: string };
   const granularity = range === "quarter" || range === "year" ? "month" : "day";
 
-  const [totals, series, byCategory, recent] = await Promise.all([
+  const [totals, series, byCategory, recent, budgets] = await Promise.all([
     sumTransactions(user.id, { from, to }),
     incomeExpenseSeries(user.id, from, capAtTomorrow(to), granularity),
     totalsByCategory(user.id, "expense", from, to),
     listTransactions(user.id, {}, 5),
+    // Limits are monthly, so they always use the current month, whatever period is picked above.
+    listBudgets(user.id, currentPeriod(user.monthStartDay)),
   ]);
+
+  // The three limits that are closest to being used up.
+  const topBudgets = [...budgets]
+    .sort((a, b) => b.spent / b.limit - a.spent / a.limit)
+    .slice(0, 3);
 
   const money = (minor: number) => formatMoney(minor, user.currency, locale);
   const balance = totals.income - totals.expense;
@@ -148,6 +160,51 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
           )}
         </Card>
       </div>
+
+      {/* Limits */}
+      <Card
+        title={t("budgetsTitle")}
+        action={
+          <Link href="/budgets" className={buttonVariants({ variant: "ghost", size: "sm" })}>
+            {topBudgets.length > 0 ? t("viewBudgets") : t("setLimit")}
+          </Link>
+        }
+      >
+        {topBudgets.length === 0 ? (
+          <p className="text-muted-foreground">{t("budgetsEmpty")}</p>
+        ) : (
+          <ul className="space-y-4">
+            {topBudgets.map((b) => {
+              const ratio = b.limit ? b.spent / b.limit : 0;
+              const status = budgetStatus(ratio);
+              const name = b.systemKey ? tSys(b.systemKey) : b.name;
+              const left = b.limit - b.spent;
+              return (
+                <li key={b.id} className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <CategoryBadge icon={b.icon} color={b.color} className="size-9" />
+                    <span className="min-w-0 flex-1 truncate font-bold">{name}</span>
+                    <span className="amount text-sm text-muted-foreground">
+                      {money(b.spent)} / {money(b.limit)}
+                    </span>
+                  </div>
+                  <BudgetProgress ratio={ratio} label={name} />
+                  <p
+                    className={cn(
+                      "amount text-xs font-semibold",
+                      status === "ok" && "text-muted-foreground",
+                      status === "warning" && "text-warning",
+                      status === "over" && "text-expense",
+                    )}
+                  >
+                    {left >= 0 ? t("budgetLeft", { amount: money(left) }) : t("budgetOver", { amount: money(-left) })}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </Card>
 
       {/* Latest transactions */}
       <Card

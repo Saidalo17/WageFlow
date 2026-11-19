@@ -222,7 +222,13 @@
     "recentTitle": "最近交易",
     "viewAll": "查看全部",
     "addFirst": "添加交易",
-    "noData": "此时间范围内暂无数据"
+    "noData": "此时间范围内暂无数据",
+    "budgetsTitle": "限额",
+    "setLimit": "设置限额",
+    "budgetsEmpty": "为某个分类设置每月限额，即可看到还剩多少可花。",
+    "budgetLeft": "剩余 {amount}",
+    "budgetOver": "超出 {amount}",
+    "viewBudgets": "全部限额"
   },
   "charts": {
     "other": "其他",
@@ -264,5 +270,47 @@
     "colAmount": "金额",
     "colChange": "变化",
     "noData": "此时间范围内暂无数据"
+  },
+  "budgets": {
+    "title": "预算",
+    "subtitle": "每月限额 · {period}",
+    "add": "新建限额",
+    "newTitle": "新建限额",
+    "editTitle": "编辑限额",
+    "category": "分类",
+    "limit": "每月限额",
+    "limitHint": "您计划每月在该分类上最多花费的金额。",
+    "save": "保存",
+    "create": "设置限额",
+    "edit": "编辑",
+    "delete": "删除",
+    "actions": "限额操作",
+    "of": "/ {limit}",
+    "left": "剩余 {amount}",
+    "over": "超出 {amount}",
+    "statusWarning": "接近限额",
+    "statusOver": "已超出限额",
+    "totalTitle": "全部限额合计",
+    "emptyTitle": "还没有限额",
+    "emptyHint": "为某个分类（如餐饮）设置每月限额，即可看到还剩多少可花。",
+    "noCategories": "所有支出分类都已设置限额。",
+    "createCategory": "创建分类",
+    "deleteTitle": "移除此限额？",
+    "deleteBody": "将移除“{name}”的限额，您的交易不会改变。",
+    "toasts": {
+      "created": "限额已设置",
+      "updated": "限额已保存",
+      "deleted": "限额已移除"
+    },
+    "errors": {
+      "amountRequired": "请输入金额",
+      "amountInvalid": "请输入适用于该货币的有效金额",
+      "amountTooLarge": "金额过大",
+      "categoryRequired": "请选择分类",
+      "exists": "该分类已设置限额",
+      "notFound": "未找到限额或分类",
+      "invalid": "请检查表单",
+      "generic": "出了点问题，请重试"
+    }
   }
 }

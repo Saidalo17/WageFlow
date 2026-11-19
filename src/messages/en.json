@@ -222,7 +222,13 @@
     "recentTitle": "Latest transactions",
     "viewAll": "View all",
     "addFirst": "Add transaction",
-    "noData": "No data for this period"
+    "noData": "No data for this period",
+    "budgetsTitle": "Limits",
+    "setLimit": "Set a limit",
+    "budgetsEmpty": "Set a monthly limit for a category to see how much you have left.",
+    "budgetLeft": "{amount} left",
+    "budgetOver": "Over by {amount}",
+    "viewBudgets": "All limits"
   },
   "charts": {
     "other": "Other",
@@ -264,5 +270,47 @@
     "colAmount": "Amount",
     "colChange": "Change",
     "noData": "No data for this period"
+  },
+  "budgets": {
+    "title": "Budgets",
+    "subtitle": "Monthly limits · {period}",
+    "add": "New limit",
+    "newTitle": "New limit",
+    "editTitle": "Edit limit",
+    "category": "Category",
+    "limit": "Monthly limit",
+    "limitHint": "The most you plan to spend in this category each month.",
+    "save": "Save",
+    "create": "Set limit",
+    "edit": "Edit",
+    "delete": "Delete",
+    "actions": "Limit actions",
+    "of": "of {limit}",
+    "left": "{amount} left",
+    "over": "Over by {amount}",
+    "statusWarning": "Almost at the limit",
+    "statusOver": "Limit exceeded",
+    "totalTitle": "All limits together",
+    "emptyTitle": "No limits yet",
+    "emptyHint": "Set a monthly limit for a category, such as Food, and you will see how much of it is left.",
+    "noCategories": "Every expense category already has a limit.",
+    "createCategory": "Create a category",
+    "deleteTitle": "Remove this limit?",
+    "deleteBody": "The limit for “{name}” will be removed. Your transactions stay as they are.",
+    "toasts": {
+      "created": "Limit set",
+      "updated": "Limit saved",
+      "deleted": "Limit removed"
+    },
+    "errors": {
+      "amountRequired": "Enter an amount",
+      "amountInvalid": "Enter a valid amount for this currency",
+      "amountTooLarge": "The amount is too large",
+      "categoryRequired": "Choose a category",
+      "exists": "This category already has a limit",
+      "notFound": "Limit or category not found",
+      "invalid": "Please check the form",
+      "generic": "Something went wrong. Please try again"
+    }
   }
 }
