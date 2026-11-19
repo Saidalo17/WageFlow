@@ -312,5 +312,75 @@
       "invalid": "请检查表单",
       "generic": "出了点问题，请重试"
     }
+  },
+  "settings": {
+    "title": "设置",
+    "cancel": "取消",
+    "save": "保存",
+    "saved": "设置已保存",
+    "sections": {
+      "profile": "个人资料与偏好",
+      "security": "密码",
+      "data": "您的数据",
+      "danger": "删除账户"
+    },
+    "fields": {
+      "name": "姓名",
+      "email": "电子邮箱",
+      "language": "语言",
+      "currency": "货币",
+      "monthStart": "每月起始日",
+      "monthStartHint": "用于“本月”、预算和概览。大多数人保持为 1 号。",
+      "theme": "主题"
+    },
+    "currencyPicker": {
+      "search": "按代码或名称搜索",
+      "empty": "未找到货币",
+      "popular": "常用",
+      "all": "所有货币"
+    },
+    "currencyChange": {
+      "title": "更改货币？",
+      "confirm": "更改货币",
+      "body": "已有的金额不会被换算。数字保持不变，只是以新的货币显示。"
+    },
+    "password": {
+      "current": "当前密码",
+      "new": "新密码",
+      "confirm": "再次输入新密码",
+      "hint": "至少 8 个字符",
+      "submit": "修改密码",
+      "changed": "密码已修改"
+    },
+    "export": {
+      "description": "将您的全部交易下载为 CSV 文件，可用 Excel 或 Google 表格打开。日期留空则导出全部。",
+      "from": "从",
+      "to": "到",
+      "button": "下载 CSV",
+      "hint": "仅导出您自己的数据。",
+      "invalidRange": "开始日期必须早于结束日期。"
+    },
+    "danger": {
+      "description": "将永久删除您的账户及其所有分类、交易和限额，且无法撤销。",
+      "button": "删除我的账户",
+      "dialogTitle": "删除您的账户？",
+      "dialogBody": "所有内容将被永久清除：个人资料、分类、交易和限额，无法恢复。如果以后可能需要，请先下载您的数据。",
+      "passwordLabel": "输入密码以确认",
+      "confirm": "永久删除"
+    },
+    "errors": {
+      "required": "此项为必填",
+      "nameLong": "姓名最多 60 个字符",
+      "currencyInvalid": "请从列表中选择货币",
+      "dayInvalid": "请选择 1 到 28 之间的日期",
+      "passwordShort": "密码至少需要 8 个字符",
+      "passwordLong": "密码最多 72 个字符",
+      "wrongPassword": "密码错误",
+      "samePassword": "新密码不能与当前密码相同",
+      "mismatch": "两次输入的密码不一致",
+      "tooManyAttempts": "尝试次数过多，请 15 分钟后再试",
+      "invalid": "请检查表单",
+      "generic": "出了点问题，请重试"
+    }
   }
 }

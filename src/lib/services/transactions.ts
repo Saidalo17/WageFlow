@@ -117,3 +117,20 @@ export async function deleteTransactionRow(userId: string, id: string) {
     .where(and(eq(transactions.id, id), eq(transactions.userId, userId)));
   return res.rowsAffected > 0;
 }
+
+/** Every transaction of the user (optionally limited by date) with its category, oldest first, for the CSV export. */
+export async function exportTransactions(userId: string, range: { from?: string; to?: string }) {
+  return db
+    .select({
+      occurredOn: transactions.occurredOn,
+      type: transactions.type,
+      amount: transactions.amount,
+      note: transactions.note,
+      categoryName: categories.name,
+      categorySystemKey: categories.systemKey,
+    })
+    .from(transactions)
+    .innerJoin(categories, eq(categories.id, transactions.categoryId))
+    .where(whereOf(userId, { from: range.from, to: range.to }))
+    .orderBy(transactions.occurredOn, transactions.createdAt, transactions.id);
+}

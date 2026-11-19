@@ -312,5 +312,75 @@
       "invalid": "Bitte prüfen Sie das Formular",
       "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
     }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "saved": "Einstellungen gespeichert",
+    "sections": {
+      "profile": "Profil und Einstellungen",
+      "security": "Passwort",
+      "data": "Ihre Daten",
+      "danger": "Konto löschen"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "E-Mail",
+      "language": "Sprache",
+      "currency": "Währung",
+      "monthStart": "Monat beginnt am Tag",
+      "monthStartHint": "Gilt für „Dieser Monat“, Budgets und die Übersicht. Die meisten behalten 1.",
+      "theme": "Design"
+    },
+    "currencyPicker": {
+      "search": "Nach Code oder Name suchen",
+      "empty": "Keine Währung gefunden",
+      "popular": "Beliebt",
+      "all": "Alle Währungen"
+    },
+    "currencyChange": {
+      "title": "Währung ändern?",
+      "confirm": "Währung ändern",
+      "body": "Ihre vorhandenen Beträge werden nicht umgerechnet. Die Zahlen bleiben gleich und werden nur in der neuen Währung angezeigt."
+    },
+    "password": {
+      "current": "Aktuelles Passwort",
+      "new": "Neues Passwort",
+      "confirm": "Neues Passwort wiederholen",
+      "hint": "Mindestens 8 Zeichen",
+      "submit": "Passwort ändern",
+      "changed": "Passwort geändert"
+    },
+    "export": {
+      "description": "Laden Sie alle Ihre Transaktionen als CSV-Datei herunter, die sich in Excel oder Google Sheets öffnen lässt. Ohne Datum wird alles exportiert.",
+      "from": "Von",
+      "to": "Bis",
+      "button": "CSV herunterladen",
+      "hint": "Es werden nur Ihre eigenen Daten exportiert.",
+      "invalidRange": "Das Startdatum muss vor dem Enddatum liegen."
+    },
+    "danger": {
+      "description": "Löscht Ihr Konto mit allen Kategorien, Transaktionen und Limits endgültig. Das kann nicht rückgängig gemacht werden.",
+      "button": "Mein Konto löschen",
+      "dialogTitle": "Konto löschen?",
+      "dialogBody": "Alles wird endgültig gelöscht: Ihr Profil, Ihre Kategorien, Transaktionen und Limits. Eine Wiederherstellung ist nicht möglich. Laden Sie Ihre Daten vorher herunter, falls Sie sie noch brauchen.",
+      "passwordLabel": "Geben Sie zur Bestätigung Ihr Passwort ein",
+      "confirm": "Endgültig löschen"
+    },
+    "errors": {
+      "required": "Dieses Feld ist erforderlich",
+      "nameLong": "Der Name darf höchstens 60 Zeichen lang sein",
+      "currencyInvalid": "Wählen Sie eine Währung aus der Liste",
+      "dayInvalid": "Wählen Sie einen Tag von 1 bis 28",
+      "passwordShort": "Das Passwort muss mindestens 8 Zeichen lang sein",
+      "passwordLong": "Das Passwort darf höchstens 72 Zeichen lang sein",
+      "wrongPassword": "Falsches Passwort",
+      "samePassword": "Das neue Passwort muss sich vom aktuellen unterscheiden",
+      "mismatch": "Die Passwörter stimmen nicht überein",
+      "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
+      "invalid": "Bitte prüfen Sie das Formular",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+    }
   }
 }

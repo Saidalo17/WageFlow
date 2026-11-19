@@ -312,5 +312,75 @@
       "invalid": "Please check the form",
       "generic": "Something went wrong. Please try again"
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saved": "Settings saved",
+    "sections": {
+      "profile": "Profile and preferences",
+      "security": "Password",
+      "data": "Your data",
+      "danger": "Delete account"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "language": "Language",
+      "currency": "Currency",
+      "monthStart": "Month starts on day",
+      "monthStartHint": "Used for “this month”, budgets and the overview. Most people keep 1.",
+      "theme": "Theme"
+    },
+    "currencyPicker": {
+      "search": "Search by code or name",
+      "empty": "No currency found",
+      "popular": "Popular",
+      "all": "All currencies"
+    },
+    "currencyChange": {
+      "title": "Change currency?",
+      "confirm": "Change currency",
+      "body": "Your existing amounts will not be converted. They stay the same numbers and will simply be shown in the new currency."
+    },
+    "password": {
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Repeat new password",
+      "hint": "At least 8 characters",
+      "submit": "Change password",
+      "changed": "Password changed"
+    },
+    "export": {
+      "description": "Download all your transactions as a CSV file that opens in Excel or Google Sheets. Leave the dates empty to export everything.",
+      "from": "From",
+      "to": "To",
+      "button": "Download CSV",
+      "hint": "Only your own data is exported.",
+      "invalidRange": "The start date must be before the end date."
+    },
+    "danger": {
+      "description": "Permanently deletes your account with all categories, transactions and limits. This cannot be undone.",
+      "button": "Delete my account",
+      "dialogTitle": "Delete your account?",
+      "dialogBody": "Everything will be erased for good: your profile, categories, transactions and limits. There is no way to get them back. Download your data first if you may need it.",
+      "passwordLabel": "Enter your password to confirm",
+      "confirm": "Delete forever"
+    },
+    "errors": {
+      "required": "This field is required",
+      "nameLong": "Name must be at most 60 characters",
+      "currencyInvalid": "Choose a currency from the list",
+      "dayInvalid": "Choose a day from 1 to 28",
+      "passwordShort": "Password must be at least 8 characters",
+      "passwordLong": "Password must be at most 72 characters",
+      "wrongPassword": "Incorrect password",
+      "samePassword": "The new password must be different from the current one",
+      "mismatch": "The passwords do not match",
+      "tooManyAttempts": "Too many attempts. Try again in 15 minutes",
+      "invalid": "Please check the form",
+      "generic": "Something went wrong. Please try again"
+    }
   }
 }

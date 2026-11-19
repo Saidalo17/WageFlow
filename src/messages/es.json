@@ -312,5 +312,75 @@
       "invalid": "Revisa el formulario",
       "generic": "Algo salió mal. Inténtalo de nuevo"
     }
+  },
+  "settings": {
+    "title": "Ajustes",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saved": "Ajustes guardados",
+    "sections": {
+      "profile": "Perfil y preferencias",
+      "security": "Contraseña",
+      "data": "Tus datos",
+      "danger": "Eliminar cuenta"
+    },
+    "fields": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "language": "Idioma",
+      "currency": "Moneda",
+      "monthStart": "El mes empieza el día",
+      "monthStartHint": "Se usa para «Este mes», los presupuestos y el resumen. La mayoría deja 1.",
+      "theme": "Tema"
+    },
+    "currencyPicker": {
+      "search": "Buscar por código o nombre",
+      "empty": "No se encontró ninguna moneda",
+      "popular": "Populares",
+      "all": "Todas las monedas"
+    },
+    "currencyChange": {
+      "title": "¿Cambiar la moneda?",
+      "confirm": "Cambiar moneda",
+      "body": "Tus importes actuales no se convertirán. Las cifras seguirán siendo las mismas y solo se mostrarán en la nueva moneda."
+    },
+    "password": {
+      "current": "Contraseña actual",
+      "new": "Nueva contraseña",
+      "confirm": "Repite la nueva contraseña",
+      "hint": "Al menos 8 caracteres",
+      "submit": "Cambiar contraseña",
+      "changed": "Contraseña cambiada"
+    },
+    "export": {
+      "description": "Descarga todas tus operaciones en un archivo CSV que se abre en Excel o Google Sheets. Deja las fechas vacías para exportarlo todo.",
+      "from": "Desde",
+      "to": "Hasta",
+      "button": "Descargar CSV",
+      "hint": "Solo se exportan tus propios datos.",
+      "invalidRange": "La fecha de inicio debe ser anterior a la de fin."
+    },
+    "danger": {
+      "description": "Elimina de forma permanente tu cuenta con todas las categorías, operaciones y límites. No se puede deshacer.",
+      "button": "Eliminar mi cuenta",
+      "dialogTitle": "¿Eliminar tu cuenta?",
+      "dialogBody": "Todo se borrará para siempre: tu perfil, categorías, operaciones y límites. No hay forma de recuperarlos. Descarga tus datos antes si pueden hacerte falta.",
+      "passwordLabel": "Introduce tu contraseña para confirmar",
+      "confirm": "Eliminar para siempre"
+    },
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "nameLong": "El nombre debe tener como máximo 60 caracteres",
+      "currencyInvalid": "Elige una moneda de la lista",
+      "dayInvalid": "Elige un día del 1 al 28",
+      "passwordShort": "La contraseña debe tener al menos 8 caracteres",
+      "passwordLong": "La contraseña debe tener como máximo 72 caracteres",
+      "wrongPassword": "Contraseña incorrecta",
+      "samePassword": "La nueva contraseña debe ser distinta de la actual",
+      "mismatch": "Las contraseñas no coinciden",
+      "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo en 15 minutos",
+      "invalid": "Revisa el formulario",
+      "generic": "Algo salió mal. Inténtalo de nuevo"
+    }
   }
 }

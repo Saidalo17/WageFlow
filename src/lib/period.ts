@@ -98,7 +98,7 @@ export function daysBetween(from: string, to: string): number {
   return Math.round((Date.UTC(b.y, b.m - 1, b.d) - Date.UTC(a.y, a.m - 1, a.d)) / 86_400_000) + 1;
 }
 
-function isRealDate(s: string): boolean {
+export function isRealDate(s: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
   const { y, m, d } = parseISO(s);
   const dt = new Date(Date.UTC(y, m - 1, d));

@@ -1,5 +1,11 @@
 import { getTranslations } from "next-intl/server";
-import { PagePlaceholder } from "@/components/page-placeholder";
+import { Card } from "@/components/card";
+import { DeleteAccount } from "@/components/settings/delete-account";
+import { ExportSection } from "@/components/settings/export-section";
+import { PasswordForm } from "@/components/settings/password-form";
+import { ProfileForm } from "@/components/settings/profile-form";
+import { getCurrentUser } from "@/lib/session";
+import { isLocale } from "@/i18n/config";
 
 export async function generateMetadata() {
   const t = await getTranslations("nav");
@@ -7,6 +13,36 @@ export async function generateMetadata() {
 }
 
 export default async function SettingsPage() {
-  const t = await getTranslations("nav");
-  return <PagePlaceholder title={t("settings")} />;
+  const user = await getCurrentUser();
+  const t = await getTranslations("settings");
+
+  return (
+    <div className="space-y-6">
+      <h1 className="text-[28px] font-extrabold tracking-tight">{t("title")}</h1>
+
+      <Card title={t("sections.profile")}>
+        <ProfileForm
+          initial={{
+            name: user.name ?? "",
+            email: user.email,
+            currency: user.currency,
+            locale: isLocale(user.locale) ? user.locale : "en",
+            monthStartDay: user.monthStartDay,
+          }}
+        />
+      </Card>
+
+      <Card title={t("sections.security")}>
+        <PasswordForm />
+      </Card>
+
+      <Card title={t("sections.data")}>
+        <ExportSection />
+      </Card>
+
+      <Card title={t("sections.danger")} className="border-expense/40">
+        <DeleteAccount />
+      </Card>
+    </div>
+  );
 }
