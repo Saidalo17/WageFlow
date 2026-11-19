@@ -1,32 +1,68 @@
 {
-    "app":  {
-                "name":  "Salary"
-            },
-    "nav":  {
-                "overview":  "Обзор",
-                "transactions":  "Операции",
-                "categories":  "Категории",
-                "analytics":  "Аналитика",
-                "budgets":  "Бюджеты",
-                "settings":  "Настройки",
-                "menu":  "Меню"
-            },
-    "actions":  {
-                    "add":  "Добавить"
-                },
-    "theme":  {
-                  "label":  "Тема",
-                  "light":  "Светлая",
-                  "dark":  "Тёмная",
-                  "system":  "Системная"
-              },
-    "language":  {
-                     "label":  "Язык"
-                 },
-    "profile":  {
-                    "label":  "Профиль"
-                },
-    "common":  {
-                   "comingSoon":  "Этот раздел скоро появится."
-               }
+  "app": {
+    "name": "Salary"
+  },
+  "nav": {
+    "overview": "Обзор",
+    "transactions": "Операции",
+    "categories": "Категории",
+    "analytics": "Аналитика",
+    "budgets": "Бюджеты",
+    "settings": "Настройки",
+    "menu": "Меню"
+  },
+  "actions": {
+    "add": "Добавить"
+  },
+  "theme": {
+    "label": "Тема",
+    "light": "Светлая",
+    "dark": "Тёмная",
+    "system": "Системная"
+  },
+  "language": {
+    "label": "Язык"
+  },
+  "profile": {
+    "label": "Профиль",
+    "logout": "Выйти"
+  },
+  "common": {
+    "comingSoon": "Этот раздел скоро появится."
+  },
+  "auth": {
+    "login": {
+      "title": "С возвращением",
+      "subtitle": "Войдите в свой аккаунт",
+      "submit": "Войти",
+      "noAccount": "Ещё нет аккаунта?",
+      "toRegister": "Создать"
+    },
+    "register": {
+      "title": "Создайте аккаунт",
+      "subtitle": "Начните вести учёт денег за пару минут",
+      "submit": "Создать аккаунт",
+      "haveAccount": "Уже есть аккаунт?",
+      "toLogin": "Войти"
+    },
+    "fields": {
+      "name": "Имя (необязательно)",
+      "email": "Email",
+      "password": "Пароль",
+      "passwordHint": "Не менее 8 символов",
+      "showPassword": "Показать пароль",
+      "hidePassword": "Скрыть пароль"
+    },
+    "errors": {
+      "required": "Заполните это поле",
+      "email": "Введите корректный email",
+      "passwordShort": "Пароль должен быть не короче 8 символов",
+      "passwordLong": "Пароль должен быть не длиннее 72 символов",
+      "nameLong": "Имя должно быть не длиннее 60 символов",
+      "emailTaken": "Аккаунт с таким email уже существует",
+      "invalidCredentials": "Неверный email или пароль",
+      "tooManyAttempts": "Слишком много попыток. Повторите через 15 минут",
+      "generic": "Что-то пошло не так. Попробуйте ещё раз"
+    }
+  }
 }

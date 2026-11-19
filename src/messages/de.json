@@ -1,32 +1,68 @@
 {
-    "app":  {
-                "name":  "Salary"
-            },
-    "nav":  {
-                "overview":  "Übersicht",
-                "transactions":  "Transaktionen",
-                "categories":  "Kategorien",
-                "analytics":  "Analyse",
-                "budgets":  "Budgets",
-                "settings":  "Einstellungen",
-                "menu":  "Menü"
-            },
-    "actions":  {
-                    "add":  "Hinzufügen"
-                },
-    "theme":  {
-                  "label":  "Design",
-                  "light":  "Hell",
-                  "dark":  "Dunkel",
-                  "system":  "System"
-              },
-    "language":  {
-                     "label":  "Sprache"
-                 },
-    "profile":  {
-                    "label":  "Profil"
-                },
-    "common":  {
-                   "comingSoon":  "Dieser Bereich folgt in Kürze."
-               }
+  "app": {
+    "name": "Salary"
+  },
+  "nav": {
+    "overview": "Übersicht",
+    "transactions": "Transaktionen",
+    "categories": "Kategorien",
+    "analytics": "Analyse",
+    "budgets": "Budgets",
+    "settings": "Einstellungen",
+    "menu": "Menü"
+  },
+  "actions": {
+    "add": "Hinzufügen"
+  },
+  "theme": {
+    "label": "Design",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "system": "System"
+  },
+  "language": {
+    "label": "Sprache"
+  },
+  "profile": {
+    "label": "Profil",
+    "logout": "Abmelden"
+  },
+  "common": {
+    "comingSoon": "Dieser Bereich folgt in Kürze."
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melden Sie sich bei Ihrem Konto an",
+      "submit": "Anmelden",
+      "noAccount": "Noch kein Konto?",
+      "toRegister": "Konto erstellen"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "Behalten Sie Ihre Finanzen in wenigen Minuten im Blick",
+      "submit": "Konto erstellen",
+      "haveAccount": "Sie haben bereits ein Konto?",
+      "toLogin": "Anmelden"
+    },
+    "fields": {
+      "name": "Name (optional)",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "passwordHint": "Mindestens 8 Zeichen",
+      "showPassword": "Passwort anzeigen",
+      "hidePassword": "Passwort verbergen"
+    },
+    "errors": {
+      "required": "Dieses Feld ist erforderlich",
+      "email": "Geben Sie eine gültige E-Mail-Adresse ein",
+      "passwordShort": "Das Passwort muss mindestens 8 Zeichen lang sein",
+      "passwordLong": "Das Passwort darf höchstens 72 Zeichen lang sein",
+      "nameLong": "Der Name darf höchstens 60 Zeichen lang sein",
+      "emailTaken": "Ein Konto mit dieser E-Mail existiert bereits",
+      "invalidCredentials": "E-Mail oder Passwort ist falsch",
+      "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+    }
+  }
 }

@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { Menu, Plus, Settings, UserRound, Wallet } from "lucide-react";
+import { LogOut, Menu, Plus, Settings, UserRound, Wallet } from "lucide-react";
+import { logoutUser } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -30,13 +32,14 @@ function useIsActive() {
   return (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 }
 
-export function TopNav() {
+export function TopNav({ user }: { user: { name: string | null; email: string } }) {
   const t = useTranslations("nav");
   const tApp = useTranslations("app");
   const tActions = useTranslations("actions");
   const tProfile = useTranslations("profile");
   const isActive = useIsActive();
   const [open, setOpen] = useState(false);
+  const [signingOut, startTransition] = useTransition();
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
@@ -115,10 +118,22 @@ export function TopNav() {
             >
               <UserRound className="size-5" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-44">
+            <DropdownMenuContent align="end" className="min-w-56">
+              <div className="px-2 py-1.5">
+                {user.name && <p className="truncate text-sm font-bold">{user.name}</p>}
+                <p className="truncate text-sm text-muted-foreground">{user.email}</p>
+              </div>
+              <DropdownMenuSeparator />
               <DropdownMenuItem render={<Link href="/settings" />}>
                 <Settings className="size-4" />
                 {t("settings")}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => startTransition(() => logoutUser())}
+                disabled={signingOut}
+              >
+                <LogOut className="size-4" />
+                {tProfile("logout")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

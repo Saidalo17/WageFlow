@@ -1,32 +1,68 @@
 {
-    "app":  {
-                "name":  "Salary"
-            },
-    "nav":  {
-                "overview":  "Aperçu",
-                "transactions":  "Opérations",
-                "categories":  "Catégories",
-                "analytics":  "Analyses",
-                "budgets":  "Budgets",
-                "settings":  "Paramètres",
-                "menu":  "Menu"
-            },
-    "actions":  {
-                    "add":  "Ajouter"
-                },
-    "theme":  {
-                  "label":  "Thème",
-                  "light":  "Clair",
-                  "dark":  "Sombre",
-                  "system":  "Système"
-              },
-    "language":  {
-                     "label":  "Langue"
-                 },
-    "profile":  {
-                    "label":  "Profil"
-                },
-    "common":  {
-                   "comingSoon":  "Cette section arrive bientôt."
-               }
+  "app": {
+    "name": "Salary"
+  },
+  "nav": {
+    "overview": "Aperçu",
+    "transactions": "Opérations",
+    "categories": "Catégories",
+    "analytics": "Analyses",
+    "budgets": "Budgets",
+    "settings": "Paramètres",
+    "menu": "Menu"
+  },
+  "actions": {
+    "add": "Ajouter"
+  },
+  "theme": {
+    "label": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "language": {
+    "label": "Langue"
+  },
+  "profile": {
+    "label": "Profil",
+    "logout": "Se déconnecter"
+  },
+  "common": {
+    "comingSoon": "Cette section arrive bientôt."
+  },
+  "auth": {
+    "login": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous à votre compte",
+      "submit": "Se connecter",
+      "noAccount": "Pas encore de compte ?",
+      "toRegister": "Créer un compte"
+    },
+    "register": {
+      "title": "Créer votre compte",
+      "subtitle": "Suivez votre argent en quelques minutes",
+      "submit": "Créer le compte",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "toLogin": "Se connecter"
+    },
+    "fields": {
+      "name": "Nom (facultatif)",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "passwordHint": "Au moins 8 caractères",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe"
+    },
+    "errors": {
+      "required": "Ce champ est obligatoire",
+      "email": "Saisissez une adresse e-mail valide",
+      "passwordShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "passwordLong": "Le mot de passe doit contenir au plus 72 caractères",
+      "nameLong": "Le nom doit contenir au plus 60 caractères",
+      "emailTaken": "Un compte existe déjà avec cet e-mail",
+      "invalidCredentials": "E-mail ou mot de passe incorrect",
+      "tooManyAttempts": "Trop de tentatives. Réessayez dans 15 minutes",
+      "generic": "Une erreur est survenue. Veuillez réessayer"
+    }
+  }
 }

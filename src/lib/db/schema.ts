@@ -90,3 +90,15 @@ export const budgets = sqliteTable(
   },
   (t) => [uniqueIndex("budgets_user_category").on(t.userId, t.categoryId)],
 );
+
+/** Failed sign-in attempts, used for rate limiting (5 per 15 minutes). */
+export const loginAttempts = sqliteTable(
+  "login_attempts",
+  {
+    id: id(),
+    /** "email:<address>" or "ip:<address>" */
+    key: text("key").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index("login_attempts_key_time").on(t.key, t.createdAt)],
+);

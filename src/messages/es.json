@@ -1,32 +1,68 @@
 {
-    "app":  {
-                "name":  "Salary"
-            },
-    "nav":  {
-                "overview":  "Resumen",
-                "transactions":  "Operaciones",
-                "categories":  "Categorías",
-                "analytics":  "Análisis",
-                "budgets":  "Presupuestos",
-                "settings":  "Ajustes",
-                "menu":  "Menú"
-            },
-    "actions":  {
-                    "add":  "Añadir"
-                },
-    "theme":  {
-                  "label":  "Tema",
-                  "light":  "Claro",
-                  "dark":  "Oscuro",
-                  "system":  "Sistema"
-              },
-    "language":  {
-                     "label":  "Idioma"
-                 },
-    "profile":  {
-                    "label":  "Perfil"
-                },
-    "common":  {
-                   "comingSoon":  "Esta sección estará disponible pronto."
-               }
+  "app": {
+    "name": "Salary"
+  },
+  "nav": {
+    "overview": "Resumen",
+    "transactions": "Operaciones",
+    "categories": "Categorías",
+    "analytics": "Análisis",
+    "budgets": "Presupuestos",
+    "settings": "Ajustes",
+    "menu": "Menú"
+  },
+  "actions": {
+    "add": "Añadir"
+  },
+  "theme": {
+    "label": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "profile": {
+    "label": "Perfil",
+    "logout": "Cerrar sesión"
+  },
+  "common": {
+    "comingSoon": "Esta sección estará disponible pronto."
+  },
+  "auth": {
+    "login": {
+      "title": "Te damos la bienvenida",
+      "subtitle": "Inicia sesión en tu cuenta",
+      "submit": "Iniciar sesión",
+      "noAccount": "¿Aún no tienes cuenta?",
+      "toRegister": "Crear cuenta"
+    },
+    "register": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Empieza a controlar tu dinero en minutos",
+      "submit": "Crear cuenta",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "toLogin": "Iniciar sesión"
+    },
+    "fields": {
+      "name": "Nombre (opcional)",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "passwordHint": "Al menos 8 caracteres",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña"
+    },
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "email": "Introduce un correo electrónico válido",
+      "passwordShort": "La contraseña debe tener al menos 8 caracteres",
+      "passwordLong": "La contraseña debe tener como máximo 72 caracteres",
+      "nameLong": "El nombre debe tener como máximo 60 caracteres",
+      "emailTaken": "Ya existe una cuenta con este correo",
+      "invalidCredentials": "Correo o contraseña incorrectos",
+      "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo en 15 minutos",
+      "generic": "Algo salió mal. Inténtalo de nuevo"
+    }
+  }
 }
