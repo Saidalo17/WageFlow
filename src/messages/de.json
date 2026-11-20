@@ -37,8 +37,7 @@
       "subtitle": "Melden Sie sich bei Ihrem Konto an",
       "submit": "Anmelden",
       "noAccount": "Noch kein Konto?",
-      "toRegister": "Konto erstellen",
-      "forgot": "Passwort vergessen?"
+      "toRegister": "Konto erstellen"
     },
     "register": {
       "title": "Konto erstellen",
@@ -64,26 +63,7 @@
       "emailTaken": "Ein Konto mit dieser E-Mail existiert bereits",
       "invalidCredentials": "E-Mail oder Passwort ist falsch",
       "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut",
-      "mismatch": "Die Passwörter stimmen nicht überein",
-      "resetInvalid": "Dieser Link ist ungültig oder abgelaufen."
-    },
-    "forgot": {
-      "title": "Passwort vergessen?",
-      "subtitle": "Gib deine E-Mail-Adresse ein, dann senden wir dir einen Link zum Festlegen eines neuen Passworts.",
-      "submit": "Link zum Zurücksetzen senden",
-      "sent": "Falls es ein Konto mit dieser E-Mail-Adresse gibt, haben wir einen Link zum Zurücksetzen des Passworts gesendet. Er ist 1 Stunde gültig. Schau auch in deinen Spam-Ordner.",
-      "back": "Zurück zur Anmeldung"
-    },
-    "reset": {
-      "title": "Neues Passwort festlegen",
-      "subtitle": "Gib ein neues Passwort für dein Konto ein.",
-      "password": "Neues Passwort",
-      "confirm": "Neues Passwort wiederholen",
-      "submit": "Passwort speichern",
-      "success": "Passwort geändert. Melde dich mit deinem neuen Passwort an.",
-      "invalid": "Dieser Link ist ungültig oder abgelaufen.",
-      "requestNew": "Neuen Link anfordern"
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
     }
   },
   "categories": {
@@ -427,7 +407,31 @@
       "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
       "invalid": "Bitte prüfen Sie das Formular",
       "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut",
-      "ratesUnavailable": "Die Wechselkurse sind gerade nicht verfügbar. Bitte versuche es später erneut"
+      "ratesUnavailable": "Die Wechselkurse sind gerade nicht verfügbar. Bitte versuche es später erneut",
+      "photoInvalid": "Wähle ein JPG-, PNG- oder WebP-Bild",
+      "photoTooLarge": "Das Bild ist zu groß",
+      "bioLong": "Der Text darf höchstens 120 Zeichen lang sein"
+    },
+    "profileCard": {
+      "title": "Profilkarte",
+      "noName": "Dein Name",
+      "bioEmpty": "Erzähl ein wenig über dich",
+      "photo": "Foto",
+      "upload": "Foto hochladen",
+      "change": "Foto ändern",
+      "remove": "Foto entfernen",
+      "photoHint": "JPG, PNG oder WebP. Es wird quadratisch zugeschnitten und verkleinert, bevor es mit deinem Konto gespeichert wird.",
+      "photoSaved": "Foto aktualisiert",
+      "photoRemoved": "Foto entfernt",
+      "emoji": "Emoji",
+      "emojiHint": "Wird statt deines Fotos angezeigt, wenn du keines hast.",
+      "noEmoji": "Kein Emoji",
+      "accent": "Profilfarbe",
+      "customColor": "Eigene Farbe",
+      "bio": "Über dich",
+      "bioPlaceholder": "Ein kurzer Satz über dich, z. B. Ich spare für eine Reise",
+      "save": "Speichern",
+      "saved": "Profilkarte gespeichert"
     }
   },
   "errorPage": {
@@ -444,16 +448,5 @@
   },
   "a11y": {
     "skip": "Zum Hauptinhalt springen"
-  },
-  "email": {
-    "reset": {
-      "subject": "Salary-Passwort zurücksetzen",
-      "hello": "Hallo, {name}",
-      "helloAnon": "Hallo",
-      "intro": "Wir haben eine Anfrage zum Zurücksetzen des Passworts deines Salary-Kontos erhalten. Klicke auf die Schaltfläche unten, um ein neues Passwort festzulegen. Der Link ist 1 Stunde gültig und kann nur einmal verwendet werden.",
-      "button": "Passwort zurücksetzen",
-      "linkHint": "Oder kopiere diesen Link in deinen Browser:",
-      "ignore": "Falls du das nicht angefordert hast, ignoriere diese E-Mail einfach. Dein Passwort bleibt unverändert."
-    }
   }
 }

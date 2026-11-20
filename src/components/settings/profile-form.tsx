@@ -3,8 +3,8 @@
 import { AlertTriangle, Loader2, Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { updateProfile } from "@/app/(app)/settings/actions";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
-import { locales, localeLabels, type Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
+import { languageOptions } from "@/i18n/language-names";
 import { useHydrated } from "@/lib/use-hydrated";
 import { cn } from "@/lib/utils";
 import { CurrencyCombobox } from "./currency-combobox";
@@ -30,6 +31,9 @@ type Props = {
 
 export function ProfileForm({ initial }: Props) {
   const t = useTranslations("settings");
+  const uiLocale = useLocale();
+  // Language names in the language the interface is in now, alphabetical (does not jump while choosing).
+  const languageList = useMemo(() => languageOptions(uiLocale), [uiLocale]);
   const tTheme = useTranslations("theme");
   const router = useRouter();
   const { theme, setTheme } = useTheme();
@@ -110,9 +114,9 @@ export function ProfileForm({ initial }: Props) {
             {t("fields.language")}
           </Label>
           <NativeSelect id="s-locale" value={locale} onChange={(e) => setLocale(e.target.value as Locale)}>
-            {locales.map((l) => (
-              <option key={l} value={l}>
-                {localeLabels[l]}
+            {languageList.map(({ code, label }) => (
+              <option key={code} value={code}>
+                {label}
               </option>
             ))}
           </NativeSelect>

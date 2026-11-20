@@ -3,7 +3,7 @@
 import { Check, Globe } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useMemo, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,12 +12,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { setLocale } from "@/i18n/actions";
-import { locales, localeLabels, type Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
+import { languageOptions } from "@/i18n/language-names";
 
 export function LanguageSwitcher() {
   const t = useTranslations("language");
   const current = useLocale() as Locale;
   const router = useRouter();
+  // Names are in the current language and sorted alphabetically in it.
+  const options = useMemo(() => languageOptions(current), [current]);
   const [pending, startTransition] = useTransition();
 
   function choose(locale: Locale) {
@@ -43,10 +46,10 @@ export function LanguageSwitcher() {
         </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
-        {locales.map((locale) => (
-          <DropdownMenuItem key={locale} onClick={() => choose(locale)}>
-            <span className="flex-1">{localeLabels[locale]}</span>
-            {locale === current && <Check className="size-4" />}
+        {options.map(({ code, label }) => (
+          <DropdownMenuItem key={code} onClick={() => choose(code)} data-locale={code}>
+            <span className="flex-1">{label}</span>
+            {code === current && <Check className="size-4" />}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -84,10 +84,11 @@ test.describe("a new user, from sign-up to charts", () => {
     // --- 7. Currency -> euro (every amount is recalculated at the exchange rate; the test rate is 1 USD = 0.5 EUR)
     await page.goto("/settings");
     await ready(page);
+    const profileForm = page.locator("form", { has: page.locator("#s-currency") });
     await page.locator("#s-currency").click();
     await page.getByPlaceholder("Search by code or name").fill("euro");
     await page.getByRole("option", { name: /EUR/ }).click();
-    await page.getByRole("button", { name: "Save" }).click();
+    await profileForm.getByRole("button", { name: "Save" }).click();
     await expect(page.getByRole("dialog").getByText("recalculated at today’s exchange rate")).toBeVisible();
     await page.getByRole("button", { name: "Change currency" }).click();
     await expectToast(page, "Settings saved");
@@ -109,7 +110,7 @@ test.describe("a new user, from sign-up to charts", () => {
     await page.goto("/settings");
     await ready(page);
     await page.locator("#s-locale").selectOption("de");
-    await page.getByRole("button", { name: "Save" }).click();
+    await page.locator("form", { has: page.locator("#s-locale") }).getByRole("button", { name: "Save" }).click();
     await expect(page.getByRole("heading", { name: "Einstellungen", level: 1 })).toBeVisible();
     await page.goto("/categories");
     await expect(page.getByRole("heading", { name: "Kategorien" })).toBeVisible();

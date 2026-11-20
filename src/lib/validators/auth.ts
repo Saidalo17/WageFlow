@@ -25,15 +25,5 @@ export const registerSchema = z.object({
     .max(72, { error: "passwordLong" }),
 });
 
-export const forgotSchema = z.object({ email });
-
-export const resetSchema = z.object({
-  token: z.string().min(1, { error: "resetInvalid" }).max(200, { error: "resetInvalid" }),
-  password: z
-    .string()
-    .min(8, { error: "passwordShort" })
-    .max(72, { error: "passwordLong" }),
-});
-
 export type LoginValues = z.infer<typeof loginSchema>;
 export type RegisterValues = z.infer<typeof registerSchema>;

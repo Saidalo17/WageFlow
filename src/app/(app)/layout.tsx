@@ -23,7 +23,15 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       >
         {t("skip")}
       </a>
-      <TopNav user={{ name: user.name, email: user.email }} />
+      <TopNav
+        user={{
+          name: user.name,
+          email: user.email,
+          avatarVersion: user.avatarUpdatedAt,
+          emoji: user.emoji,
+          accent: user.accent,
+        }}
+      />
       <main
         id="main"
         tabIndex={-1}

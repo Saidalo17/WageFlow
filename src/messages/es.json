@@ -37,8 +37,7 @@
       "subtitle": "Inicia sesión en tu cuenta",
       "submit": "Iniciar sesión",
       "noAccount": "¿Aún no tienes cuenta?",
-      "toRegister": "Crear cuenta",
-      "forgot": "¿Olvidaste tu contraseña?"
+      "toRegister": "Crear cuenta"
     },
     "register": {
       "title": "Crea tu cuenta",
@@ -64,26 +63,7 @@
       "emailTaken": "Ya existe una cuenta con este correo",
       "invalidCredentials": "Correo o contraseña incorrectos",
       "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo en 15 minutos",
-      "generic": "Algo salió mal. Inténtalo de nuevo",
-      "mismatch": "Las contraseñas no coinciden",
-      "resetInvalid": "Este enlace no es válido o ha caducado."
-    },
-    "forgot": {
-      "title": "¿Olvidaste tu contraseña?",
-      "subtitle": "Introduce tu correo y te enviaremos un enlace para elegir una nueva.",
-      "submit": "Enviar enlace",
-      "sent": "Si existe una cuenta con este correo, hemos enviado un enlace para restablecer la contraseña. Funciona durante 1 hora. Revisa también la carpeta de spam.",
-      "back": "Volver a iniciar sesión"
-    },
-    "reset": {
-      "title": "Elige una contraseña nueva",
-      "subtitle": "Introduce una contraseña nueva para tu cuenta.",
-      "password": "Contraseña nueva",
-      "confirm": "Repite la contraseña nueva",
-      "submit": "Guardar contraseña",
-      "success": "Contraseña cambiada. Inicia sesión con tu nueva contraseña.",
-      "invalid": "Este enlace no es válido o ha caducado.",
-      "requestNew": "Solicitar un enlace nuevo"
+      "generic": "Algo salió mal. Inténtalo de nuevo"
     }
   },
   "categories": {
@@ -427,7 +407,31 @@
       "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo en 15 minutos",
       "invalid": "Revisa el formulario",
       "generic": "Algo salió mal. Inténtalo de nuevo",
-      "ratesUnavailable": "Los tipos de cambio no están disponibles ahora. Inténtalo más tarde"
+      "ratesUnavailable": "Los tipos de cambio no están disponibles ahora. Inténtalo más tarde",
+      "photoInvalid": "Elige una imagen JPG, PNG o WebP",
+      "photoTooLarge": "La imagen es demasiado grande",
+      "bioLong": "El texto debe tener 120 caracteres como máximo"
+    },
+    "profileCard": {
+      "title": "Tarjeta de perfil",
+      "noName": "Tu nombre",
+      "bioEmpty": "Cuéntanos algo sobre ti",
+      "photo": "Foto",
+      "upload": "Subir foto",
+      "change": "Cambiar foto",
+      "remove": "Quitar foto",
+      "photoHint": "JPG, PNG o WebP. Se recorta en cuadrado y se reduce antes de guardarla con tu cuenta.",
+      "photoSaved": "Foto actualizada",
+      "photoRemoved": "Foto eliminada",
+      "emoji": "Emoji",
+      "emojiHint": "Se muestra en lugar de tu foto si no tienes ninguna.",
+      "noEmoji": "Sin emoji",
+      "accent": "Color del perfil",
+      "customColor": "Color personalizado",
+      "bio": "Sobre ti",
+      "bioPlaceholder": "Una frase corta sobre ti, p. ej. Ahorrando para un viaje",
+      "save": "Guardar",
+      "saved": "Tarjeta de perfil guardada"
     }
   },
   "errorPage": {
@@ -444,16 +448,5 @@
   },
   "a11y": {
     "skip": "Saltar al contenido principal"
-  },
-  "email": {
-    "reset": {
-      "subject": "Restablece tu contraseña de Salary",
-      "hello": "Hola, {name}",
-      "helloAnon": "Hola",
-      "intro": "Hemos recibido una solicitud para restablecer la contraseña de tu cuenta de Salary. Haz clic en el botón de abajo para elegir una nueva. El enlace funciona durante 1 hora y solo se puede usar una vez.",
-      "button": "Restablecer contraseña",
-      "linkHint": "O copia este enlace en tu navegador:",
-      "ignore": "Si no lo solicitaste, ignora este correo. Tu contraseña no cambiará."
-    }
   }
 }

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { LogOut, Menu, Plus, Settings, UserRound, Wallet } from "lucide-react";
+import { LogOut, Menu, Plus, Settings, Wallet } from "lucide-react";
+import { UserAvatar } from "@/components/user-avatar";
 import { logoutUser } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +34,15 @@ function useIsActive() {
   return (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 }
 
-export function TopNav({ user }: { user: { name: string | null; email: string } }) {
+type NavUser = {
+  name: string | null;
+  email: string;
+  avatarVersion: number | null;
+  emoji: string | null;
+  accent: string | null;
+};
+
+export function TopNav({ user }: { user: NavUser }) {
   const t = useTranslations("nav");
   const tApp = useTranslations("app");
   const tActions = useTranslations("actions");
@@ -118,12 +127,15 @@ export function TopNav({ user }: { user: { name: string | null; email: string } 
             <DropdownMenuTrigger
               render={<Button variant="ghost" size="icon" aria-label={tProfile("label")} />}
             >
-              <UserRound className="size-5" />
+              <UserAvatar {...user} className="size-8 text-sm" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-56">
-              <div className="px-2 py-1.5">
-                {user.name && <p className="truncate text-sm font-bold">{user.name}</p>}
-                <p className="truncate text-sm text-muted-foreground">{user.email}</p>
+              <div className="flex items-center gap-3 px-2 py-1.5">
+                <UserAvatar {...user} className="size-10" />
+                <div className="min-w-0">
+                  {user.name && <p className="truncate text-sm font-bold">{user.name}</p>}
+                  <p className="truncate text-sm text-muted-foreground">{user.email}</p>
+                </div>
               </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem render={<Link href="/settings" />}>

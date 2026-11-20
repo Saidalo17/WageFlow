@@ -3,6 +3,7 @@ import { Card } from "@/components/card";
 import { DeleteAccount } from "@/components/settings/delete-account";
 import { ExportSection } from "@/components/settings/export-section";
 import { PasswordForm } from "@/components/settings/password-form";
+import { ProfileCard } from "@/components/settings/profile-card";
 import { ProfileForm } from "@/components/settings/profile-form";
 import { getCurrentUser } from "@/lib/session";
 import { isLocale } from "@/i18n/config";
@@ -20,7 +21,19 @@ export default async function SettingsPage() {
     <div className="space-y-6">
       <h1 className="text-[28px] font-extrabold tracking-tight">{t("title")}</h1>
 
-      <Card title={t("sections.profile")} index={1}>
+      <Card title={t("profileCard.title")} index={1}>
+        <ProfileCard
+          initial={{
+            name: user.name ?? "",
+            bio: user.bio ?? "",
+            emoji: user.emoji ?? "",
+            accent: user.accent ?? "",
+            avatarVersion: user.avatarUpdatedAt,
+          }}
+        />
+      </Card>
+
+      <Card title={t("sections.profile")} index={2}>
         <ProfileForm
           initial={{
             name: user.name ?? "",
@@ -32,15 +45,15 @@ export default async function SettingsPage() {
         />
       </Card>
 
-      <Card title={t("sections.security")} index={2}>
+      <Card title={t("sections.security")} index={3}>
         <PasswordForm />
       </Card>
 
-      <Card title={t("sections.data")} index={3}>
+      <Card title={t("sections.data")} index={4}>
         <ExportSection />
       </Card>
 
-      <Card title={t("sections.danger")} className="border-expense/40" index={4}>
+      <Card title={t("sections.danger")} className="border-expense/40" index={5}>
         <DeleteAccount />
       </Card>
     </div>

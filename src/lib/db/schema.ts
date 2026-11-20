@@ -27,6 +27,14 @@ export const users = sqliteTable("users", {
   monthStartDay: integer("month_start_day").notNull().default(1),
   /** When the user last opened the overview (ms). Used for the "welcome back" greeting. */
   lastSeenAt: integer("last_seen_at"),
+  /** Profile photo: base64 of a small (<= 200 KB) JPEG/PNG/WebP, plus its type and when it was set. */
+  avatar: text("avatar"),
+  avatarMime: text("avatar_mime"),
+  avatarUpdatedAt: integer("avatar_updated_at"),
+  /** Profile decoration: short text about the user, an emoji shown when there is no photo, and an accent color (#RRGGBB). */
+  bio: text("bio"),
+  emoji: text("emoji"),
+  accent: text("accent"),
   createdAt: createdAt(),
 });
 
@@ -112,18 +120,3 @@ export const loginAttempts = sqliteTable(
   (t) => [index("login_attempts_key_time").on(t.key, t.createdAt)],
 );
 
-/** One-time links for "forgot password". Only a hash of the token is stored, never the token itself. */
-export const passwordResets = sqliteTable(
-  "password_resets",
-  {
-    id: id(),
-    userId: text("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    /** SHA-256 of the token that was sent by email. */
-    tokenHash: text("token_hash").notNull(),
-    expiresAt: integer("expires_at").notNull(),
-    createdAt: createdAt(),
-  },
-  (t) => [uniqueIndex("password_resets_token").on(t.tokenHash), index("password_resets_user").on(t.userId)],
-);

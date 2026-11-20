@@ -32,11 +32,22 @@ describe("translations", () => {
 });
 
 describe("language list", () => {
-  it("is alphabetical by the English name, with English names", async () => {
-    const { localeLabels } = await import("@/i18n/config");
-    const names = locales.map((l) => localeLabels[l]);
-    expect(names).toEqual(["Chinese", "English", "French", "German", "Japanese", "Korean", "Russian", "Spanish", "Turkish"]);
-    expect([...names].sort()).toEqual(names);
+  it("shows every language by its name in the interface language, sorted alphabetically", async () => {
+    const { languageOptions } = await import("@/i18n/language-names");
+    const en = languageOptions("en").map((o) => o.label);
+    expect(en).toEqual(["Chinese", "English", "French", "German", "Japanese", "Korean", "Russian", "Spanish", "Turkish"]);
+    expect(languageOptions("ru").map((o) => o.label)).toEqual([
+      "Испанский", "Китайский", "Корейский", "Немецкий", "Русский", "Турецкий", "Французский", "Английский", "Японский",
+    ].sort(new Intl.Collator("ru").compare));
+    expect(languageOptions("de").map((o) => o.label)).toContain("Französisch");
+    for (const ui of locales) {
+      const options = languageOptions(ui);
+      expect(options.map((o) => o.code).sort()).toEqual([...locales].sort()); // all nine, once each
+      const collator = new Intl.Collator(ui);
+      const labels = options.map((o) => o.label);
+      expect(labels, ui).toEqual([...labels].sort(collator.compare));
+      expect(new Set(labels).size).toBe(labels.length);
+    }
   });
 });
 

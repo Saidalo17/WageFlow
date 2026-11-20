@@ -24,6 +24,10 @@ export const getCurrentUser = cache(async () => {
       locale: users.locale,
       monthStartDay: users.monthStartDay,
       lastSeenAt: users.lastSeenAt,
+      avatarUpdatedAt: users.avatarUpdatedAt,
+      bio: users.bio,
+      emoji: users.emoji,
+      accent: users.accent,
     })
     .from(users)
     .where(eq(users.id, id));

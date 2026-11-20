@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 
-const AUTH_PAGES = ["/login", "/register", "/forgot-password", "/reset-password"];
+const AUTH_PAGES = ["/login", "/register"];
 
 // Guests may only see the sign-in and sign-up pages; signed-in users are kept off them.
 export default auth((req) => {

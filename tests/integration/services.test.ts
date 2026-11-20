@@ -32,7 +32,7 @@ import {
   updateTransactionRow,
 } from "@/lib/services/transactions";
 import { switchUserCurrency } from "@/lib/services/currency-switch";
-import { consumeResetToken, createResetToken, isResetTokenValid, RESET_TTL_MS } from "@/lib/services/password-reset";
+import { getAvatar, removeAvatar, setAvatar, updateDecoration } from "@/lib/services/profile";
 import { touchLastSeen } from "@/lib/services/users";
 import { createTestUser } from "../helpers/db";
 
@@ -373,44 +373,36 @@ describe("welcome back", () => {
   });
 });
 
-describe("forgot password links", () => {
-  it("works once, for one hour, and replaces older links", async () => {
-    const u = await createTestUser("reset");
-    const first = await createResetToken(u.id);
-    expect(await isResetTokenValid(first)).toBe(true);
+describe("profile photo and decoration", () => {
+  const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4, 5, 6]);
 
-    const second = await createResetToken(u.id); // asking again cancels the first link
-    expect(await isResetTokenValid(first)).toBe(false);
-    expect(await isResetTokenValid(second)).toBe(true);
-
-    expect(await consumeResetToken(second, "new-hash")).toMatchObject({ id: u.id });
-    const [user] = await db.select().from(users).where(eq(users.id, u.id));
-    expect(user.passwordHash).toBe("new-hash");
-    expect(await consumeResetToken(second, "again")).toBeNull(); // single use
-    expect(await isResetTokenValid(second)).toBe(false);
+  it("stores a photo, returns exactly the same bytes, and removes it", async () => {
+    const u = await createTestUser("avatar");
+    expect(await getAvatar(u.id)).toBeNull();
+    await setAvatar(u.id, png, "image/png", 12345);
+    const stored = await getAvatar(u.id);
+    expect(stored?.mime).toBe("image/png");
+    expect([...stored!.bytes]).toEqual([...png]);
+    const [row] = await db.select({ at: users.avatarUpdatedAt }).from(users).where(eq(users.id, u.id));
+    expect(row.at).toBe(12345);
+    await removeAvatar(u.id);
+    expect(await getAvatar(u.id)).toBeNull();
   });
 
-  it("expires after an hour and rejects guesses", async () => {
-    const u = await createTestUser("reset-expire");
-    const now = Date.now();
-    const token = await createResetToken(u.id, now);
-    expect(await isResetTokenValid(token, now + RESET_TTL_MS - 1000)).toBe(true);
-    expect(await isResetTokenValid(token, now + RESET_TTL_MS + 1000)).toBe(false);
-    expect(await consumeResetToken(token, "x", now + RESET_TTL_MS + 1000)).toBeNull();
-    for (const bad of ["", "nonsense", token + "x", "a".repeat(500)]) {
-      expect(await consumeResetToken(bad, "x")).toBeNull();
-    }
-    const [user] = await db.select().from(users).where(eq(users.id, u.id));
-    expect(user.passwordHash).toBe("not-a-real-hash"); // untouched
+  it("one user can never get another user's photo", async () => {
+    const a = await createTestUser("avatar-a");
+    const b = await createTestUser("avatar-b");
+    await setAvatar(b.id, png, "image/png");
+    expect(await getAvatar(a.id)).toBeNull();
+    expect(await getAvatar(b.id)).not.toBeNull();
+    await removeAvatar(a.id); // does not touch B
+    expect(await getAvatar(b.id)).not.toBeNull();
   });
 
-  it("stores only a hash of the token", async () => {
-    const u = await createTestUser("reset-hash");
-    const token = await createResetToken(u.id);
-    const { passwordResets } = await import("@/lib/db/schema");
-    const rows = await db.select().from(passwordResets).where(eq(passwordResets.userId, u.id));
-    expect(rows).toHaveLength(1);
-    expect(rows[0].tokenHash).not.toContain(token);
-    expect(rows[0].tokenHash).toMatch(/^[0-9a-f]{64}$/);
+  it("saves the text, emoji and color", async () => {
+    const u = await createTestUser("decor");
+    await updateDecoration(u.id, { bio: "Hello", emoji: "🚀", accent: "#10B981" });
+    const [row] = await db.select().from(users).where(eq(users.id, u.id));
+    expect(row).toMatchObject({ bio: "Hello", emoji: "🚀", accent: "#10B981" });
   });
 });
