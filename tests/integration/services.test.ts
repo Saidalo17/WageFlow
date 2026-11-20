@@ -32,6 +32,7 @@ import {
   updateTransactionRow,
 } from "@/lib/services/transactions";
 import { switchUserCurrency } from "@/lib/services/currency-switch";
+import { consumeResetToken, createResetToken, isResetTokenValid, RESET_TTL_MS } from "@/lib/services/password-reset";
 import { touchLastSeen } from "@/lib/services/users";
 import { createTestUser } from "../helpers/db";
 
@@ -369,5 +370,47 @@ describe("welcome back", () => {
     expect(await stored()).toBe(t0);
     await touchLastSeen(u.id, t0, t0 + 2 * 60 * 60 * 1000); // 2 hours later: written
     expect(await stored()).toBe(t0 + 2 * 60 * 60 * 1000);
+  });
+});
+
+describe("forgot password links", () => {
+  it("works once, for one hour, and replaces older links", async () => {
+    const u = await createTestUser("reset");
+    const first = await createResetToken(u.id);
+    expect(await isResetTokenValid(first)).toBe(true);
+
+    const second = await createResetToken(u.id); // asking again cancels the first link
+    expect(await isResetTokenValid(first)).toBe(false);
+    expect(await isResetTokenValid(second)).toBe(true);
+
+    expect(await consumeResetToken(second, "new-hash")).toMatchObject({ id: u.id });
+    const [user] = await db.select().from(users).where(eq(users.id, u.id));
+    expect(user.passwordHash).toBe("new-hash");
+    expect(await consumeResetToken(second, "again")).toBeNull(); // single use
+    expect(await isResetTokenValid(second)).toBe(false);
+  });
+
+  it("expires after an hour and rejects guesses", async () => {
+    const u = await createTestUser("reset-expire");
+    const now = Date.now();
+    const token = await createResetToken(u.id, now);
+    expect(await isResetTokenValid(token, now + RESET_TTL_MS - 1000)).toBe(true);
+    expect(await isResetTokenValid(token, now + RESET_TTL_MS + 1000)).toBe(false);
+    expect(await consumeResetToken(token, "x", now + RESET_TTL_MS + 1000)).toBeNull();
+    for (const bad of ["", "nonsense", token + "x", "a".repeat(500)]) {
+      expect(await consumeResetToken(bad, "x")).toBeNull();
+    }
+    const [user] = await db.select().from(users).where(eq(users.id, u.id));
+    expect(user.passwordHash).toBe("not-a-real-hash"); // untouched
+  });
+
+  it("stores only a hash of the token", async () => {
+    const u = await createTestUser("reset-hash");
+    const token = await createResetToken(u.id);
+    const { passwordResets } = await import("@/lib/db/schema");
+    const rows = await db.select().from(passwordResets).where(eq(passwordResets.userId, u.id));
+    expect(rows).toHaveLength(1);
+    expect(rows[0].tokenHash).not.toContain(token);
+    expect(rows[0].tokenHash).toMatch(/^[0-9a-f]{64}$/);
   });
 });

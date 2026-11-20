@@ -36,8 +36,9 @@ export function LanguageSwitcher() {
         }
       >
         <Globe className="size-5" aria-hidden />
-        <span className="text-sm font-bold uppercase">
-          <span className="sr-only">{t("label")}: </span>
+        <span className="sr-only">{t("label")}: {current}</span>
+        {/* The code is hidden on very narrow phones so the top bar fits in 320px */}
+        <span className="hidden text-sm font-bold uppercase min-[380px]:inline" aria-hidden>
           {current}
         </span>
       </DropdownMenuTrigger>

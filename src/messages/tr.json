@@ -37,7 +37,8 @@
       "subtitle": "Hesabınıza giriş yapın",
       "submit": "Giriş yap",
       "noAccount": "Henüz hesabınız yok mu?",
-      "toRegister": "Hesap oluşturun"
+      "toRegister": "Hesap oluşturun",
+      "forgot": "Şifremi unuttum"
     },
     "register": {
       "title": "Hesabınızı oluşturun",
@@ -63,7 +64,26 @@
       "emailTaken": "Bu e-posta ile zaten bir hesap var",
       "invalidCredentials": "E-posta veya şifre hatalı",
       "tooManyAttempts": "Çok fazla deneme yapıldı. 15 dakika sonra tekrar deneyin",
-      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin",
+      "mismatch": "Şifreler eşleşmiyor",
+      "resetInvalid": "Bu bağlantı geçersiz veya süresi dolmuş."
+    },
+    "forgot": {
+      "title": "Şifrenizi mi unuttunuz?",
+      "subtitle": "E-posta adresinizi girin, yeni bir şifre belirlemeniz için bir bağlantı gönderelim.",
+      "submit": "Sıfırlama bağlantısı gönder",
+      "sent": "Bu e-posta ile kayıtlı bir hesap varsa, şifre sıfırlama bağlantısı gönderdik. Bağlantı 1 saat geçerlidir. Spam klasörünüzü de kontrol edin.",
+      "back": "Girişe dön"
+    },
+    "reset": {
+      "title": "Yeni şifre belirleyin",
+      "subtitle": "Hesabınız için yeni bir şifre girin.",
+      "password": "Yeni şifre",
+      "confirm": "Yeni şifreyi tekrarlayın",
+      "submit": "Şifreyi kaydet",
+      "success": "Şifre değiştirildi. Yeni şifrenizle giriş yapın.",
+      "invalid": "Bu bağlantı geçersiz veya süresi dolmuş.",
+      "requestNew": "Yeni bağlantı iste"
     }
   },
   "categories": {
@@ -424,5 +444,16 @@
   },
   "a11y": {
     "skip": "Ana içeriğe geç"
+  },
+  "email": {
+    "reset": {
+      "subject": "Salary şifrenizi sıfırlayın",
+      "hello": "Merhaba, {name}",
+      "helloAnon": "Merhaba",
+      "intro": "Salary hesabınızın şifresini sıfırlama isteği aldık. Yeni bir şifre belirlemek için aşağıdaki düğmeye tıklayın. Bağlantı 1 saat geçerlidir ve yalnızca bir kez kullanılabilir.",
+      "button": "Şifreyi sıfırla",
+      "linkHint": "Veya bu bağlantıyı tarayıcınıza kopyalayın:",
+      "ignore": "Bu isteği siz yapmadıysanız bu e-postayı yok sayın. Şifreniz değişmeyecek."
+    }
   }
 }

@@ -37,7 +37,8 @@
       "subtitle": "Melden Sie sich bei Ihrem Konto an",
       "submit": "Anmelden",
       "noAccount": "Noch kein Konto?",
-      "toRegister": "Konto erstellen"
+      "toRegister": "Konto erstellen",
+      "forgot": "Passwort vergessen?"
     },
     "register": {
       "title": "Konto erstellen",
@@ -63,7 +64,26 @@
       "emailTaken": "Ein Konto mit dieser E-Mail existiert bereits",
       "invalidCredentials": "E-Mail oder Passwort ist falsch",
       "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut",
+      "mismatch": "Die Passwörter stimmen nicht überein",
+      "resetInvalid": "Dieser Link ist ungültig oder abgelaufen."
+    },
+    "forgot": {
+      "title": "Passwort vergessen?",
+      "subtitle": "Gib deine E-Mail-Adresse ein, dann senden wir dir einen Link zum Festlegen eines neuen Passworts.",
+      "submit": "Link zum Zurücksetzen senden",
+      "sent": "Falls es ein Konto mit dieser E-Mail-Adresse gibt, haben wir einen Link zum Zurücksetzen des Passworts gesendet. Er ist 1 Stunde gültig. Schau auch in deinen Spam-Ordner.",
+      "back": "Zurück zur Anmeldung"
+    },
+    "reset": {
+      "title": "Neues Passwort festlegen",
+      "subtitle": "Gib ein neues Passwort für dein Konto ein.",
+      "password": "Neues Passwort",
+      "confirm": "Neues Passwort wiederholen",
+      "submit": "Passwort speichern",
+      "success": "Passwort geändert. Melde dich mit deinem neuen Passwort an.",
+      "invalid": "Dieser Link ist ungültig oder abgelaufen.",
+      "requestNew": "Neuen Link anfordern"
     }
   },
   "categories": {
@@ -424,5 +444,16 @@
   },
   "a11y": {
     "skip": "Zum Hauptinhalt springen"
+  },
+  "email": {
+    "reset": {
+      "subject": "Salary-Passwort zurücksetzen",
+      "hello": "Hallo, {name}",
+      "helloAnon": "Hallo",
+      "intro": "Wir haben eine Anfrage zum Zurücksetzen des Passworts deines Salary-Kontos erhalten. Klicke auf die Schaltfläche unten, um ein neues Passwort festzulegen. Der Link ist 1 Stunde gültig und kann nur einmal verwendet werden.",
+      "button": "Passwort zurücksetzen",
+      "linkHint": "Oder kopiere diesen Link in deinen Browser:",
+      "ignore": "Falls du das nicht angefordert hast, ignoriere diese E-Mail einfach. Dein Passwort bleibt unverändert."
+    }
   }
 }

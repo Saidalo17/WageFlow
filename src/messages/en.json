@@ -37,7 +37,8 @@
       "subtitle": "Sign in to your account",
       "submit": "Sign in",
       "noAccount": "No account yet?",
-      "toRegister": "Create one"
+      "toRegister": "Create one",
+      "forgot": "Forgot password?"
     },
     "register": {
       "title": "Create your account",
@@ -63,7 +64,26 @@
       "emailTaken": "An account with this email already exists",
       "invalidCredentials": "Incorrect email or password",
       "tooManyAttempts": "Too many attempts. Try again in 15 minutes",
-      "generic": "Something went wrong. Please try again"
+      "generic": "Something went wrong. Please try again",
+      "mismatch": "The passwords do not match",
+      "resetInvalid": "This link is invalid or has expired."
+    },
+    "forgot": {
+      "title": "Forgot your password?",
+      "subtitle": "Enter your email and we will send you a link to choose a new one.",
+      "submit": "Send reset link",
+      "sent": "If an account with this email exists, we have sent a link to reset the password. It works for 1 hour. Check your Spam folder too.",
+      "back": "Back to sign in"
+    },
+    "reset": {
+      "title": "Choose a new password",
+      "subtitle": "Enter a new password for your account.",
+      "password": "New password",
+      "confirm": "Repeat new password",
+      "submit": "Save password",
+      "success": "Password changed. Sign in with your new password.",
+      "invalid": "This link is invalid or has expired.",
+      "requestNew": "Request a new link"
     }
   },
   "categories": {
@@ -424,5 +444,16 @@
   },
   "a11y": {
     "skip": "Skip to main content"
+  },
+  "email": {
+    "reset": {
+      "subject": "Reset your Salary password",
+      "hello": "Hello, {name}",
+      "helloAnon": "Hello",
+      "intro": "We received a request to reset the password of your Salary account. Click the button below to choose a new password. The link works for 1 hour and can be used once.",
+      "button": "Reset password",
+      "linkHint": "Or copy this link into your browser:",
+      "ignore": "If you did not ask for this, just ignore this email. Your password will not change."
+    }
   }
 }

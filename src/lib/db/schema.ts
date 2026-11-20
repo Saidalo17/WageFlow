@@ -111,3 +111,19 @@ export const loginAttempts = sqliteTable(
   },
   (t) => [index("login_attempts_key_time").on(t.key, t.createdAt)],
 );
+
+/** One-time links for "forgot password". Only a hash of the token is stored, never the token itself. */
+export const passwordResets = sqliteTable(
+  "password_resets",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    /** SHA-256 of the token that was sent by email. */
+    tokenHash: text("token_hash").notNull(),
+    expiresAt: integer("expires_at").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [uniqueIndex("password_resets_token").on(t.tokenHash), index("password_resets_user").on(t.userId)],
+);

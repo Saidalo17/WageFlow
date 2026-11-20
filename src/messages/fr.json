@@ -37,7 +37,8 @@
       "subtitle": "Connectez-vous à votre compte",
       "submit": "Se connecter",
       "noAccount": "Pas encore de compte ?",
-      "toRegister": "Créer un compte"
+      "toRegister": "Créer un compte",
+      "forgot": "Mot de passe oublié ?"
     },
     "register": {
       "title": "Créer votre compte",
@@ -63,7 +64,26 @@
       "emailTaken": "Un compte existe déjà avec cet e-mail",
       "invalidCredentials": "E-mail ou mot de passe incorrect",
       "tooManyAttempts": "Trop de tentatives. Réessayez dans 15 minutes",
-      "generic": "Une erreur est survenue. Veuillez réessayer"
+      "generic": "Une erreur est survenue. Veuillez réessayer",
+      "mismatch": "Les mots de passe ne correspondent pas",
+      "resetInvalid": "Ce lien est invalide ou a expiré."
+    },
+    "forgot": {
+      "title": "Mot de passe oublié ?",
+      "subtitle": "Saisissez votre e-mail et nous vous enverrons un lien pour en choisir un nouveau.",
+      "submit": "Envoyer le lien",
+      "sent": "Si un compte existe avec cet e-mail, nous avons envoyé un lien de réinitialisation. Il est valable 1 heure. Pensez à vérifier vos courriers indésirables.",
+      "back": "Retour à la connexion"
+    },
+    "reset": {
+      "title": "Choisir un nouveau mot de passe",
+      "subtitle": "Saisissez un nouveau mot de passe pour votre compte.",
+      "password": "Nouveau mot de passe",
+      "confirm": "Répétez le nouveau mot de passe",
+      "submit": "Enregistrer le mot de passe",
+      "success": "Mot de passe modifié. Connectez-vous avec votre nouveau mot de passe.",
+      "invalid": "Ce lien est invalide ou a expiré.",
+      "requestNew": "Demander un nouveau lien"
     }
   },
   "categories": {
@@ -424,5 +444,16 @@
   },
   "a11y": {
     "skip": "Aller au contenu principal"
+  },
+  "email": {
+    "reset": {
+      "subject": "Réinitialisez votre mot de passe Salary",
+      "hello": "Bonjour, {name}",
+      "helloAnon": "Bonjour",
+      "intro": "Nous avons reçu une demande de réinitialisation du mot de passe de votre compte Salary. Cliquez sur le bouton ci-dessous pour en choisir un nouveau. Le lien est valable 1 heure et ne peut être utilisé qu’une fois.",
+      "button": "Réinitialiser le mot de passe",
+      "linkHint": "Ou copiez ce lien dans votre navigateur :",
+      "ignore": "Si vous n’êtes pas à l’origine de cette demande, ignorez simplement cet e-mail. Votre mot de passe ne changera pas."
+    }
   }
 }

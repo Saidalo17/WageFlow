@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { signOut } from "@/lib/auth";
 import { db } from "@/lib/db/client";
-import { budgets, categories, loginAttempts, transactions, users } from "@/lib/db/schema";
+import { budgets, categories, loginAttempts, passwordResets, transactions, users } from "@/lib/db/schema";
 import { RatesUnavailableError } from "@/lib/fx";
 import { switchUserCurrency } from "@/lib/services/currency-switch";
 import { clearFailures, isRateLimited, recordFailure } from "@/lib/rate-limit";
@@ -123,6 +123,7 @@ export async function deleteAccount(input: unknown): Promise<ActionResult> {
       db.delete(budgets).where(eq(budgets.userId, user.id)),
       db.delete(transactions).where(eq(transactions.userId, user.id)),
       db.delete(categories).where(eq(categories.userId, user.id)),
+      db.delete(passwordResets).where(eq(passwordResets.userId, user.id)),
       db.delete(loginAttempts).where(eq(loginAttempts.key, `email:${user.email}`)),
       db.delete(loginAttempts).where(eq(loginAttempts.key, `pwd:${user.id}`)),
       db.delete(users).where(eq(users.id, user.id)),

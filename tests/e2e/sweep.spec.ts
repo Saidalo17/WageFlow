@@ -2,18 +2,21 @@ import { expect, test } from "@playwright/test";
 import { addTransaction, ready, register, uniqueEmail } from "./helpers";
 
 /**
- * A walk through every screen in light and dark theme, on a phone and on a computer.
+ * A walk through every screen in light and dark theme, from a small phone to a wide desktop.
  * It fails on browser errors (including hydration mismatches), on horizontal scrolling,
  * and on pages that show an error screen. Screenshots go to test-results/sweep for a human look.
  */
 const PAGES = ["/", "/transactions", "/categories", "/analytics", "/budgets", "/settings"];
 const VIEWPORTS = [
-  { name: "phone", width: 360, height: 800 },
-  { name: "desktop", width: 1280, height: 800 },
+  { name: "small-phone", width: 320, height: 640 },
+  { name: "phone", width: 390, height: 844 },
+  { name: "tablet", width: 768, height: 1024 },
+  { name: "laptop", width: 1024, height: 768 },
+  { name: "desktop", width: 1440, height: 900 },
 ];
 
 test("every screen looks right and runs without errors", async ({ page }) => {
-  test.setTimeout(240_000);
+  test.setTimeout(420_000);
   const problems: string[] = [];
   page.on("pageerror", (e) => problems.push(`page error: ${e.message}`));
   page.on("console", (m) => {

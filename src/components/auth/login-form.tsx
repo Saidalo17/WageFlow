@@ -60,6 +60,11 @@ export function LoginForm() {
           aria-describedby={errors.password ? "password-error" : undefined}
           {...register("password")}
         />
+        <div className="text-right">
+          <Link href="/forgot-password" className="text-sm font-semibold text-link hover:underline">
+            {t("login.forgot")}
+          </Link>
+        </div>
       </Field>
 
       {formError && (

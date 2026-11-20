@@ -33,6 +33,9 @@ export default defineConfig({
       TURSO_AUTH_TOKEN: "",
       AUTH_SECRET: "e2e-secret-not-used-in-production",
       // Fixed exchange rates, so the tests do not depend on the internet.
+      // Emails are written to a file instead of being sent, and links point at the test server.
+      MAIL_OUTBOX_FILE: ".test/outbox.jsonl",
+      AUTH_URL: `http://localhost:${PORT}`,
       FX_FIXED_RATES: JSON.stringify({ USD: 1, EUR: 0.5, JPY: 150 }),
     },
   },
