@@ -6,6 +6,7 @@ import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { LogOut, Menu, Plus, Settings, Wallet } from "lucide-react";
 import { UserAvatar } from "@/components/user-avatar";
+import { DisplayCurrencySwitcher } from "./display-currency";
 import { logoutUser } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,11 +43,12 @@ type NavUser = {
   accent: string | null;
 };
 
-export function TopNav({ user }: { user: NavUser }) {
+export function TopNav({ user, displayCurrency }: { user: NavUser; displayCurrency: string }) {
   const t = useTranslations("nav");
   const tApp = useTranslations("app");
   const tActions = useTranslations("actions");
   const tProfile = useTranslations("profile");
+  const tCurrency = useTranslations("currencyView");
   const isActive = useIsActive();
   const { openAdd } = useTransactionModal();
   const [open, setOpen] = useState(false);
@@ -86,6 +88,11 @@ export function TopNav({ user }: { user: NavUser }) {
                 </Link>
               ))}
             </nav>
+            {/* On phones the currency choice lives in the menu, so the top bar stays uncrowded */}
+            <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-muted px-4 py-3 sm:hidden">
+              <span className="text-sm font-semibold">{tCurrency("label")}</span>
+              <DisplayCurrencySwitcher value={displayCurrency} />
+            </div>
           </SheetContent>
         </Sheet>
 
@@ -121,6 +128,7 @@ export function TopNav({ user }: { user: NavUser }) {
             <span className="hidden sm:inline">{tActions("add")}</span>
             <span className="sr-only sm:hidden">{tActions("add")}</span>
           </Button>
+          <DisplayCurrencySwitcher value={displayCurrency} className="hidden sm:block" />
           <LanguageSwitcher />
           <ThemeToggle />
           <DropdownMenu>

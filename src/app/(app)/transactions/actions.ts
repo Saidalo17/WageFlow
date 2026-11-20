@@ -89,12 +89,15 @@ async function prepare(
 export async function getConversionRate(
   from: unknown,
   date: unknown,
+  to?: unknown,
 ): Promise<{ ok: true; rate: number } | { ok: false }> {
   const user = await getCurrentUser();
   if (typeof from !== "string" || !isValidCurrency(from)) return { ok: false };
+  // The preview is shown in the currency the user is looking at (the display currency), the main one by default.
+  const target = typeof to === "string" && isValidCurrency(to) ? to : user.currency;
   const day = typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : undefined;
   try {
-    return { ok: true, rate: await getRate(from, user.currency, day) };
+    return { ok: true, rate: await getRate(from, target, day) };
   } catch {
     return { ok: false };
   }

@@ -336,7 +336,8 @@
       "exists": "Cette catégorie a déjà un plafond",
       "notFound": "Plafond ou catégorie introuvable",
       "invalid": "Vérifiez le formulaire",
-      "generic": "Une erreur est survenue. Veuillez réessayer"
+      "generic": "Une erreur est survenue. Veuillez réessayer",
+      "ratesUnavailable": "Les taux de change sont indisponibles pour le moment. Réessayez plus tard"
     }
   },
   "settings": {
@@ -448,5 +449,11 @@
   },
   "a11y": {
     "skip": "Aller au contenu principal"
+  },
+  "currencyView": {
+    "label": "Devise d’affichage",
+    "notice": "Tous les montants et graphiques sont affichés en {currency} au taux de change du jour. Vos données restent enregistrées en {main}.",
+    "unavailable": "Les taux de change sont indisponibles pour le moment, les montants sont donc affichés en {main}.",
+    "reset": "Afficher en {main}"
   }
 }

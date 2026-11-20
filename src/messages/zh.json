@@ -336,7 +336,8 @@
       "exists": "该分类已设置限额",
       "notFound": "未找到限额或分类",
       "invalid": "请检查表单",
-      "generic": "出了点问题，请重试"
+      "generic": "出了点问题，请重试",
+      "ratesUnavailable": "暂时无法获取汇率，请稍后再试"
     }
   },
   "settings": {
@@ -448,5 +449,11 @@
   },
   "a11y": {
     "skip": "跳到主要内容"
+  },
+  "currencyView": {
+    "label": "显示货币",
+    "notice": "所有金额和图表均按今天的汇率以 {currency} 显示。您的数据仍以 {main} 保存。",
+    "unavailable": "暂时无法获取汇率，因此金额以 {main} 显示。",
+    "reset": "改用 {main} 显示"
   }
 }

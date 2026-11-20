@@ -33,3 +33,37 @@ export function parseMinorAmount(text: string, locale: string, currency: string)
   if (n > MAX_AMOUNT_MAJOR) return { ok: false, error: "amountTooLarge" };
   return { ok: true, minor };
 }
+
+/**
+ * Formats an amount while it is being typed: groups the digits in threes with spaces
+ * ("8000000" -> "8 000 000") and keeps at most as many decimals as the currency has.
+ * The decimal mark is whatever the user typed (comma or dot). Letters and other characters are dropped.
+ */
+export function formatAmountInput(raw: string, currency: string): string {
+  const decimals = minorDigits(currency);
+  const sepIndex = raw.search(/[.,]/);
+  const hasSep = sepIndex !== -1 && decimals > 0;
+  const sep = hasSep ? raw[sepIndex] : "";
+  const intRaw = (hasSep ? raw.slice(0, sepIndex) : sepIndex === -1 ? raw : raw.slice(0, sepIndex)).replace(/\D/g, "");
+  const fracRaw = hasSep ? raw.slice(sepIndex + 1).replace(/\D/g, "").slice(0, decimals) : "";
+  if (intRaw === "" && !hasSep) return "";
+  const int = intRaw.replace(/^0+(?=\d)/, "") || "0";
+  const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return hasSep ? `${grouped}${sep}${fracRaw}` : grouped;
+}
+
+/** How many digits and decimal marks are before the caret (used to put the caret back after reformatting). */
+export function significantBefore(text: string, caret: number): number {
+  return text.slice(0, caret).replace(/[^\d.,]/g, "").length;
+}
+
+/** Caret position in `formatted` after the same number of digits/decimal marks. */
+export function caretAfter(formatted: string, significant: number): number {
+  if (significant <= 0) return 0;
+  let seen = 0;
+  for (let i = 0; i < formatted.length; i++) {
+    if (/[\d.,]/.test(formatted[i])) seen += 1;
+    if (seen === significant) return i + 1;
+  }
+  return formatted.length;
+}

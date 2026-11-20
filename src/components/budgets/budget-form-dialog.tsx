@@ -12,9 +12,9 @@ import { CategoryBadge } from "@/components/category-icon";
 import { ResponsiveModal } from "@/components/responsive-modal";
 import type { CategoryOption } from "@/components/transactions/types";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { currencySymbol, editableAmount, parseMinorAmount } from "@/lib/money-input";
+import { currencySymbol, editableAmount, formatAmountInput, parseMinorAmount } from "@/lib/money-input";
+import { AmountInput } from "@/components/amount-input";
 import { cn } from "@/lib/utils";
 
 export type BudgetItem = {
@@ -75,7 +75,7 @@ function BudgetForm({
   const categoryName = useCategoryName();
 
   const [categoryId, setCategoryId] = useState(budget?.categoryId ?? "");
-  const [amountText, setAmountText] = useState(budget ? editableAmount(budget.limit, currency, locale) : "");
+  const [amountText, setAmountText] = useState(budget ? formatAmountInput(editableAmount(budget.limit, currency, locale), currency) : "");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -95,8 +95,8 @@ function BudgetForm({
 
     setSaving(true);
     const result = budget
-      ? await updateBudget(budget.id, { limit: amount.minor })
-      : await createBudget({ categoryId, limit: amount.minor });
+      ? await updateBudget(budget.id, { limit: amount.minor, currency })
+      : await createBudget({ categoryId, limit: amount.minor, currency });
     setSaving(false);
 
     if (result.ok) {
@@ -168,14 +168,13 @@ function BudgetForm({
           {t("limit")}
         </Label>
         <div className="relative">
-          <Input
+          <AmountInput
             id="budget-limit"
-            inputMode="decimal"
-            autoComplete="off"
             autoFocus={!!budget}
             placeholder="0"
+            currency={currency}
             value={amountText}
-            onChange={(e) => setAmountText(e.target.value)}
+            onValueChange={setAmountText}
             aria-invalid={!!errors.limit}
             aria-describedby={errors.limit ? "budget-limit-error" : "budget-limit-hint"}
             className="amount h-14 pr-14 text-2xl font-extrabold"

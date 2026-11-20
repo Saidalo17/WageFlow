@@ -11,6 +11,8 @@ import { QuickAdd } from "@/components/overview/quick-add";
 import { RecentTransactions } from "@/components/overview/recent-transactions";
 import { buttonVariants } from "@/components/ui/button";
 import { budgetStatus } from "@/lib/budget-status";
+import { convertBudgets, convertSeries, convertTotals, convertTotalsBy, convertTransactions } from "@/lib/display-convert";
+import { getDisplay } from "@/lib/display-currency";
 import { formatDate } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
 import { capAtTomorrow, currentPeriod, isRange, rangeBounds, type Range } from "@/lib/period";
@@ -47,7 +49,8 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
   const { from, to } = rangeBounds(range, user.monthStartDay) as { from: string; to: string };
   const granularity = range === "quarter" || range === "year" ? "month" : "day";
 
-  const [totals, series, byCategory, recent, budgets, allCategories, away] = await Promise.all([
+  const display = await getDisplay(user.currency);
+  const [rawTotals, rawSeries, rawByCategory, rawRecent, rawBudgets, rawCategories, away] = await Promise.all([
     sumTransactions(user.id, { from, to }),
     incomeExpenseSeries(user.id, from, capAtTomorrow(to), granularity),
     totalsByCategory(user.id, "expense", from, to),
@@ -59,12 +62,20 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
     touchLastSeen(user.id, user.lastSeenAt),
   ]);
 
+  // Amounts are stored in the main currency; show them in the chosen display currency.
+  const totals = convertTotals(display, rawTotals);
+  const series = convertSeries(display, rawSeries);
+  const byCategory = convertTotalsBy(display, rawByCategory);
+  const recent = { ...rawRecent, items: convertTransactions(display, rawRecent.items) };
+  const budgets = convertBudgets(display, rawBudgets);
+  const allCategories = convertTotalsBy(display, rawCategories);
+
   // The three limits that are closest to being used up.
   const topBudgets = [...budgets]
     .sort((a, b) => b.spent / b.limit - a.spent / a.limit)
     .slice(0, 3);
 
-  const money = (minor: number) => formatMoney(minor, user.currency, locale);
+  const money = (minor: number) => formatMoney(minor, display.currency, locale);
   const balance = totals.income - totals.expense;
   const hasData = series.some((p) => p.income > 0 || p.expense > 0);
   const firstName = user.name?.trim().split(/\s+/)[0];
@@ -141,7 +152,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
             <>
               <AreaChart
                 data={series}
-                currency={user.currency}
+                currency={display.currency}
                 granularity={granularity}
                 labels={{ income: t("income"), expense: t("expenses") }}
                 ariaLabel={t("dynamicsAria")}
@@ -164,7 +175,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
 
         <Card title={t("structureTitle")} index={4}>
           {byCategory.length > 0 ? (
-            <DonutChart data={byCategory} currency={user.currency} ariaLabel={t("structureAria")} />
+            <DonutChart data={byCategory} currency={display.currency} ariaLabel={t("structureAria")} />
           ) : (
             <p className="grid h-[260px] place-items-center text-muted-foreground">{t("noData")}</p>
           )}
@@ -173,7 +184,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
 
       {/* Categories: tap one to add a transaction by hand */}
       <Card index={5} title={t("quickAdd.title")}>
-        <QuickAdd categories={allCategories} currency={user.currency} />
+        <QuickAdd categories={allCategories} currency={display.currency} />
       </Card>
 
       {/* Limits */}
@@ -232,7 +243,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
           </Link>
         }
       >
-        <RecentTransactions items={recent.items} currency={user.currency} />
+        <RecentTransactions items={recent.items} currency={display.currency} />
       </Card>
     </div>
   );

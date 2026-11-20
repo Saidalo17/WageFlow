@@ -1,5 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { CategoriesView } from "@/components/categories/categories-view";
+import { convertTotalsBy } from "@/lib/display-convert";
+import { getDisplay } from "@/lib/display-currency";
 import { currentPeriod } from "@/lib/period";
 import { listCategoriesWithTotals } from "@/lib/services/categories";
 import { getCurrentUser } from "@/lib/session";
@@ -11,6 +13,7 @@ export async function generateMetadata() {
 
 export default async function CategoriesPage() {
   const user = await getCurrentUser();
-  const categories = await listCategoriesWithTotals(user.id, currentPeriod(user.monthStartDay));
-  return <CategoriesView categories={categories} currency={user.currency} />;
+  const display = await getDisplay(user.currency);
+  const categories = convertTotalsBy(display, await listCategoriesWithTotals(user.id, currentPeriod(user.monthStartDay)));
+  return <CategoriesView categories={categories} currency={display.currency} />;
 }

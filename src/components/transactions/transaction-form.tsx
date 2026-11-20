@@ -15,7 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { todayISO } from "@/lib/format";
 import { formatMoney, minorDigits, parseAmount } from "@/lib/money";
-import { currencySymbol, editableAmount } from "@/lib/money-input";
+import { currencySymbol, editableAmount, formatAmountInput } from "@/lib/money-input";
+import { AmountInput } from "@/components/amount-input";
 import { cn } from "@/lib/utils";
 import { MAX_AMOUNT_MAJOR } from "@/lib/validators/transaction";
 import type { CategoryOption, TxItem } from "./types";
@@ -48,7 +49,10 @@ export function TransactionForm({
   const [inputCurrency, setInputCurrency] = useState(transaction?.originalCurrency ?? currency);
   const [amountText, setAmountText] = useState(
     transaction
-      ? editableAmount(transaction.originalAmount ?? transaction.amount, transaction.originalCurrency ?? currency, locale)
+      ? formatAmountInput(
+          editableAmount(transaction.originalAmount ?? transaction.amount, transaction.originalCurrency ?? currency, locale),
+          transaction.originalCurrency ?? currency,
+        )
       : "",
   );
   const [categoryId, setCategoryId] = useState(transaction?.categoryId ?? initialCategoryId ?? "");
@@ -73,17 +77,17 @@ export function TransactionForm({
   // "≈ amount in the main currency" while typing in another currency.
   const foreign = inputCurrency !== currency;
   const [rate, setRate] = useState<{ key: string; value: number | null } | null>(null);
-  const rateKey = `${inputCurrency}|${date}`;
+  const rateKey = `${inputCurrency}|${date}|${currency}`;
   useEffect(() => {
     if (!foreign) return;
     let cancelled = false;
-    void getConversionRate(inputCurrency, date).then((r) => {
+    void getConversionRate(inputCurrency, date, currency).then((r) => {
       if (!cancelled) setRate({ key: rateKey, value: r.ok ? r.rate : null });
     });
     return () => {
       cancelled = true;
     };
-  }, [foreign, inputCurrency, date, rateKey]);
+  }, [foreign, inputCurrency, date, rateKey, currency]);
   const typed = parseAmount(amountText, locale);
   const currentRate = rate && rate.key === rateKey ? rate.value : undefined; // undefined = still loading
   const preview =
@@ -177,14 +181,13 @@ export function TransactionForm({
         </Label>
         <div className="flex gap-2">
           <div className="relative min-w-0 flex-1">
-            <Input
+            <AmountInput
               id="tx-amount"
-              inputMode="decimal"
-              autoComplete="off"
               autoFocus
               placeholder="0"
+              currency={inputCurrency}
               value={amountText}
-              onChange={(e) => setAmountText(e.target.value)}
+              onValueChange={setAmountText}
               aria-invalid={!!errors.amount}
               aria-describedby={errors.amount ? "tx-amount-error" : undefined}
               className="amount h-14 pr-12 text-2xl font-extrabold"
@@ -197,7 +200,10 @@ export function TransactionForm({
             id="tx-currency"
             compact
             value={inputCurrency}
-            onChange={setInputCurrency}
+            onChange={(code) => {
+              setInputCurrency(code);
+              setAmountText((text) => formatAmountInput(text, code)); // another currency can have other decimals
+            }}
             ariaLabel={t("form.currency")}
           />
         </div>

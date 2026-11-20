@@ -104,4 +104,82 @@ test.describe("home page: categories, manual entry, other currencies, greeting",
     await page.reload();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Glad you’re back, Bea");
   });
+
+  test("shows every amount in the chosen display currency, and switches back", async ({ page }) => {
+    await register(page, uniqueEmail("view"), "Vera");
+    await ready(page);
+    await page.getByRole("button", { name: "Add a transaction to Food" }).click();
+    await page.getByRole("dialog").locator("#tx-amount").fill("40");
+    await page.getByRole("dialog").getByRole("button", { name: "Add", exact: true }).click();
+    await expectToast(page, "Transaction added");
+    await page.goto("/");
+    await ready(page);
+    await expect(page.getByText("−$40.00").first()).toBeVisible();
+
+    // Pick euro in the top bar (test rate: 1 USD = 0.5 EUR)
+    await page.getByRole("banner").getByRole("combobox", { name: "Display currency" }).click();
+    await page.getByPlaceholder("Search by code or name").fill("euro");
+    await page.getByRole("option", { name: /EUR/ }).click();
+    await expect(page.getByText("−€20.00").first()).toBeVisible(); // expenses card
+    await expect(page.getByRole("status").filter({ hasText: "shown in EUR" })).toBeVisible();
+    await expect(page.getByText("−$40.00")).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Add a transaction to Food" })).toContainText("€20.00");
+
+    // Other pages follow, and so do the chart labels
+    await page.goto("/transactions");
+    await expect(page.getByText("−€20.00").first()).toBeVisible();
+    await page.goto("/analytics");
+    await ready(page);
+    await expect(page.getByRole("table").getByText("€20.00")).toBeVisible();
+    await expect(page.locator(".recharts-surface").first()).toBeVisible();
+
+    // A limit typed while looking at euro is stored in dollars (1 EUR = 2 USD)
+    await page.goto("/budgets");
+    await ready(page);
+    await page.getByRole("button", { name: "New limit" }).first().click();
+    await page.getByRole("dialog").getByRole("radio", { name: "Food" }).click();
+    await page.getByRole("dialog").locator("#budget-limit").fill("50");
+    await page.getByRole("dialog").getByRole("button", { name: "Set limit" }).click();
+    await expectToast(page, "Limit set");
+    await expect(page.getByText("€30.00 left")).toBeVisible(); // 50 - 20 in euro
+
+    // Back to the main currency: the data was never changed
+    await page.getByRole("button", { name: "Show in USD" }).click();
+    await expect(page.getByRole("status").filter({ hasText: "shown in EUR" })).toBeHidden(); // wait until it is done
+    await page.goto("/budgets");
+    await expect(page.getByText("$60.00 left")).toBeVisible(); // 100 - 40 in dollars
+    await page.goto("/");
+    await expect(page.getByText("−$40.00").first()).toBeVisible();
+  });
+
+  test("groups the digits of the amount while typing", async ({ page }) => {
+    await register(page, uniqueEmail("digits"), "Dina");
+    await ready(page);
+    await page.getByRole("button", { name: "Add a transaction to Food" }).click();
+    const form = page.getByRole("dialog");
+    const amount = form.locator("#tx-amount");
+    await amount.pressSequentially("8000");
+    await expect(amount).toHaveValue("8 000");
+    await amount.fill("");
+    await amount.pressSequentially("8000000");
+    await expect(amount).toHaveValue("8 000 000");
+    // editing in the middle keeps the caret and the grouping
+    await amount.press("Home");
+    await amount.press("ArrowRight");
+    await amount.pressSequentially("1");
+    await expect(amount).toHaveValue("81 000 000");
+    await amount.fill("");
+    await amount.pressSequentially("1234.567");
+    await expect(amount).toHaveValue("1 234.56");
+    // it is saved as the number, not as text
+    await amount.fill("");
+    await amount.pressSequentially("12000");
+    await form.getByRole("button", { name: "Add", exact: true }).click();
+    await expectToast(page, "Transaction added");
+    await page.goto("/transactions");
+    await expect(page.getByText("−$12,000.00").first()).toBeVisible();
+    // editing shows it grouped again
+    await page.getByRole("button", { name: /^Food.*12,000/ }).click();
+    await expect(page.getByRole("dialog").locator("#tx-amount")).toHaveValue("12 000.00");
+  });
 });

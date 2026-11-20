@@ -336,7 +336,8 @@
       "exists": "Esta categoría ya tiene un límite",
       "notFound": "Límite o categoría no encontrados",
       "invalid": "Revisa el formulario",
-      "generic": "Algo salió mal. Inténtalo de nuevo"
+      "generic": "Algo salió mal. Inténtalo de nuevo",
+      "ratesUnavailable": "Los tipos de cambio no están disponibles ahora. Inténtalo más tarde"
     }
   },
   "settings": {
@@ -448,5 +449,11 @@
   },
   "a11y": {
     "skip": "Saltar al contenido principal"
+  },
+  "currencyView": {
+    "label": "Moneda de visualización",
+    "notice": "Todos los importes y gráficos se muestran en {currency} al tipo de cambio de hoy. Tus datos siguen guardados en {main}.",
+    "unavailable": "Los tipos de cambio no están disponibles ahora, así que los importes se muestran en {main}.",
+    "reset": "Mostrar en {main}"
   }
 }

@@ -1,7 +1,9 @@
 import { getTranslations } from "next-intl/server";
+import { DisplayNotice } from "@/components/nav/display-currency";
 import { TopNav } from "@/components/nav/top-nav";
 import { TransactionModalProvider } from "@/components/transactions/transaction-modal-provider";
 import { getUserCategories } from "@/lib/data";
+import { getDisplay } from "@/lib/display-currency";
 import { getCurrentUser, requireUser } from "@/lib/session";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -14,8 +16,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     getUserCategories(id),
     getTranslations("a11y"),
   ]);
+  const display = await getDisplay(user.currency);
   return (
-    <TransactionModalProvider categories={categories} currency={user.currency}>
+    <TransactionModalProvider categories={categories} currency={display.currency}>
       {/* First Tab stop: lets keyboard users jump over the menu. Visible only while focused. */}
       <a
         href="#main"
@@ -31,7 +34,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           emoji: user.emoji,
           accent: user.accent,
         }}
+        displayCurrency={display.currency}
       />
+      <DisplayNotice currency={display.currency} main={user.currency} failed={display.failed} />
       <main
         id="main"
         tabIndex={-1}

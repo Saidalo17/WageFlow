@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { isForeignKeyViolation, isUniqueViolation } from "@/lib/db/errors";
+import { convertMinor, getRate, RatesUnavailableError } from "@/lib/fx";
 import { minorDigits } from "@/lib/money";
 import {
   deleteBudgetRow,
@@ -27,13 +28,34 @@ function fieldErrorsOf(issues: { path: PropertyKey[]; message: string }[]) {
 const tooLarge = (limit: number, currency: string) =>
   limit > MAX_AMOUNT_MAJOR * 10 ** minorDigits(currency);
 
+/** The limit may be typed in the display currency; it is stored in the main currency. */
+async function toMainCurrency(
+  limit: number,
+  typedIn: string | undefined,
+  main: string,
+): Promise<{ ok: true; limit: number } | ActionResult> {
+  if (!typedIn || typedIn === main) return { ok: true, limit };
+  try {
+    return { ok: true, limit: convertMinor(limit, typedIn, main, await getRate(typedIn, main)) };
+  } catch (e) {
+    if (e instanceof RatesUnavailableError) return { ok: false, error: "ratesUnavailable" };
+    throw e;
+  }
+}
+
 export async function createBudget(input: unknown): Promise<ActionResult> {
   const user = await getCurrentUser();
   const parsed = createBudgetSchema.safeParse(input);
   if (!parsed.success) {
     return { ok: false, error: "invalid", fieldErrors: fieldErrorsOf(parsed.error.issues) };
   }
-  const { categoryId, limit } = parsed.data;
+  const { categoryId } = parsed.data;
+  if (tooLarge(parsed.data.limit, parsed.data.currency ?? user.currency)) {
+    return { ok: false, error: "invalid", fieldErrors: { limit: "amountTooLarge" } };
+  }
+  const converted = await toMainCurrency(parsed.data.limit, parsed.data.currency, user.currency);
+  if (!converted.ok || !("limit" in converted)) return converted as ActionResult;
+  const limit = converted.limit;
   if (tooLarge(limit, user.currency)) {
     return { ok: false, error: "invalid", fieldErrors: { limit: "amountTooLarge" } };
   }
@@ -66,14 +88,19 @@ export async function updateBudget(id: unknown, input: unknown): Promise<ActionR
   if (!parsed.success) {
     return { ok: false, error: "invalid", fieldErrors: fieldErrorsOf(parsed.error.issues) };
   }
-  if (tooLarge(parsed.data.limit, user.currency)) {
+  if (tooLarge(parsed.data.limit, parsed.data.currency ?? user.currency)) {
+    return { ok: false, error: "invalid", fieldErrors: { limit: "amountTooLarge" } };
+  }
+  const converted = await toMainCurrency(parsed.data.limit, parsed.data.currency, user.currency);
+  if (!converted.ok || !("limit" in converted)) return converted as ActionResult;
+  if (tooLarge(converted.limit, user.currency)) {
     return { ok: false, error: "invalid", fieldErrors: { limit: "amountTooLarge" } };
   }
 
   const existing = await getBudget(user.id, idParsed.data);
   if (!existing) return { ok: false, error: "notFound" };
 
-  await updateBudgetLimit(user.id, existing.id, parsed.data.limit);
+  await updateBudgetLimit(user.id, existing.id, converted.limit);
   revalidatePath("/", "layout");
   return { ok: true };
 }

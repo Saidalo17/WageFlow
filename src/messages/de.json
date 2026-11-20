@@ -336,7 +336,8 @@
       "exists": "Diese Kategorie hat bereits ein Limit",
       "notFound": "Limit oder Kategorie nicht gefunden",
       "invalid": "Bitte prüfen Sie das Formular",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut",
+      "ratesUnavailable": "Die Wechselkurse sind gerade nicht verfügbar. Bitte versuche es später erneut"
     }
   },
   "settings": {
@@ -448,5 +449,11 @@
   },
   "a11y": {
     "skip": "Zum Hauptinhalt springen"
+  },
+  "currencyView": {
+    "label": "Anzeigewährung",
+    "notice": "Alle Beträge und Diagramme werden in {currency} zum heutigen Wechselkurs angezeigt. Deine Daten bleiben in {main} gespeichert.",
+    "unavailable": "Die Wechselkurse sind gerade nicht verfügbar, daher werden die Beträge in {main} angezeigt.",
+    "reset": "In {main} anzeigen"
   }
 }

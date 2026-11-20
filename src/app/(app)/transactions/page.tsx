@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { TransactionsView } from "@/components/transactions/transactions-view";
 import { getUserCategories } from "@/lib/data";
 import { DEFAULT_CATEGORIES } from "@/lib/default-categories";
+import { convertTotals, convertTransactions } from "@/lib/display-convert";
+import { getDisplay } from "@/lib/display-currency";
 import { isRange, rangeBounds } from "@/lib/period";
 import { listTransactions, sumTransactions, type TxFilters } from "@/lib/services/transactions";
 import { getCurrentUser } from "@/lib/session";
@@ -43,7 +45,8 @@ export default async function TransactionsPage({ searchParams }: PageProps<"/tra
     systemKeys,
   };
 
-  const [categories, list, totals] = await Promise.all([
+  const display = await getDisplay(user.currency);
+  const [categories, list, rawTotals] = await Promise.all([
     getUserCategories(user.id),
     listTransactions(user.id, filters, limit),
     sumTransactions(user.id, filters),
@@ -51,11 +54,11 @@ export default async function TransactionsPage({ searchParams }: PageProps<"/tra
 
   return (
     <TransactionsView
-      items={list.items}
+      items={convertTransactions(display, list.items)}
       hasMore={list.hasMore}
       limit={limit}
-      totals={totals}
-      currency={user.currency}
+      totals={convertTotals(display, rawTotals)}
+      currency={display.currency}
       categories={categories}
       filters={{ range, type, categoryId, q }}
     />

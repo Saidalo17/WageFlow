@@ -336,7 +336,8 @@
       "exists": "Bu kategorinin zaten bir limiti var",
       "notFound": "Limit veya kategori bulunamadı",
       "invalid": "Lütfen formu kontrol edin",
-      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin",
+      "ratesUnavailable": "Döviz kurlarına şu anda ulaşılamıyor. Lütfen daha sonra tekrar deneyin"
     }
   },
   "settings": {
@@ -448,5 +449,11 @@
   },
   "a11y": {
     "skip": "Ana içeriğe geç"
+  },
+  "currencyView": {
+    "label": "Görüntüleme para birimi",
+    "notice": "Tüm tutarlar ve grafikler bugünkü kurla {currency} cinsinden gösteriliyor. Verileriniz hâlâ {main} olarak saklanıyor.",
+    "unavailable": "Döviz kurlarına şu anda ulaşılamıyor, bu yüzden tutarlar {main} cinsinden gösteriliyor.",
+    "reset": "{main} olarak göster"
   }
 }

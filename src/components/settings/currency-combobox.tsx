@@ -35,6 +35,7 @@ export function CurrencyCombobox({
   id,
   compact = false,
   ariaLabel,
+  triggerClassName,
 }: {
   value: string;
   onChange: (code: string) => void;
@@ -42,6 +43,7 @@ export function CurrencyCombobox({
   /** Narrow button that shows only the code (for use beside an amount field). */
   compact?: boolean;
   ariaLabel?: string;
+  triggerClassName?: string;
 }) {
   const t = useTranslations("settings.currencyPicker");
   const locale = useLocale();
@@ -86,6 +88,7 @@ export function CurrencyCombobox({
             className={cn(
               "h-12 justify-between rounded-xl px-3.5 text-base font-normal md:text-sm",
               compact ? "h-14 w-28 shrink-0 gap-1 font-bold" : "w-full",
+              triggerClassName,
             )}
           />
         }

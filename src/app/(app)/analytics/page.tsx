@@ -6,6 +6,8 @@ import { Card } from "@/components/card";
 import { AreaChart } from "@/components/charts/lazy";
 import { BarChart } from "@/components/charts/lazy";
 import { DonutChart } from "@/components/charts/lazy";
+import { convertSeries, convertTotals, convertTotalsBy } from "@/lib/display-convert";
+import { getDisplay } from "@/lib/display-currency";
 import { formatDate } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
 import {
@@ -62,7 +64,8 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
   const months = first(sp.months) === "12" ? 12 : 6;
   const monthly = lastMonths(months);
 
-  const [cur, prev, series, byCategory, prevByCategory, monthlySeries] = await Promise.all([
+  const display = await getDisplay(user.currency);
+  const [rawCur, rawPrev, rawSeries, rawByCategory, rawPrevByCategory, rawMonthly] = await Promise.all([
     sumTransactions(user.id, bounds),
     sumTransactions(user.id, compare),
     incomeExpenseSeries(user.id, bounds.from, capAtTomorrow(bounds.to), granularity),
@@ -71,7 +74,14 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
     incomeExpenseSeries(user.id, monthly.from, monthly.to, "month"),
   ]);
 
-  const money = (minor: number) => formatMoney(minor, user.currency, locale);
+  const cur = convertTotals(display, rawCur);
+  const prev = convertTotals(display, rawPrev);
+  const series = convertSeries(display, rawSeries);
+  const byCategory = convertTotalsBy(display, rawByCategory);
+  const prevByCategory = convertTotalsBy(display, rawPrevByCategory);
+  const monthlySeries = convertSeries(display, rawMonthly);
+
+  const money = (minor: number) => formatMoney(minor, display.currency, locale);
   const curBalance = cur.income - cur.expense;
   const prevBalance = prev.income - prev.expense;
   const hasData = series.some((p) => p.income > 0 || p.expense > 0);
@@ -151,7 +161,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
             <>
               <AreaChart
                 data={series}
-                currency={user.currency}
+                currency={display.currency}
                 granularity={granularity}
                 labels={{ income: t("income"), expense: t("expenses") }}
                 ariaLabel={t("dynamicsAria")}
@@ -166,7 +176,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
 
         <Card title={t("structureTitle")} index={4}>
           {byCategory.length > 0 ? (
-            <DonutChart data={byCategory} currency={user.currency} ariaLabel={t("structureAria")} />
+            <DonutChart data={byCategory} currency={display.currency} ariaLabel={t("structureAria")} />
           ) : (
             <Empty text={t("noData")} />
           )}
@@ -202,7 +212,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
             <>
               <BarChart
                 data={monthlySeries}
-                currency={user.currency}
+                currency={display.currency}
                 labels={{ income: t("income"), expense: t("expenses") }}
                 ariaLabel={t("monthsAria")}
               />

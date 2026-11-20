@@ -1,6 +1,8 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { BudgetsView } from "@/components/budgets/budgets-view";
 import { getUserCategories } from "@/lib/data";
+import { convertBudgets } from "@/lib/display-convert";
+import { getDisplay } from "@/lib/display-currency";
 import { formatDate } from "@/lib/format";
 import { currentPeriod } from "@/lib/period";
 import { listBudgets } from "@/lib/services/budgets";
@@ -16,10 +18,13 @@ export default async function BudgetsPage() {
   const locale = await getLocale();
   const period = currentPeriod(user.monthStartDay);
 
-  const [budgets, categories] = await Promise.all([
+  const display = await getDisplay(user.currency);
+  const [rawBudgets, categories] = await Promise.all([
     listBudgets(user.id, period),
     getUserCategories(user.id),
   ]);
+
+  const budgets = convertBudgets(display, rawBudgets);
 
   // Only active expense categories without a limit can get a new one.
   const withLimit = new Set(budgets.map((b) => b.categoryId));
@@ -31,7 +36,7 @@ export default async function BudgetsPage() {
     <BudgetsView
       budgets={budgets}
       available={available}
-      currency={user.currency}
+      currency={display.currency}
       periodLabel={periodLabel}
     />
   );
