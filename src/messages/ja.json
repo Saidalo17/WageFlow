@@ -1,0 +1,428 @@
+{
+  "app": {
+    "name": "Salary"
+  },
+  "nav": {
+    "overview": "概要",
+    "transactions": "取引",
+    "categories": "カテゴリ",
+    "analytics": "分析",
+    "budgets": "予算",
+    "settings": "設定",
+    "menu": "メニュー"
+  },
+  "actions": {
+    "add": "追加"
+  },
+  "theme": {
+    "label": "テーマ",
+    "light": "ライト",
+    "dark": "ダーク",
+    "system": "システム"
+  },
+  "language": {
+    "label": "言語"
+  },
+  "profile": {
+    "label": "プロフィール",
+    "logout": "ログアウト"
+  },
+  "common": {
+    "comingSoon": "このセクションは近日公開予定です。",
+    "cancel": "キャンセル"
+  },
+  "auth": {
+    "login": {
+      "title": "おかえりなさい",
+      "subtitle": "アカウントにログインしてください",
+      "submit": "ログイン",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "toRegister": "新規登録"
+    },
+    "register": {
+      "title": "アカウントを作成",
+      "subtitle": "数分でお金の管理を始められます",
+      "submit": "アカウントを作成",
+      "haveAccount": "すでにアカウントをお持ちですか？",
+      "toLogin": "ログイン"
+    },
+    "fields": {
+      "name": "名前（任意）",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "passwordHint": "8文字以上",
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを隠す"
+    },
+    "errors": {
+      "required": "この項目は必須です",
+      "email": "有効なメールアドレスを入力してください",
+      "passwordShort": "パスワードは8文字以上にしてください",
+      "passwordLong": "パスワードは72文字以内にしてください",
+      "nameLong": "名前は60文字以内にしてください",
+      "emailTaken": "このメールアドレスのアカウントはすでに存在します",
+      "invalidCredentials": "メールアドレスまたはパスワードが正しくありません",
+      "tooManyAttempts": "試行回数が多すぎます。15分後にもう一度お試しください",
+      "generic": "問題が発生しました。もう一度お試しください"
+    }
+  },
+  "categories": {
+    "title": "カテゴリ",
+    "expenses": "支出",
+    "income": "収入",
+    "add": "新しいカテゴリ",
+    "newTitle": "新しいカテゴリ",
+    "editTitle": "カテゴリを編集",
+    "name": "名前",
+    "icon": "アイコン",
+    "color": "色",
+    "customColor": "好きな色",
+    "save": "保存",
+    "create": "作成",
+    "edit": "編集",
+    "archive": "アーカイブ",
+    "restore": "元に戻す",
+    "delete": "削除",
+    "showArchived": "アーカイブを表示",
+    "archived": "アーカイブ済み",
+    "thisMonth": "この期間",
+    "actions": "カテゴリの操作",
+    "emptyTitle": "カテゴリはまだありません",
+    "emptyHint": "最初のカテゴリを作成して、取引を整理しましょう。",
+    "deleteTitle": "カテゴリを削除しますか？",
+    "deleteBody": "「{name}」は完全に削除されます。この操作は元に戻せません。",
+    "hasTransactionsTitle": "このカテゴリには取引があります",
+    "hasTransactionsBody": "履歴を保つため、取引があるカテゴリは削除できません。代わりにアーカイブしてください。新しい入力では表示されなくなりますが、過去の記録は残ります。",
+    "archiveInstead": "代わりにアーカイブ",
+    "errors": {
+      "required": "名前を入力してください",
+      "nameLong": "名前は40文字以内にしてください",
+      "nameTaken": "同じ名前のカテゴリがすでにあります",
+      "hasTransactions": "このカテゴリには取引があるため削除できません",
+      "notFound": "カテゴリが見つかりません",
+      "generic": "問題が発生しました。もう一度お試しください"
+    },
+    "toasts": {
+      "created": "カテゴリを作成しました",
+      "updated": "カテゴリを保存しました",
+      "archived": "カテゴリをアーカイブしました",
+      "restored": "カテゴリを元に戻しました",
+      "deleted": "カテゴリを削除しました"
+    },
+    "system": {
+      "food": "食費",
+      "transport": "交通費",
+      "housing": "住居費",
+      "health": "医療・健康",
+      "entertainment": "娯楽",
+      "shopping": "買い物",
+      "subscriptions": "サブスクリプション",
+      "other_expense": "その他",
+      "salary": "給与",
+      "side_income": "副収入",
+      "gifts": "贈り物",
+      "other_income": "その他"
+    }
+  },
+  "transactions": {
+    "title": "取引",
+    "summary": {
+      "income": "収入",
+      "expenses": "支出",
+      "balance": "収支"
+    },
+    "filters": {
+      "search": "取引を検索",
+      "clearSearch": "検索をクリア",
+      "period": "期間",
+      "type": "種類",
+      "category": "カテゴリ",
+      "allCategories": "すべてのカテゴリ",
+      "ranges": {
+        "month": "今月",
+        "prev": "先月",
+        "quarter": "3か月",
+        "year": "12か月",
+        "all": "全期間"
+      },
+      "types": {
+        "all": "すべて",
+        "expense": "支出",
+        "income": "収入"
+      }
+    },
+    "form": {
+      "type": "取引の種類",
+      "expense": "支出",
+      "income": "収入",
+      "amount": "金額",
+      "currency": "通貨",
+      "converted": "≈ {amount}（この日付のレート）",
+      "converting": "為替レートを取得中…",
+      "category": "カテゴリ",
+      "date": "日付",
+      "note": "メモ（任意）",
+      "notePlaceholder": "例：友達とランチ",
+      "add": "追加",
+      "save": "保存",
+      "newTitle": "新しい取引",
+      "editTitle": "取引を編集",
+      "noCategories": "この種類のカテゴリはまだありません。",
+      "createCategory": "作成する"
+    },
+    "today": "今日",
+    "yesterday": "昨日",
+    "showMore": "もっと見る",
+    "showAll": "全期間を表示",
+    "empty": {
+      "title": "取引はまだありません",
+      "hint": "最初の収入または支出を追加すると、ここに表示されます。"
+    },
+    "noResults": {
+      "title": "見つかりませんでした",
+      "hint": "別の期間を選ぶか、フィルターを解除してください。"
+    },
+    "row": {
+      "actions": "取引の操作",
+      "edit": "編集",
+      "delete": "削除"
+    },
+    "delete": {
+      "title": "取引を削除しますか？",
+      "body": "{category}：{amount}（{date}）。数秒間は元に戻せます。"
+    },
+    "undo": "元に戻す",
+    "toasts": {
+      "created": "取引を追加しました",
+      "updated": "取引を保存しました",
+      "deleted": "取引を削除しました",
+      "restored": "取引を元に戻しました"
+    },
+    "errors": {
+      "amountRequired": "金額を入力してください",
+      "amountInvalid": "この通貨で有効な金額を入力してください",
+      "amountTooLarge": "金額が大きすぎます",
+      "categoryRequired": "カテゴリを選択してください",
+      "dateInvalid": "有効な日付を選択してください",
+      "noteLong": "メモは200文字以内にしてください",
+      "categoryArchived": "このカテゴリはアーカイブされています",
+      "typeMismatch": "カテゴリが取引の種類と一致しません",
+      "notFound": "取引またはカテゴリが見つかりません",
+      "invalid": "入力内容を確認してください",
+      "currencyInvalid": "一覧から通貨を選択してください",
+      "ratesUnavailable": "現在、為替レートを取得できません。しばらくしてからもう一度お試しください",
+      "generic": "問題が発生しました。もう一度お試しください"
+    }
+  },
+  "overview": {
+    "greeting": "こんにちは、{name}さん",
+    "greetingAnon": "こんにちは",
+    "hello": {
+      "morning": "おはようございます、{name}さん",
+      "afternoon": "こんにちは、{name}さん",
+      "evening": "こんばんは、{name}さん",
+      "night": "夜遅くまでお疲れさまです、{name}さん",
+      "back": "おかえりなさい、{name}さん"
+    },
+    "helloAnon": {
+      "morning": "おはようございます",
+      "afternoon": "こんにちは",
+      "evening": "こんばんは",
+      "night": "夜遅くまでお疲れさまです",
+      "back": "おかえりなさい"
+    },
+    "quickAdd": {
+      "title": "カテゴリから追加",
+      "type": "取引の種類",
+      "addTo": "「{name}」に取引を追加",
+      "noneYet": "まだありません"
+    },
+    "period": "期間",
+    "balance": "収支",
+    "income": "収入",
+    "expenses": "支出",
+    "dynamicsTitle": "収入と支出",
+    "dynamicsAria": "選択した期間の収入と支出のエリアチャート",
+    "structureTitle": "カテゴリ別の支出",
+    "structureAria": "カテゴリ別支出のドーナツチャート",
+    "recentTitle": "最近の取引",
+    "viewAll": "すべて表示",
+    "addFirst": "取引を追加",
+    "noData": "この期間のデータはありません",
+    "budgetsTitle": "上限",
+    "setLimit": "上限を設定",
+    "budgetsEmpty": "カテゴリごとに月の上限を設定すると、残りがわかります。",
+    "budgetLeft": "残り {amount}",
+    "budgetOver": "{amount} 超過",
+    "viewBudgets": "すべての上限"
+  },
+  "charts": {
+    "other": "その他",
+    "total": "合計"
+  },
+  "analytics": {
+    "period": "期間",
+    "ranges": {
+      "week": "7日間",
+      "month": "今月",
+      "prev": "先月",
+      "quarter": "3か月",
+      "year": "12か月",
+      "custom": "カスタム"
+    },
+    "from": "開始",
+    "to": "終了",
+    "apply": "適用",
+    "errors": {
+      "invalidRange": "有効な範囲を選択してください（開始日は終了日より前、最大5年）"
+    },
+    "title": "分析",
+    "income": "収入",
+    "expenses": "支出",
+    "balance": "収支",
+    "new": "新規",
+    "comparedWith": "{range}との比較",
+    "dynamicsTitle": "収入と支出",
+    "dynamicsAria": "選択した期間の収入と支出のエリアチャート",
+    "structureTitle": "カテゴリ別の支出",
+    "structureAria": "カテゴリ別支出のドーナツチャート",
+    "monthsTitle": "月別の収入と支出",
+    "monthsCount": "月数",
+    "monthsN": "{n}か月",
+    "monthsAria": "各月の収入と支出の棒グラフ",
+    "topTitle": "上位カテゴリ",
+    "topCaption": "支出の多いカテゴリと前の期間との差",
+    "colCategory": "カテゴリ",
+    "colAmount": "金額",
+    "colChange": "増減",
+    "noData": "この期間のデータはありません"
+  },
+  "budgets": {
+    "title": "予算",
+    "subtitle": "月の上限 · {period}",
+    "add": "新しい上限",
+    "newTitle": "新しい上限",
+    "editTitle": "上限を編集",
+    "category": "カテゴリ",
+    "limit": "月の上限",
+    "limitHint": "このカテゴリで毎月使う予定の最大額です。",
+    "save": "保存",
+    "create": "上限を設定",
+    "edit": "編集",
+    "delete": "削除",
+    "actions": "上限の操作",
+    "of": "上限 {limit}",
+    "left": "残り {amount}",
+    "over": "{amount} 超過",
+    "statusWarning": "上限間近です",
+    "statusOver": "上限を超えました",
+    "totalTitle": "すべての上限の合計",
+    "emptyTitle": "上限はまだありません",
+    "emptyHint": "食費などのカテゴリに月の上限を設定すると、残りがわかります。",
+    "noCategories": "すべての支出カテゴリにすでに上限があります。",
+    "createCategory": "カテゴリを作成",
+    "deleteTitle": "この上限を削除しますか？",
+    "deleteBody": "「{name}」の上限が削除されます。取引はそのまま残ります。",
+    "toasts": {
+      "created": "上限を設定しました",
+      "updated": "上限を保存しました",
+      "deleted": "上限を削除しました"
+    },
+    "errors": {
+      "amountRequired": "金額を入力してください",
+      "amountInvalid": "この通貨で有効な金額を入力してください",
+      "amountTooLarge": "金額が大きすぎます",
+      "categoryRequired": "カテゴリを選択してください",
+      "exists": "このカテゴリにはすでに上限があります",
+      "notFound": "上限またはカテゴリが見つかりません",
+      "invalid": "入力内容を確認してください",
+      "generic": "問題が発生しました。もう一度お試しください"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "saved": "設定を保存しました",
+    "sections": {
+      "profile": "プロフィールと設定",
+      "security": "パスワード",
+      "data": "あなたのデータ",
+      "danger": "アカウントを削除"
+    },
+    "fields": {
+      "name": "名前",
+      "email": "メールアドレス",
+      "language": "言語",
+      "currency": "通貨",
+      "monthStart": "月の開始日",
+      "monthStartHint": "「今月」、予算、概要で使われます。多くの方は1日のままで問題ありません。",
+      "theme": "テーマ"
+    },
+    "currencyPicker": {
+      "search": "コードまたは名前で検索",
+      "empty": "通貨が見つかりません",
+      "popular": "よく使われる通貨",
+      "all": "すべての通貨"
+    },
+    "currencyChange": {
+      "title": "通貨を変更しますか？",
+      "confirm": "通貨を変更",
+      "body": "すべての金額が今日の為替レートで再計算されます。最初に入力した金額は保持されるため、元の通貨に戻すと正確に復元されます。"
+    },
+    "password": {
+      "current": "現在のパスワード",
+      "new": "新しいパスワード",
+      "confirm": "新しいパスワード（確認）",
+      "hint": "8文字以上",
+      "submit": "パスワードを変更",
+      "changed": "パスワードを変更しました"
+    },
+    "export": {
+      "description": "すべての取引を、ExcelやGoogleスプレッドシートで開けるCSVファイルとしてダウンロードします。日付を空にするとすべてを書き出します。",
+      "from": "開始",
+      "to": "終了",
+      "button": "CSVをダウンロード",
+      "hint": "書き出されるのはあなた自身のデータのみです。",
+      "invalidRange": "開始日は終了日より前にしてください。"
+    },
+    "danger": {
+      "description": "カテゴリ、取引、上限を含むアカウントを完全に削除します。この操作は元に戻せません。",
+      "button": "アカウントを削除",
+      "dialogTitle": "アカウントを削除しますか？",
+      "dialogBody": "プロフィール、カテゴリ、取引、上限のすべてが完全に消去され、復元できません。必要な場合は、先にデータをダウンロードしてください。",
+      "passwordLabel": "確認のためパスワードを入力してください",
+      "confirm": "完全に削除"
+    },
+    "errors": {
+      "required": "この項目は必須です",
+      "nameLong": "名前は60文字以内にしてください",
+      "currencyInvalid": "一覧から通貨を選択してください",
+      "dayInvalid": "1〜28の日を選択してください",
+      "passwordShort": "パスワードは8文字以上にしてください",
+      "passwordLong": "パスワードは72文字以内にしてください",
+      "wrongPassword": "パスワードが正しくありません",
+      "samePassword": "新しいパスワードは現在のものと異なる必要があります",
+      "mismatch": "パスワードが一致しません",
+      "tooManyAttempts": "試行回数が多すぎます。15分後にもう一度お試しください",
+      "invalid": "入力内容を確認してください",
+      "ratesUnavailable": "現在、為替レートを取得できません。しばらくしてからもう一度お試しください",
+      "generic": "問題が発生しました。もう一度お試しください"
+    }
+  },
+  "errorPage": {
+    "title": "問題が発生しました",
+    "text": "このページを読み込めませんでした。データは安全です。もう一度お試しください。",
+    "retry": "もう一度試す",
+    "home": "概要へ移動",
+    "code": "エラーコード：{code}"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "text": "このページは存在しないか、移動されました。",
+    "button": "概要へ移動"
+  },
+  "a11y": {
+    "skip": "メインコンテンツへスキップ"
+  }
+}

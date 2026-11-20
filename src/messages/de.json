@@ -121,7 +121,8 @@
       "side_income": "Nebeneinkünfte",
       "gifts": "Geschenke",
       "other_income": "Sonstiges"
-    }
+    },
+    "customColor": "Eigene Farbe"
   },
   "transactions": {
     "title": "Transaktionen",
@@ -164,7 +165,10 @@
       "newTitle": "Neue Transaktion",
       "editTitle": "Transaktion bearbeiten",
       "noCategories": "Für diese Art gibt es noch keine Kategorien.",
-      "createCategory": "Kategorie erstellen"
+      "createCategory": "Kategorie erstellen",
+      "currency": "Währung",
+      "converted": "≈ {amount} zum Wechselkurs dieses Datums",
+      "converting": "Wechselkurs wird geladen …"
     },
     "today": "Heute",
     "yesterday": "Gestern",
@@ -205,7 +209,9 @@
       "typeMismatch": "Die Kategorie passt nicht zur Transaktionsart",
       "notFound": "Transaktion oder Kategorie nicht gefunden",
       "invalid": "Bitte prüfen Sie das Formular",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut",
+      "currencyInvalid": "Wähle eine Währung aus der Liste",
+      "ratesUnavailable": "Die Wechselkurse sind gerade nicht verfügbar. Bitte versuche es später erneut"
     }
   },
   "overview": {
@@ -228,7 +234,27 @@
     "budgetsEmpty": "Legen Sie ein Monatslimit für eine Kategorie fest, um zu sehen, wie viel übrig ist.",
     "budgetLeft": "{amount} übrig",
     "budgetOver": "{amount} überschritten",
-    "viewBudgets": "Alle Limits"
+    "viewBudgets": "Alle Limits",
+    "hello": {
+      "morning": "Guten Morgen, {name}",
+      "afternoon": "Guten Tag, {name}",
+      "evening": "Guten Abend, {name}",
+      "night": "Gute Nacht, {name}",
+      "back": "Schön, dass du wieder da bist, {name}"
+    },
+    "helloAnon": {
+      "morning": "Guten Morgen",
+      "afternoon": "Guten Tag",
+      "evening": "Guten Abend",
+      "night": "Gute Nacht",
+      "back": "Schön, dass du wieder da bist"
+    },
+    "quickAdd": {
+      "title": "Nach Kategorie hinzufügen",
+      "type": "Buchungstyp",
+      "addTo": "Buchung zu „{name}“ hinzufügen",
+      "noneYet": "Noch nichts"
+    }
   },
   "charts": {
     "other": "Sonstige",
@@ -342,7 +368,7 @@
     "currencyChange": {
       "title": "Währung ändern?",
       "confirm": "Währung ändern",
-      "body": "Ihre vorhandenen Beträge werden nicht umgerechnet. Die Zahlen bleiben gleich und werden nur in der neuen Währung angezeigt."
+      "body": "Alle Beträge werden zum heutigen Wechselkurs umgerechnet. Die ursprünglich eingegebenen Beträge bleiben erhalten, ein Zurückwechseln stellt sie also exakt wieder her."
     },
     "password": {
       "current": "Aktuelles Passwort",
@@ -380,7 +406,8 @@
       "mismatch": "Die Passwörter stimmen nicht überein",
       "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
       "invalid": "Bitte prüfen Sie das Formular",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut",
+      "ratesUnavailable": "Die Wechselkurse sind gerade nicht verfügbar. Bitte versuche es später erneut"
     }
   },
   "errorPage": {

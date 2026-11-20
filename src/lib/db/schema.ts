@@ -25,6 +25,8 @@ export const users = sqliteTable("users", {
   currency: text("currency").notNull().default("USD"),
   locale: text("locale").notNull().default("en"),
   monthStartDay: integer("month_start_day").notNull().default(1),
+  /** When the user last opened the overview (ms). Used for the "welcome back" greeting. */
+  lastSeenAt: integer("last_seen_at"),
   createdAt: createdAt(),
 });
 
@@ -61,6 +63,13 @@ export const transactions = sqliteTable(
     type: text("type", { enum: ["income", "expense"] }).notNull(),
     /** Amount in minor units of the user's currency (cents, kopecks...). Always > 0. */
     amount: integer("amount").notNull(),
+    /**
+     * What the user actually typed: amount (minor units) and currency. `amount` above is this value
+     * converted into the user's current currency, so totals and charts need no conversion.
+     * Keeping the original lets us switch currencies back and forth without losing precision.
+     */
+    originalAmount: integer("original_amount"),
+    originalCurrency: text("original_currency"),
     /** Date as YYYY-MM-DD */
     occurredOn: text("occurred_on").notNull(),
     note: text("note"),

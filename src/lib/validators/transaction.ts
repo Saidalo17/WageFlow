@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isValidCurrency } from "@/lib/currencies";
 
 /** Error messages are translation keys (transactions.errors.<key>). */
 
@@ -21,11 +22,16 @@ const isoDate = z
 export const transactionSchema = z.object({
   type: z.enum(["income", "expense"]),
   categoryId: z.string().min(1, { error: "categoryRequired" }).max(64),
-  /** Minor units of the user's currency; the upper bound is checked per currency on the server. */
+  /** Minor units of `currency` (default: the user's currency); the upper bound is checked per currency on the server. */
   amount: z
     .number({ error: "amountInvalid" })
     .int({ error: "amountInvalid" })
     .positive({ error: "amountRequired" }),
+  /** Currency of the amount. Leave out for the user's own currency; otherwise it is converted on save. */
+  currency: z
+    .string()
+    .refine(isValidCurrency, { error: "currencyInvalid" })
+    .optional(),
   occurredOn: isoDate,
   note: z
     .string()

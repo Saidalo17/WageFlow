@@ -33,4 +33,7 @@ export const DEFAULT_CURRENCY_BY_LOCALE: Record<string, string> = {
   es: "EUR",
   ru: "RUB",
   zh: "CNY",
+  ja: "JPY",
+  ko: "KRW",
+  tr: "TRY",
 };

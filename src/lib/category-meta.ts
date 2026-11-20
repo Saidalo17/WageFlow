@@ -46,7 +46,30 @@ export const CATEGORY_ICON_KEYS = [
   "landmark",
   "gem",
   "circle-ellipsis",
+  "pizza",
+  "beer",
+  "glasses",
+  "scissors",
+  "train",
+  "bike",
+  "umbrella",
+  "tv",
+  "camera",
+  "palette",
+  "stethoscope",
+  "pill",
+  "building",
+  "tree",
+  "sparkles",
+  "star",
+  "trophy",
+  "shopping-cart",
+  "credit-card",
+  "receipt",
 ] as const;
 
-export type CategoryColor = (typeof CATEGORY_COLORS)[number];
+/** Any color is allowed: the swatches above are only suggestions. Stored as upper-case #RRGGBB. */
+export const HEX_COLOR = /^#[0-9a-fA-F]{6}$/;
+
+export type CategoryColor = string;
 export type CategoryIconKey = (typeof CATEGORY_ICON_KEYS)[number];

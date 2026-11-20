@@ -8,7 +8,7 @@ import { checkMessages } from "../../scripts/i18n-check.mjs";
 const messagesDir = path.join(process.cwd(), "src", "messages");
 
 describe("translations", () => {
-  it("all six languages have the same keys and placeholders as English", () => {
+  it("all nine languages have the same keys and placeholders as English", () => {
     expect(checkMessages()).toEqual([]);
   });
 
@@ -31,10 +31,19 @@ describe("translations", () => {
   });
 });
 
+describe("language list", () => {
+  it("is alphabetical by the English name, with English names", async () => {
+    const { localeLabels } = await import("@/i18n/config");
+    const names = locales.map((l) => localeLabels[l]);
+    expect(names).toEqual(["Chinese", "English", "French", "German", "Japanese", "Korean", "Russian", "Spanish", "Turkish"]);
+    expect([...names].sort()).toEqual(names);
+  });
+});
+
 describe("choosing the language", () => {
-  it("recognises the six languages", () => {
+  it("recognises the nine languages", () => {
     for (const l of locales) expect(isLocale(l)).toBe(true);
-    for (const l of ["it", "EN", "", undefined, null, 5]) expect(isLocale(l)).toBe(false);
+    for (const l of ["it", "pl", "EN", "", undefined, null, 5]) expect(isLocale(l)).toBe(false);
   });
 
   it("picks the best language from the browser header, English as fallback", () => {
@@ -42,7 +51,10 @@ describe("choosing the language", () => {
     expect(matchLocale("de-DE")).toBe("de");
     expect(matchLocale("zh-CN,zh;q=0.9")).toBe("zh");
     expect(matchLocale("it-IT,it;q=0.9,fr;q=0.8")).toBe("fr"); // first supported one
-    expect(matchLocale("ja-JP")).toBe("en");
+    expect(matchLocale("ja-JP")).toBe("ja");
+    expect(matchLocale("ko-KR,ko;q=0.9")).toBe("ko");
+    expect(matchLocale("tr-TR")).toBe("tr");
+    expect(matchLocale("pl-PL")).toBe("en");
     expect(matchLocale(null)).toBe("en");
     expect(matchLocale("")).toBe("en");
   });

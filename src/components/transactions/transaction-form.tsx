@@ -3,17 +3,18 @@
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { createTransaction, updateTransaction } from "@/app/(app)/transactions/actions";
+import { createTransaction, getConversionRate, updateTransaction } from "@/app/(app)/transactions/actions";
+import { CurrencyCombobox } from "@/components/settings/currency-combobox";
 import { CategoryBadge } from "@/components/category-icon";
 import { useCategoryName } from "@/components/categories/use-category-name";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { todayISO } from "@/lib/format";
-import { minorDigits, parseAmount } from "@/lib/money";
+import { formatMoney, minorDigits, parseAmount } from "@/lib/money";
 import { currencySymbol, editableAmount } from "@/lib/money-input";
 import { cn } from "@/lib/utils";
 import { MAX_AMOUNT_MAJOR } from "@/lib/validators/transaction";
@@ -24,12 +25,14 @@ type Type = "income" | "expense";
 export function TransactionForm({
   transaction,
   initialType,
+  initialCategoryId,
   categories,
   currency,
   onDone,
 }: {
   transaction: TxItem | null;
   initialType: Type;
+  initialCategoryId?: string;
   categories: CategoryOption[];
   currency: string;
   onDone: () => void;
@@ -41,10 +44,14 @@ export function TransactionForm({
   const categoryName = useCategoryName();
 
   const [type, setType] = useState<Type>(transaction?.type ?? initialType);
+  // The amount is edited in the currency it was typed in (it may differ from the main currency).
+  const [inputCurrency, setInputCurrency] = useState(transaction?.originalCurrency ?? currency);
   const [amountText, setAmountText] = useState(
-    transaction ? editableAmount(transaction.amount, currency, locale) : "",
+    transaction
+      ? editableAmount(transaction.originalAmount ?? transaction.amount, transaction.originalCurrency ?? currency, locale)
+      : "",
   );
-  const [categoryId, setCategoryId] = useState(transaction?.categoryId ?? "");
+  const [categoryId, setCategoryId] = useState(transaction?.categoryId ?? initialCategoryId ?? "");
   const [date, setDate] = useState(transaction?.occurredOn ?? todayISO());
   const [note, setNote] = useState(transaction?.note ?? "");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -63,6 +70,27 @@ export function TransactionForm({
   );
   const selectedValid = options.some((c) => c.id === categoryId);
 
+  // "≈ amount in the main currency" while typing in another currency.
+  const foreign = inputCurrency !== currency;
+  const [rate, setRate] = useState<{ key: string; value: number | null } | null>(null);
+  const rateKey = `${inputCurrency}|${date}`;
+  useEffect(() => {
+    if (!foreign) return;
+    let cancelled = false;
+    void getConversionRate(inputCurrency, date).then((r) => {
+      if (!cancelled) setRate({ key: rateKey, value: r.ok ? r.rate : null });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [foreign, inputCurrency, date, rateKey]);
+  const typed = parseAmount(amountText, locale);
+  const currentRate = rate && rate.key === rateKey ? rate.value : undefined; // undefined = still loading
+  const preview =
+    foreign && typed !== null && typed > 0 && currentRate
+      ? formatMoney(Math.max(1, Math.round(typed * currentRate * 10 ** minorDigits(currency))), currency, locale)
+      : null;
+
   function chooseType(next: Type) {
     if (next === type) return;
     setType(next);
@@ -76,7 +104,7 @@ export function TransactionForm({
 
     const next: Record<string, string> = {};
     const n = parseAmount(amountText, locale);
-    const d = minorDigits(currency);
+    const d = minorDigits(inputCurrency);
     let minor = 0;
     if (!amountText.trim()) next.amount = "amountRequired";
     else if (n === null || n <= 0) next.amount = "amountInvalid";
@@ -91,7 +119,7 @@ export function TransactionForm({
     if (Object.keys(next).length > 0) return;
 
     setSaving(true);
-    const payload = { type, categoryId, amount: minor, occurredOn: date, note };
+    const payload = { type, categoryId, amount: minor, currency: inputCurrency, occurredOn: date, note };
     const result = transaction
       ? await updateTransaction(transaction.id, payload)
       : await createTransaction(payload);
@@ -108,7 +136,7 @@ export function TransactionForm({
     }
   }
 
-  const symbol = currencySymbol(locale, currency);
+  const symbol = currencySymbol(locale, inputCurrency);
   const err = (key: string) => (errors[key] ? t(`errors.${errors[key]}`) : null);
 
   return (
@@ -147,23 +175,41 @@ export function TransactionForm({
         <Label htmlFor="tx-amount" className="text-sm font-semibold">
           {t("form.amount")}
         </Label>
-        <div className="relative">
-          <Input
-            id="tx-amount"
-            inputMode="decimal"
-            autoComplete="off"
-            autoFocus
-            placeholder="0"
-            value={amountText}
-            onChange={(e) => setAmountText(e.target.value)}
-            aria-invalid={!!errors.amount}
-            aria-describedby={errors.amount ? "tx-amount-error" : undefined}
-            className="amount h-14 pr-14 text-2xl font-extrabold"
+        <div className="flex gap-2">
+          <div className="relative min-w-0 flex-1">
+            <Input
+              id="tx-amount"
+              inputMode="decimal"
+              autoComplete="off"
+              autoFocus
+              placeholder="0"
+              value={amountText}
+              onChange={(e) => setAmountText(e.target.value)}
+              aria-invalid={!!errors.amount}
+              aria-describedby={errors.amount ? "tx-amount-error" : undefined}
+              className="amount h-14 pr-12 text-2xl font-extrabold"
+            />
+            <span className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-bold text-muted-foreground">
+              {symbol}
+            </span>
+          </div>
+          <CurrencyCombobox
+            id="tx-currency"
+            compact
+            value={inputCurrency}
+            onChange={setInputCurrency}
+            ariaLabel={t("form.currency")}
           />
-          <span className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-bold text-muted-foreground">
-            {symbol}
-          </span>
         </div>
+        {foreign && (
+          <p className="text-sm text-muted-foreground" aria-live="polite">
+            {preview
+              ? t("form.converted", { amount: preview })
+              : currentRate === null
+                ? t("errors.ratesUnavailable")
+                : t("form.converting")}
+          </p>
+        )}
         {err("amount") && (
           <p id="tx-amount-error" role="alert" className="text-sm text-destructive">
             {err("amount")}

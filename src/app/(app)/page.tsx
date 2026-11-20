@@ -6,6 +6,8 @@ import { DonutChart } from "@/components/charts/lazy";
 import { Card } from "@/components/card";
 import { BudgetProgress } from "@/components/budgets/budget-progress";
 import { CategoryBadge } from "@/components/category-icon";
+import { Greeting } from "@/components/overview/greeting";
+import { QuickAdd } from "@/components/overview/quick-add";
 import { RecentTransactions } from "@/components/overview/recent-transactions";
 import { buttonVariants } from "@/components/ui/button";
 import { budgetStatus } from "@/lib/budget-status";
@@ -13,6 +15,8 @@ import { formatDate } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
 import { capAtTomorrow, currentPeriod, isRange, rangeBounds, type Range } from "@/lib/period";
 import { listBudgets } from "@/lib/services/budgets";
+import { listCategoriesWithTotals } from "@/lib/services/categories";
+import { touchLastSeen } from "@/lib/services/users";
 import { incomeExpenseSeries, totalsByCategory } from "@/lib/services/analytics";
 import { listTransactions, sumTransactions } from "@/lib/services/transactions";
 import { getCurrentUser } from "@/lib/session";
@@ -43,13 +47,16 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
   const { from, to } = rangeBounds(range, user.monthStartDay) as { from: string; to: string };
   const granularity = range === "quarter" || range === "year" ? "month" : "day";
 
-  const [totals, series, byCategory, recent, budgets] = await Promise.all([
+  const [totals, series, byCategory, recent, budgets, allCategories, away] = await Promise.all([
     sumTransactions(user.id, { from, to }),
     incomeExpenseSeries(user.id, from, capAtTomorrow(to), granularity),
     totalsByCategory(user.id, "expense", from, to),
     listTransactions(user.id, {}, 5),
     // Limits are monthly, so they always use the current month, whatever period is picked above.
     listBudgets(user.id, currentPeriod(user.monthStartDay)),
+    listCategoriesWithTotals(user.id, { from, to }),
+    // True when the user has been away for a long time ("Glad you're back").
+    touchLastSeen(user.id, user.lastSeenAt),
   ]);
 
   // The three limits that are closest to being used up.
@@ -65,9 +72,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <h1 className="text-[28px] font-extrabold tracking-tight">
-          {firstName ? t("greeting", { name: firstName }) : t("greetingAnon")}
-        </h1>
+        <Greeting name={firstName} away={away} />
         <p className="text-muted-foreground">
           {formatDate(
             from,
@@ -166,9 +171,14 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
         </Card>
       </div>
 
+      {/* Categories: tap one to add a transaction by hand */}
+      <Card index={5} title={t("quickAdd.title")}>
+        <QuickAdd categories={allCategories} currency={user.currency} />
+      </Card>
+
       {/* Limits */}
       <Card
-        index={5}
+        index={6}
         title={t("budgetsTitle")}
         action={
           <Link href="/budgets" className={buttonVariants({ variant: "ghost", size: "sm" })}>
@@ -214,7 +224,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
 
       {/* Latest transactions */}
       <Card
-        index={6}
+        index={7}
         title={t("recentTitle")}
         action={
           <Link href="/transactions?range=all" className={buttonVariants({ variant: "ghost", size: "sm" })}>

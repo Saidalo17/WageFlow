@@ -121,7 +121,8 @@
       "side_income": "Revenus annexes",
       "gifts": "Cadeaux",
       "other_income": "Autres"
-    }
+    },
+    "customColor": "Couleur personnalisée"
   },
   "transactions": {
     "title": "Opérations",
@@ -164,7 +165,10 @@
       "newTitle": "Nouvelle opération",
       "editTitle": "Modifier l’opération",
       "noCategories": "Il n’y a pas encore de catégorie de ce type.",
-      "createCategory": "En créer une"
+      "createCategory": "En créer une",
+      "currency": "Devise",
+      "converted": "≈ {amount} au taux de change de cette date",
+      "converting": "Récupération du taux de change…"
     },
     "today": "Aujourd’hui",
     "yesterday": "Hier",
@@ -205,7 +209,9 @@
       "typeMismatch": "La catégorie ne correspond pas au type d’opération",
       "notFound": "Opération ou catégorie introuvable",
       "invalid": "Vérifiez le formulaire",
-      "generic": "Une erreur est survenue. Veuillez réessayer"
+      "generic": "Une erreur est survenue. Veuillez réessayer",
+      "currencyInvalid": "Choisissez une devise dans la liste",
+      "ratesUnavailable": "Les taux de change sont indisponibles pour le moment. Réessayez plus tard"
     }
   },
   "overview": {
@@ -228,7 +234,27 @@
     "budgetsEmpty": "Définissez un plafond mensuel pour une catégorie afin de voir ce qu’il vous reste.",
     "budgetLeft": "Il reste {amount}",
     "budgetOver": "Dépassé de {amount}",
-    "viewBudgets": "Tous les plafonds"
+    "viewBudgets": "Tous les plafonds",
+    "hello": {
+      "morning": "Bonjour, {name}",
+      "afternoon": "Bon après-midi, {name}",
+      "evening": "Bonsoir, {name}",
+      "night": "Bonne nuit, {name}",
+      "back": "Content de vous revoir, {name}"
+    },
+    "helloAnon": {
+      "morning": "Bonjour",
+      "afternoon": "Bon après-midi",
+      "evening": "Bonsoir",
+      "night": "Bonne nuit",
+      "back": "Content de vous revoir"
+    },
+    "quickAdd": {
+      "title": "Ajouter par catégorie",
+      "type": "Type d’opération",
+      "addTo": "Ajouter une opération à « {name} »",
+      "noneYet": "Rien pour l’instant"
+    }
   },
   "charts": {
     "other": "Autres",
@@ -342,7 +368,7 @@
     "currencyChange": {
       "title": "Changer de devise ?",
       "confirm": "Changer de devise",
-      "body": "Vos montants existants ne seront pas convertis. Les chiffres restent les mêmes et seront simplement affichés dans la nouvelle devise."
+      "body": "Tous vos montants seront recalculés au taux de change du jour. Les montants saisis à l’origine sont conservés : revenir à l’ancienne devise les restaure exactement."
     },
     "password": {
       "current": "Mot de passe actuel",
@@ -380,7 +406,8 @@
       "mismatch": "Les mots de passe ne correspondent pas",
       "tooManyAttempts": "Trop de tentatives. Réessayez dans 15 minutes",
       "invalid": "Vérifiez le formulaire",
-      "generic": "Une erreur est survenue. Veuillez réessayer"
+      "generic": "Une erreur est survenue. Veuillez réessayer",
+      "ratesUnavailable": "Les taux de change sont indisponibles pour le moment. Réessayez plus tard"
     }
   },
   "errorPage": {

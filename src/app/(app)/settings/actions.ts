@@ -7,6 +7,8 @@ import { cookies } from "next/headers";
 import { signOut } from "@/lib/auth";
 import { db } from "@/lib/db/client";
 import { budgets, categories, loginAttempts, transactions, users } from "@/lib/db/schema";
+import { RatesUnavailableError } from "@/lib/fx";
+import { switchUserCurrency } from "@/lib/services/currency-switch";
 import { clearFailures, isRateLimited, recordFailure } from "@/lib/rate-limit";
 import { getCurrentUser } from "@/lib/session";
 import {
@@ -34,10 +36,21 @@ export async function updateProfile(input: unknown): Promise<ActionResult> {
   }
   const { name, currency, locale, monthStartDay } = parsed.data;
 
-  await db
-    .update(users)
-    .set({ name: name || null, currency, locale, monthStartDay })
-    .where(eq(users.id, user.id));
+  try {
+    if (currency !== user.currency) {
+      // Every amount is recalculated at today's rate (all or nothing).
+      await switchUserCurrency(user.id, user.currency, currency, { name: name || null, locale, monthStartDay });
+    } else {
+      await db
+        .update(users)
+        .set({ name: name || null, locale, monthStartDay })
+        .where(eq(users.id, user.id));
+    }
+  } catch (e) {
+    if (e instanceof RatesUnavailableError) return { ok: false, error: "ratesUnavailable" };
+    console.error("updateProfile failed", e instanceof Error ? e.message : e);
+    return { ok: false, error: "generic" };
+  }
 
   // The interface language follows the profile right away.
   (await cookies()).set(LOCALE_COOKIE, locale, {

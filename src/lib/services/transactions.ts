@@ -1,7 +1,26 @@
 import { and, desc, eq, gte, inArray, lte, or, sql, type SQL } from "drizzle-orm";
 import { db } from "@/lib/db/client";
-import { categories, transactions } from "@/lib/db/schema";
-import type { TransactionValues } from "@/lib/validators/transaction";
+import { categories, transactions, users } from "@/lib/db/schema";
+
+/** What is written to the database: `amount` is in the user's currency, `original*` is what was typed. */
+export type StoredTransaction = {
+  type: "income" | "expense";
+  categoryId: string;
+  amount: number;
+  /** Left out = the amount was typed in the user's own currency. */
+  originalAmount?: number;
+  originalCurrency?: string;
+  occurredOn: string;
+  note: string | null;
+};
+
+async function withOriginal(userId: string, values: StoredTransaction) {
+  if (values.originalAmount != null && values.originalCurrency) {
+    return values as StoredTransaction & { originalAmount: number; originalCurrency: string };
+  }
+  const [u] = await db.select({ currency: users.currency }).from(users).where(eq(users.id, userId));
+  return { ...values, originalAmount: values.amount, originalCurrency: u?.currency ?? "USD" };
+}
 
 /**
  * Every function takes the signed-in user's id and puts it in the WHERE clause,
@@ -54,6 +73,8 @@ export async function listTransactions(userId: string, filters: TxFilters, limit
       id: transactions.id,
       type: transactions.type,
       amount: transactions.amount,
+      originalAmount: transactions.originalAmount,
+      originalCurrency: transactions.originalCurrency,
       occurredOn: transactions.occurredOn,
       note: transactions.note,
       categoryId: transactions.categoryId,
@@ -95,18 +116,18 @@ export async function getTransaction(userId: string, id: string) {
   return row ?? null;
 }
 
-export async function insertTransaction(userId: string, values: TransactionValues, id?: string) {
+export async function insertTransaction(userId: string, values: StoredTransaction, id?: string) {
   const [row] = await db
     .insert(transactions)
-    .values({ ...values, userId, ...(id ? { id } : {}) })
+    .values({ ...(await withOriginal(userId, values)), userId, ...(id ? { id } : {}) })
     .returning({ id: transactions.id });
   return row;
 }
 
-export async function updateTransactionRow(userId: string, id: string, values: TransactionValues) {
+export async function updateTransactionRow(userId: string, id: string, values: StoredTransaction) {
   const res = await db
     .update(transactions)
-    .set({ ...values, updatedAt: Date.now() })
+    .set({ ...(await withOriginal(userId, values)), updatedAt: Date.now() })
     .where(and(eq(transactions.id, id), eq(transactions.userId, userId)));
   return res.rowsAffected > 0;
 }
@@ -125,6 +146,8 @@ export async function exportTransactions(userId: string, range: { from?: string;
       occurredOn: transactions.occurredOn,
       type: transactions.type,
       amount: transactions.amount,
+      originalAmount: transactions.originalAmount,
+      originalCurrency: transactions.originalCurrency,
       note: transactions.note,
       categoryName: categories.name,
       categorySystemKey: categories.systemKey,

@@ -1,0 +1,428 @@
+{
+  "app": {
+    "name": "Salary"
+  },
+  "nav": {
+    "overview": "개요",
+    "transactions": "거래",
+    "categories": "카테고리",
+    "analytics": "분석",
+    "budgets": "예산",
+    "settings": "설정",
+    "menu": "메뉴"
+  },
+  "actions": {
+    "add": "추가"
+  },
+  "theme": {
+    "label": "테마",
+    "light": "라이트",
+    "dark": "다크",
+    "system": "시스템"
+  },
+  "language": {
+    "label": "언어"
+  },
+  "profile": {
+    "label": "프로필",
+    "logout": "로그아웃"
+  },
+  "common": {
+    "comingSoon": "이 섹션은 곧 제공될 예정입니다.",
+    "cancel": "취소"
+  },
+  "auth": {
+    "login": {
+      "title": "다시 오신 것을 환영합니다",
+      "subtitle": "계정에 로그인하세요",
+      "submit": "로그인",
+      "noAccount": "아직 계정이 없으신가요?",
+      "toRegister": "가입하기"
+    },
+    "register": {
+      "title": "계정 만들기",
+      "subtitle": "몇 분 만에 돈 관리를 시작하세요",
+      "submit": "계정 만들기",
+      "haveAccount": "이미 계정이 있으신가요?",
+      "toLogin": "로그인"
+    },
+    "fields": {
+      "name": "이름(선택)",
+      "email": "이메일",
+      "password": "비밀번호",
+      "passwordHint": "8자 이상",
+      "showPassword": "비밀번호 표시",
+      "hidePassword": "비밀번호 숨기기"
+    },
+    "errors": {
+      "required": "필수 항목입니다",
+      "email": "올바른 이메일 주소를 입력하세요",
+      "passwordShort": "비밀번호는 8자 이상이어야 합니다",
+      "passwordLong": "비밀번호는 72자 이하여야 합니다",
+      "nameLong": "이름은 60자 이하여야 합니다",
+      "emailTaken": "이 이메일로 만든 계정이 이미 있습니다",
+      "invalidCredentials": "이메일 또는 비밀번호가 올바르지 않습니다",
+      "tooManyAttempts": "시도 횟수가 너무 많습니다. 15분 후에 다시 시도하세요",
+      "generic": "문제가 발생했습니다. 다시 시도해 주세요"
+    }
+  },
+  "categories": {
+    "title": "카테고리",
+    "expenses": "지출",
+    "income": "수입",
+    "add": "새 카테고리",
+    "newTitle": "새 카테고리",
+    "editTitle": "카테고리 수정",
+    "name": "이름",
+    "icon": "아이콘",
+    "color": "색상",
+    "customColor": "원하는 색상",
+    "save": "저장",
+    "create": "만들기",
+    "edit": "수정",
+    "archive": "보관",
+    "restore": "복원",
+    "delete": "삭제",
+    "showArchived": "보관된 항목 보기",
+    "archived": "보관됨",
+    "thisMonth": "이 기간",
+    "actions": "카테고리 작업",
+    "emptyTitle": "아직 카테고리가 없습니다",
+    "emptyHint": "첫 카테고리를 만들어 거래를 정리해 보세요.",
+    "deleteTitle": "카테고리를 삭제할까요?",
+    "deleteBody": "“{name}” 카테고리가 영구적으로 삭제됩니다. 되돌릴 수 없습니다.",
+    "hasTransactionsTitle": "이 카테고리에는 거래가 있습니다",
+    "hasTransactionsBody": "기록을 온전히 유지하기 위해 거래가 있는 카테고리는 삭제할 수 없습니다. 대신 보관하세요. 새 입력에서는 사라지지만 이전 기록은 그대로 남습니다.",
+    "archiveInstead": "대신 보관",
+    "errors": {
+      "required": "이름을 입력하세요",
+      "nameLong": "이름은 40자 이하여야 합니다",
+      "nameTaken": "같은 이름의 카테고리가 이미 있습니다",
+      "hasTransactions": "이 카테고리에는 거래가 있어 삭제할 수 없습니다",
+      "notFound": "카테고리를 찾을 수 없습니다",
+      "generic": "문제가 발생했습니다. 다시 시도해 주세요"
+    },
+    "toasts": {
+      "created": "카테고리를 만들었습니다",
+      "updated": "카테고리를 저장했습니다",
+      "archived": "카테고리를 보관했습니다",
+      "restored": "카테고리를 복원했습니다",
+      "deleted": "카테고리를 삭제했습니다"
+    },
+    "system": {
+      "food": "식비",
+      "transport": "교통비",
+      "housing": "주거비",
+      "health": "건강",
+      "entertainment": "여가",
+      "shopping": "쇼핑",
+      "subscriptions": "구독",
+      "other_expense": "기타",
+      "salary": "급여",
+      "side_income": "부수입",
+      "gifts": "선물",
+      "other_income": "기타"
+    }
+  },
+  "transactions": {
+    "title": "거래",
+    "summary": {
+      "income": "수입",
+      "expenses": "지출",
+      "balance": "잔액"
+    },
+    "filters": {
+      "search": "거래 검색",
+      "clearSearch": "검색 지우기",
+      "period": "기간",
+      "type": "유형",
+      "category": "카테고리",
+      "allCategories": "모든 카테고리",
+      "ranges": {
+        "month": "이번 달",
+        "prev": "지난달",
+        "quarter": "3개월",
+        "year": "12개월",
+        "all": "전체 기간"
+      },
+      "types": {
+        "all": "전체",
+        "expense": "지출",
+        "income": "수입"
+      }
+    },
+    "form": {
+      "type": "거래 유형",
+      "expense": "지출",
+      "income": "수입",
+      "amount": "금액",
+      "currency": "통화",
+      "converted": "≈ {amount} (해당 날짜 환율 기준)",
+      "converting": "환율을 가져오는 중…",
+      "category": "카테고리",
+      "date": "날짜",
+      "note": "메모(선택)",
+      "notePlaceholder": "예: 친구와 점심",
+      "add": "추가",
+      "save": "저장",
+      "newTitle": "새 거래",
+      "editTitle": "거래 수정",
+      "noCategories": "이 유형의 카테고리가 아직 없습니다.",
+      "createCategory": "만들기"
+    },
+    "today": "오늘",
+    "yesterday": "어제",
+    "showMore": "더 보기",
+    "showAll": "전체 기간 보기",
+    "empty": {
+      "title": "아직 거래가 없습니다",
+      "hint": "첫 수입이나 지출을 추가하면 여기에 표시됩니다."
+    },
+    "noResults": {
+      "title": "결과가 없습니다",
+      "hint": "다른 기간을 선택하거나 필터를 해제해 보세요."
+    },
+    "row": {
+      "actions": "거래 작업",
+      "edit": "수정",
+      "delete": "삭제"
+    },
+    "delete": {
+      "title": "거래를 삭제할까요?",
+      "body": "{category}: {amount} ({date}). 몇 초 동안은 되돌릴 수 있습니다."
+    },
+    "undo": "실행 취소",
+    "toasts": {
+      "created": "거래를 추가했습니다",
+      "updated": "거래를 저장했습니다",
+      "deleted": "거래를 삭제했습니다",
+      "restored": "거래를 복원했습니다"
+    },
+    "errors": {
+      "amountRequired": "금액을 입력하세요",
+      "amountInvalid": "이 통화에 맞는 올바른 금액을 입력하세요",
+      "amountTooLarge": "금액이 너무 큽니다",
+      "categoryRequired": "카테고리를 선택하세요",
+      "dateInvalid": "올바른 날짜를 선택하세요",
+      "noteLong": "메모는 200자 이하여야 합니다",
+      "categoryArchived": "이 카테고리는 보관되었습니다",
+      "typeMismatch": "카테고리가 거래 유형과 맞지 않습니다",
+      "notFound": "거래 또는 카테고리를 찾을 수 없습니다",
+      "invalid": "입력 내용을 확인하세요",
+      "currencyInvalid": "목록에서 통화를 선택하세요",
+      "ratesUnavailable": "지금은 환율을 가져올 수 없습니다. 나중에 다시 시도해 주세요",
+      "generic": "문제가 발생했습니다. 다시 시도해 주세요"
+    }
+  },
+  "overview": {
+    "greeting": "안녕하세요, {name}님",
+    "greetingAnon": "안녕하세요",
+    "hello": {
+      "morning": "좋은 아침이에요, {name}님",
+      "afternoon": "좋은 오후예요, {name}님",
+      "evening": "좋은 저녁이에요, {name}님",
+      "night": "늦은 시간이네요, {name}님",
+      "back": "다시 오셔서 반가워요, {name}님"
+    },
+    "helloAnon": {
+      "morning": "좋은 아침이에요",
+      "afternoon": "좋은 오후예요",
+      "evening": "좋은 저녁이에요",
+      "night": "늦은 시간이네요",
+      "back": "다시 오셔서 반가워요"
+    },
+    "quickAdd": {
+      "title": "카테고리로 추가",
+      "type": "거래 유형",
+      "addTo": "“{name}”에 거래 추가",
+      "noneYet": "아직 없음"
+    },
+    "period": "기간",
+    "balance": "잔액",
+    "income": "수입",
+    "expenses": "지출",
+    "dynamicsTitle": "수입과 지출",
+    "dynamicsAria": "선택한 기간의 수입과 지출 영역 차트",
+    "structureTitle": "카테고리별 지출",
+    "structureAria": "카테고리별 지출 도넛 차트",
+    "recentTitle": "최근 거래",
+    "viewAll": "모두 보기",
+    "addFirst": "거래 추가",
+    "noData": "이 기간에는 데이터가 없습니다",
+    "budgetsTitle": "한도",
+    "setLimit": "한도 설정",
+    "budgetsEmpty": "카테고리별 월 한도를 설정하면 남은 금액을 확인할 수 있습니다.",
+    "budgetLeft": "{amount} 남음",
+    "budgetOver": "{amount} 초과",
+    "viewBudgets": "모든 한도"
+  },
+  "charts": {
+    "other": "기타",
+    "total": "합계"
+  },
+  "analytics": {
+    "period": "기간",
+    "ranges": {
+      "week": "7일",
+      "month": "이번 달",
+      "prev": "지난달",
+      "quarter": "3개월",
+      "year": "12개월",
+      "custom": "직접 설정"
+    },
+    "from": "시작",
+    "to": "종료",
+    "apply": "적용",
+    "errors": {
+      "invalidRange": "올바른 범위를 선택하세요(시작일이 종료일보다 앞, 최대 5년)"
+    },
+    "title": "분석",
+    "income": "수입",
+    "expenses": "지출",
+    "balance": "잔액",
+    "new": "신규",
+    "comparedWith": "{range}와(과) 비교",
+    "dynamicsTitle": "수입과 지출",
+    "dynamicsAria": "선택한 기간의 수입과 지출 영역 차트",
+    "structureTitle": "카테고리별 지출",
+    "structureAria": "카테고리별 지출 도넛 차트",
+    "monthsTitle": "월별 수입 대 지출",
+    "monthsCount": "개월 수",
+    "monthsN": "{n}개월",
+    "monthsAria": "월별 수입과 지출 막대 차트",
+    "topTitle": "상위 카테고리",
+    "topCaption": "지출이 큰 카테고리와 이전 기간 대비 변화",
+    "colCategory": "카테고리",
+    "colAmount": "금액",
+    "colChange": "변화",
+    "noData": "이 기간에는 데이터가 없습니다"
+  },
+  "budgets": {
+    "title": "예산",
+    "subtitle": "월 한도 · {period}",
+    "add": "새 한도",
+    "newTitle": "새 한도",
+    "editTitle": "한도 수정",
+    "category": "카테고리",
+    "limit": "월 한도",
+    "limitHint": "이 카테고리에서 매달 쓰려는 최대 금액입니다.",
+    "save": "저장",
+    "create": "한도 설정",
+    "edit": "수정",
+    "delete": "삭제",
+    "actions": "한도 작업",
+    "of": "한도 {limit}",
+    "left": "{amount} 남음",
+    "over": "{amount} 초과",
+    "statusWarning": "한도에 거의 도달했습니다",
+    "statusOver": "한도를 초과했습니다",
+    "totalTitle": "모든 한도 합계",
+    "emptyTitle": "아직 한도가 없습니다",
+    "emptyHint": "식비 같은 카테고리에 월 한도를 설정하면 남은 금액을 확인할 수 있습니다.",
+    "noCategories": "모든 지출 카테고리에 이미 한도가 있습니다.",
+    "createCategory": "카테고리 만들기",
+    "deleteTitle": "이 한도를 삭제할까요?",
+    "deleteBody": "“{name}” 한도가 삭제됩니다. 거래는 그대로 유지됩니다.",
+    "toasts": {
+      "created": "한도를 설정했습니다",
+      "updated": "한도를 저장했습니다",
+      "deleted": "한도를 삭제했습니다"
+    },
+    "errors": {
+      "amountRequired": "금액을 입력하세요",
+      "amountInvalid": "이 통화에 맞는 올바른 금액을 입력하세요",
+      "amountTooLarge": "금액이 너무 큽니다",
+      "categoryRequired": "카테고리를 선택하세요",
+      "exists": "이 카테고리에는 이미 한도가 있습니다",
+      "notFound": "한도 또는 카테고리를 찾을 수 없습니다",
+      "invalid": "입력 내용을 확인하세요",
+      "generic": "문제가 발생했습니다. 다시 시도해 주세요"
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "cancel": "취소",
+    "save": "저장",
+    "saved": "설정을 저장했습니다",
+    "sections": {
+      "profile": "프로필 및 환경설정",
+      "security": "비밀번호",
+      "data": "내 데이터",
+      "danger": "계정 삭제"
+    },
+    "fields": {
+      "name": "이름",
+      "email": "이메일",
+      "language": "언어",
+      "currency": "통화",
+      "monthStart": "월 시작일",
+      "monthStartHint": "“이번 달”, 예산, 개요에 사용됩니다. 대부분은 1일 그대로 두면 됩니다.",
+      "theme": "테마"
+    },
+    "currencyPicker": {
+      "search": "코드 또는 이름으로 검색",
+      "empty": "통화를 찾을 수 없습니다",
+      "popular": "자주 쓰는 통화",
+      "all": "모든 통화"
+    },
+    "currencyChange": {
+      "title": "통화를 변경할까요?",
+      "confirm": "통화 변경",
+      "body": "모든 금액이 오늘의 환율로 다시 계산됩니다. 처음 입력한 금액은 보관되므로 이전 통화로 되돌리면 정확히 복원됩니다."
+    },
+    "password": {
+      "current": "현재 비밀번호",
+      "new": "새 비밀번호",
+      "confirm": "새 비밀번호 확인",
+      "hint": "8자 이상",
+      "submit": "비밀번호 변경",
+      "changed": "비밀번호를 변경했습니다"
+    },
+    "export": {
+      "description": "모든 거래를 Excel이나 Google 스프레드시트에서 열 수 있는 CSV 파일로 내려받습니다. 날짜를 비워 두면 전체를 내보냅니다.",
+      "from": "시작",
+      "to": "종료",
+      "button": "CSV 다운로드",
+      "hint": "본인의 데이터만 내보내집니다.",
+      "invalidRange": "시작일은 종료일보다 앞이어야 합니다."
+    },
+    "danger": {
+      "description": "카테고리, 거래, 한도를 포함한 계정을 영구적으로 삭제합니다. 되돌릴 수 없습니다.",
+      "button": "내 계정 삭제",
+      "dialogTitle": "계정을 삭제할까요?",
+      "dialogBody": "프로필, 카테고리, 거래, 한도가 모두 영구적으로 삭제되며 복구할 수 없습니다. 필요하다면 먼저 데이터를 내려받으세요.",
+      "passwordLabel": "확인을 위해 비밀번호를 입력하세요",
+      "confirm": "영구 삭제"
+    },
+    "errors": {
+      "required": "필수 항목입니다",
+      "nameLong": "이름은 60자 이하여야 합니다",
+      "currencyInvalid": "목록에서 통화를 선택하세요",
+      "dayInvalid": "1부터 28 사이의 날짜를 선택하세요",
+      "passwordShort": "비밀번호는 8자 이상이어야 합니다",
+      "passwordLong": "비밀번호는 72자 이하여야 합니다",
+      "wrongPassword": "비밀번호가 올바르지 않습니다",
+      "samePassword": "새 비밀번호는 현재 비밀번호와 달라야 합니다",
+      "mismatch": "비밀번호가 일치하지 않습니다",
+      "tooManyAttempts": "시도 횟수가 너무 많습니다. 15분 후에 다시 시도하세요",
+      "invalid": "입력 내용을 확인하세요",
+      "ratesUnavailable": "지금은 환율을 가져올 수 없습니다. 나중에 다시 시도해 주세요",
+      "generic": "문제가 발생했습니다. 다시 시도해 주세요"
+    }
+  },
+  "errorPage": {
+    "title": "문제가 발생했습니다",
+    "text": "이 페이지를 불러오지 못했습니다. 데이터는 안전합니다. 다시 시도해 주세요.",
+    "retry": "다시 시도",
+    "home": "개요로 이동",
+    "code": "오류 코드: {code}"
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "text": "이 페이지는 존재하지 않거나 이동되었습니다.",
+    "button": "개요로 이동"
+  },
+  "a11y": {
+    "skip": "본문으로 건너뛰기"
+  }
+}

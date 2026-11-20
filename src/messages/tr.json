@@ -1,0 +1,428 @@
+{
+  "app": {
+    "name": "Salary"
+  },
+  "nav": {
+    "overview": "Genel bakış",
+    "transactions": "İşlemler",
+    "categories": "Kategoriler",
+    "analytics": "Analiz",
+    "budgets": "Bütçeler",
+    "settings": "Ayarlar",
+    "menu": "Menü"
+  },
+  "actions": {
+    "add": "Ekle"
+  },
+  "theme": {
+    "label": "Tema",
+    "light": "Açık",
+    "dark": "Koyu",
+    "system": "Sistem"
+  },
+  "language": {
+    "label": "Dil"
+  },
+  "profile": {
+    "label": "Profil",
+    "logout": "Çıkış yap"
+  },
+  "common": {
+    "comingSoon": "Bu bölüm yakında geliyor.",
+    "cancel": "İptal"
+  },
+  "auth": {
+    "login": {
+      "title": "Tekrar hoş geldiniz",
+      "subtitle": "Hesabınıza giriş yapın",
+      "submit": "Giriş yap",
+      "noAccount": "Henüz hesabınız yok mu?",
+      "toRegister": "Hesap oluşturun"
+    },
+    "register": {
+      "title": "Hesabınızı oluşturun",
+      "subtitle": "Paranızı dakikalar içinde takip etmeye başlayın",
+      "submit": "Hesap oluştur",
+      "haveAccount": "Zaten hesabınız var mı?",
+      "toLogin": "Giriş yap"
+    },
+    "fields": {
+      "name": "Ad (isteğe bağlı)",
+      "email": "E-posta",
+      "password": "Şifre",
+      "passwordHint": "En az 8 karakter",
+      "showPassword": "Şifreyi göster",
+      "hidePassword": "Şifreyi gizle"
+    },
+    "errors": {
+      "required": "Bu alan zorunludur",
+      "email": "Geçerli bir e-posta adresi girin",
+      "passwordShort": "Şifre en az 8 karakter olmalıdır",
+      "passwordLong": "Şifre en fazla 72 karakter olabilir",
+      "nameLong": "Ad en fazla 60 karakter olabilir",
+      "emailTaken": "Bu e-posta ile zaten bir hesap var",
+      "invalidCredentials": "E-posta veya şifre hatalı",
+      "tooManyAttempts": "Çok fazla deneme yapıldı. 15 dakika sonra tekrar deneyin",
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+    }
+  },
+  "categories": {
+    "title": "Kategoriler",
+    "expenses": "Giderler",
+    "income": "Gelirler",
+    "add": "Yeni kategori",
+    "newTitle": "Yeni kategori",
+    "editTitle": "Kategoriyi düzenle",
+    "name": "Ad",
+    "icon": "Simge",
+    "color": "Renk",
+    "customColor": "Özel renk",
+    "save": "Kaydet",
+    "create": "Oluştur",
+    "edit": "Düzenle",
+    "archive": "Arşivle",
+    "restore": "Geri yükle",
+    "delete": "Sil",
+    "showArchived": "Arşivlenenleri göster",
+    "archived": "Arşivlendi",
+    "thisMonth": "Bu dönem",
+    "actions": "Kategori işlemleri",
+    "emptyTitle": "Henüz kategori yok",
+    "emptyHint": "İşlemlerinizi düzenlemek için ilk kategorinizi oluşturun.",
+    "deleteTitle": "Kategori silinsin mi?",
+    "deleteBody": "“{name}” kalıcı olarak silinecek. Bu işlem geri alınamaz.",
+    "hasTransactionsTitle": "Bu kategoride işlemler var",
+    "hasTransactionsBody": "Geçmişiniz eksiksiz kalsın diye işlemi olan bir kategori silinemez. Bunun yerine arşivleyin: yeni girişlerde görünmez, eski kayıtlar korunur.",
+    "archiveInstead": "Bunun yerine arşivle",
+    "errors": {
+      "required": "Bir ad girin",
+      "nameLong": "Ad en fazla 40 karakter olabilir",
+      "nameTaken": "Bu adda bir kategori zaten var",
+      "hasTransactions": "Bu kategoride işlemler var ve silinemez",
+      "notFound": "Kategori bulunamadı",
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+    },
+    "toasts": {
+      "created": "Kategori oluşturuldu",
+      "updated": "Kategori kaydedildi",
+      "archived": "Kategori arşivlendi",
+      "restored": "Kategori geri yüklendi",
+      "deleted": "Kategori silindi"
+    },
+    "system": {
+      "food": "Yiyecek",
+      "transport": "Ulaşım",
+      "housing": "Konut",
+      "health": "Sağlık",
+      "entertainment": "Eğlence",
+      "shopping": "Alışveriş",
+      "subscriptions": "Abonelikler",
+      "other_expense": "Diğer",
+      "salary": "Maaş",
+      "side_income": "Ek gelir",
+      "gifts": "Hediyeler",
+      "other_income": "Diğer"
+    }
+  },
+  "transactions": {
+    "title": "İşlemler",
+    "summary": {
+      "income": "Gelir",
+      "expenses": "Gider",
+      "balance": "Bakiye"
+    },
+    "filters": {
+      "search": "İşlemlerde ara",
+      "clearSearch": "Aramayı temizle",
+      "period": "Dönem",
+      "type": "Tür",
+      "category": "Kategori",
+      "allCategories": "Tüm kategoriler",
+      "ranges": {
+        "month": "Bu ay",
+        "prev": "Geçen ay",
+        "quarter": "3 ay",
+        "year": "12 ay",
+        "all": "Tüm zamanlar"
+      },
+      "types": {
+        "all": "Tümü",
+        "expense": "Giderler",
+        "income": "Gelirler"
+      }
+    },
+    "form": {
+      "type": "İşlem türü",
+      "expense": "Gider",
+      "income": "Gelir",
+      "amount": "Tutar",
+      "currency": "Para birimi",
+      "converted": "≈ {amount} (bu tarihteki kurla)",
+      "converting": "Döviz kuru alınıyor…",
+      "category": "Kategori",
+      "date": "Tarih",
+      "note": "Not (isteğe bağlı)",
+      "notePlaceholder": "ör. Arkadaşla öğle yemeği",
+      "add": "Ekle",
+      "save": "Kaydet",
+      "newTitle": "Yeni işlem",
+      "editTitle": "İşlemi düzenle",
+      "noCategories": "Bu türde henüz kategori yok.",
+      "createCategory": "Oluşturun"
+    },
+    "today": "Bugün",
+    "yesterday": "Dün",
+    "showMore": "Daha fazla göster",
+    "showAll": "Tüm zamanları göster",
+    "empty": {
+      "title": "Henüz işlem yok",
+      "hint": "İlk gelirinizi veya giderinizi ekleyin, burada görünsün."
+    },
+    "noResults": {
+      "title": "Hiçbir şey bulunamadı",
+      "hint": "Başka bir dönem deneyin veya filtreleri temizleyin."
+    },
+    "row": {
+      "actions": "İşlem eylemleri",
+      "edit": "Düzenle",
+      "delete": "Sil"
+    },
+    "delete": {
+      "title": "İşlem silinsin mi?",
+      "body": "{category}: {amount} ({date}). Bunu birkaç saniye boyunca geri alabilirsiniz."
+    },
+    "undo": "Geri al",
+    "toasts": {
+      "created": "İşlem eklendi",
+      "updated": "İşlem kaydedildi",
+      "deleted": "İşlem silindi",
+      "restored": "İşlem geri yüklendi"
+    },
+    "errors": {
+      "amountRequired": "Bir tutar girin",
+      "amountInvalid": "Bu para birimi için geçerli bir tutar girin",
+      "amountTooLarge": "Tutar çok büyük",
+      "categoryRequired": "Bir kategori seçin",
+      "dateInvalid": "Geçerli bir tarih seçin",
+      "noteLong": "Not en fazla 200 karakter olabilir",
+      "categoryArchived": "Bu kategori arşivlenmiş",
+      "typeMismatch": "Kategori işlem türüyle uyuşmuyor",
+      "notFound": "İşlem veya kategori bulunamadı",
+      "invalid": "Lütfen formu kontrol edin",
+      "currencyInvalid": "Listeden bir para birimi seçin",
+      "ratesUnavailable": "Döviz kurlarına şu anda ulaşılamıyor. Lütfen daha sonra tekrar deneyin",
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+    }
+  },
+  "overview": {
+    "greeting": "Merhaba, {name}",
+    "greetingAnon": "Merhaba",
+    "hello": {
+      "morning": "Günaydın, {name}",
+      "afternoon": "İyi günler, {name}",
+      "evening": "İyi akşamlar, {name}",
+      "night": "İyi geceler, {name}",
+      "back": "Tekrar hoş geldin, {name}"
+    },
+    "helloAnon": {
+      "morning": "Günaydın",
+      "afternoon": "İyi günler",
+      "evening": "İyi akşamlar",
+      "night": "İyi geceler",
+      "back": "Tekrar hoş geldin"
+    },
+    "quickAdd": {
+      "title": "Kategoriye göre ekle",
+      "type": "İşlem türü",
+      "addTo": "“{name}” kategorisine işlem ekle",
+      "noneYet": "Henüz yok"
+    },
+    "period": "Dönem",
+    "balance": "Bakiye",
+    "income": "Gelir",
+    "expenses": "Gider",
+    "dynamicsTitle": "Gelir ve giderler",
+    "dynamicsAria": "Seçilen dönemdeki gelir ve giderlerin alan grafiği",
+    "structureTitle": "Kategoriye göre harcama",
+    "structureAria": "Kategoriye göre giderlerin halka grafiği",
+    "recentTitle": "Son işlemler",
+    "viewAll": "Tümünü gör",
+    "addFirst": "İşlem ekle",
+    "noData": "Bu dönem için veri yok",
+    "budgetsTitle": "Limitler",
+    "setLimit": "Limit belirle",
+    "budgetsEmpty": "Ne kadarınızın kaldığını görmek için bir kategoriye aylık limit belirleyin.",
+    "budgetLeft": "{amount} kaldı",
+    "budgetOver": "{amount} aşıldı",
+    "viewBudgets": "Tüm limitler"
+  },
+  "charts": {
+    "other": "Diğer",
+    "total": "Toplam"
+  },
+  "analytics": {
+    "period": "Dönem",
+    "ranges": {
+      "week": "7 gün",
+      "month": "Bu ay",
+      "prev": "Geçen ay",
+      "quarter": "3 ay",
+      "year": "12 ay",
+      "custom": "Özel"
+    },
+    "from": "Başlangıç",
+    "to": "Bitiş",
+    "apply": "Uygula",
+    "errors": {
+      "invalidRange": "Geçerli bir aralık seçin (başlangıç tarihi bitişten önce, en fazla 5 yıl)"
+    },
+    "title": "Analiz",
+    "income": "Gelir",
+    "expenses": "Gider",
+    "balance": "Bakiye",
+    "new": "yeni",
+    "comparedWith": "{range} ile karşılaştırma",
+    "dynamicsTitle": "Gelir ve giderler",
+    "dynamicsAria": "Seçilen dönemdeki gelir ve giderlerin alan grafiği",
+    "structureTitle": "Kategoriye göre harcama",
+    "structureAria": "Kategoriye göre giderlerin halka grafiği",
+    "monthsTitle": "Aylara göre gelir ve gider",
+    "monthsCount": "Ay sayısı",
+    "monthsN": "{n} ay",
+    "monthsAria": "Her ayın gelir ve giderlerinin sütun grafiği",
+    "topTitle": "En çok harcanan kategoriler",
+    "topCaption": "En büyük gider kategorileri ve önceki döneme göre değişim",
+    "colCategory": "Kategori",
+    "colAmount": "Tutar",
+    "colChange": "Değişim",
+    "noData": "Bu dönem için veri yok"
+  },
+  "budgets": {
+    "title": "Bütçeler",
+    "subtitle": "Aylık limitler · {period}",
+    "add": "Yeni limit",
+    "newTitle": "Yeni limit",
+    "editTitle": "Limiti düzenle",
+    "category": "Kategori",
+    "limit": "Aylık limit",
+    "limitHint": "Bu kategoride her ay harcamayı planladığınız en yüksek tutar.",
+    "save": "Kaydet",
+    "create": "Limit belirle",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "actions": "Limit işlemleri",
+    "of": "{limit} içinden",
+    "left": "{amount} kaldı",
+    "over": "{amount} aşıldı",
+    "statusWarning": "Limite yaklaşıldı",
+    "statusOver": "Limit aşıldı",
+    "totalTitle": "Tüm limitler toplamı",
+    "emptyTitle": "Henüz limit yok",
+    "emptyHint": "Yiyecek gibi bir kategoriye aylık limit belirleyin, ne kadarının kaldığını görün.",
+    "noCategories": "Her gider kategorisinin zaten bir limiti var.",
+    "createCategory": "Kategori oluştur",
+    "deleteTitle": "Bu limit kaldırılsın mı?",
+    "deleteBody": "“{name}” limiti kaldırılacak. İşlemleriniz olduğu gibi kalır.",
+    "toasts": {
+      "created": "Limit belirlendi",
+      "updated": "Limit kaydedildi",
+      "deleted": "Limit kaldırıldı"
+    },
+    "errors": {
+      "amountRequired": "Bir tutar girin",
+      "amountInvalid": "Bu para birimi için geçerli bir tutar girin",
+      "amountTooLarge": "Tutar çok büyük",
+      "categoryRequired": "Bir kategori seçin",
+      "exists": "Bu kategorinin zaten bir limiti var",
+      "notFound": "Limit veya kategori bulunamadı",
+      "invalid": "Lütfen formu kontrol edin",
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "saved": "Ayarlar kaydedildi",
+    "sections": {
+      "profile": "Profil ve tercihler",
+      "security": "Şifre",
+      "data": "Verileriniz",
+      "danger": "Hesabı sil"
+    },
+    "fields": {
+      "name": "Ad",
+      "email": "E-posta",
+      "language": "Dil",
+      "currency": "Para birimi",
+      "monthStart": "Ayın başlangıç günü",
+      "monthStartHint": "“Bu ay”, bütçeler ve genel bakış için kullanılır. Çoğu kişi 1’de bırakır.",
+      "theme": "Tema"
+    },
+    "currencyPicker": {
+      "search": "Koda veya ada göre ara",
+      "empty": "Para birimi bulunamadı",
+      "popular": "Popüler",
+      "all": "Tüm para birimleri"
+    },
+    "currencyChange": {
+      "title": "Para birimi değiştirilsin mi?",
+      "confirm": "Para birimini değiştir",
+      "body": "Tüm tutarlarınız bugünkü döviz kuruyla yeniden hesaplanacak. Başta girdiğiniz tutarlar saklanır, bu yüzden eski para birimine dönmek onları tam olarak geri getirir."
+    },
+    "password": {
+      "current": "Mevcut şifre",
+      "new": "Yeni şifre",
+      "confirm": "Yeni şifreyi tekrarlayın",
+      "hint": "En az 8 karakter",
+      "submit": "Şifreyi değiştir",
+      "changed": "Şifre değiştirildi"
+    },
+    "export": {
+      "description": "Tüm işlemlerinizi Excel veya Google E-Tablolar’da açılan bir CSV dosyası olarak indirin. Her şeyi dışa aktarmak için tarihleri boş bırakın.",
+      "from": "Başlangıç",
+      "to": "Bitiş",
+      "button": "CSV indir",
+      "hint": "Yalnızca kendi verileriniz dışa aktarılır.",
+      "invalidRange": "Başlangıç tarihi bitiş tarihinden önce olmalıdır."
+    },
+    "danger": {
+      "description": "Hesabınızı tüm kategoriler, işlemler ve limitlerle birlikte kalıcı olarak siler. Bu işlem geri alınamaz.",
+      "button": "Hesabımı sil",
+      "dialogTitle": "Hesabınız silinsin mi?",
+      "dialogBody": "Profiliniz, kategorileriniz, işlemleriniz ve limitleriniz kalıcı olarak silinir ve geri getirilemez. Gerekebilirse önce verilerinizi indirin.",
+      "passwordLabel": "Onaylamak için şifrenizi girin",
+      "confirm": "Kalıcı olarak sil"
+    },
+    "errors": {
+      "required": "Bu alan zorunludur",
+      "nameLong": "Ad en fazla 60 karakter olabilir",
+      "currencyInvalid": "Listeden bir para birimi seçin",
+      "dayInvalid": "1 ile 28 arasında bir gün seçin",
+      "passwordShort": "Şifre en az 8 karakter olmalıdır",
+      "passwordLong": "Şifre en fazla 72 karakter olabilir",
+      "wrongPassword": "Şifre hatalı",
+      "samePassword": "Yeni şifre mevcut şifreden farklı olmalıdır",
+      "mismatch": "Şifreler eşleşmiyor",
+      "tooManyAttempts": "Çok fazla deneme yapıldı. 15 dakika sonra tekrar deneyin",
+      "invalid": "Lütfen formu kontrol edin",
+      "ratesUnavailable": "Döviz kurlarına şu anda ulaşılamıyor. Lütfen daha sonra tekrar deneyin",
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+    }
+  },
+  "errorPage": {
+    "title": "Bir şeyler ters gitti",
+    "text": "Bu sayfa yüklenemedi. Verileriniz güvende. Lütfen tekrar deneyin.",
+    "retry": "Tekrar dene",
+    "home": "Genel bakışa git",
+    "code": "Hata kodu: {code}"
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı",
+    "text": "Bu sayfa mevcut değil veya taşınmış.",
+    "button": "Genel bakışa git"
+  },
+  "a11y": {
+    "skip": "Ana içeriğe geç"
+  }
+}

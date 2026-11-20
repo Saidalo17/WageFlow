@@ -121,7 +121,8 @@
       "side_income": "Ingresos extra",
       "gifts": "Regalos",
       "other_income": "Otros"
-    }
+    },
+    "customColor": "Color personalizado"
   },
   "transactions": {
     "title": "Operaciones",
@@ -164,7 +165,10 @@
       "newTitle": "Nueva operación",
       "editTitle": "Editar operación",
       "noCategories": "Aún no hay categorías de este tipo.",
-      "createCategory": "Crear una"
+      "createCategory": "Crear una",
+      "currency": "Moneda",
+      "converted": "≈ {amount} al tipo de cambio de esta fecha",
+      "converting": "Obteniendo el tipo de cambio…"
     },
     "today": "Hoy",
     "yesterday": "Ayer",
@@ -205,7 +209,9 @@
       "typeMismatch": "La categoría no coincide con el tipo de operación",
       "notFound": "Operación o categoría no encontrada",
       "invalid": "Revisa el formulario",
-      "generic": "Algo salió mal. Inténtalo de nuevo"
+      "generic": "Algo salió mal. Inténtalo de nuevo",
+      "currencyInvalid": "Elige una moneda de la lista",
+      "ratesUnavailable": "Los tipos de cambio no están disponibles ahora. Inténtalo más tarde"
     }
   },
   "overview": {
@@ -228,7 +234,27 @@
     "budgetsEmpty": "Fija un límite mensual para una categoría y verás cuánto te queda.",
     "budgetLeft": "Quedan {amount}",
     "budgetOver": "Superado en {amount}",
-    "viewBudgets": "Todos los límites"
+    "viewBudgets": "Todos los límites",
+    "hello": {
+      "morning": "Buenos días, {name}",
+      "afternoon": "Buenas tardes, {name}",
+      "evening": "Buenas noches, {name}",
+      "night": "Buenas noches, {name}",
+      "back": "Qué bueno verte de vuelta, {name}"
+    },
+    "helloAnon": {
+      "morning": "Buenos días",
+      "afternoon": "Buenas tardes",
+      "evening": "Buenas noches",
+      "night": "Buenas noches",
+      "back": "Qué bueno verte de vuelta"
+    },
+    "quickAdd": {
+      "title": "Añadir por categoría",
+      "type": "Tipo de movimiento",
+      "addTo": "Añadir un movimiento a «{name}»",
+      "noneYet": "Aún nada"
+    }
   },
   "charts": {
     "other": "Otros",
@@ -342,7 +368,7 @@
     "currencyChange": {
       "title": "¿Cambiar la moneda?",
       "confirm": "Cambiar moneda",
-      "body": "Tus importes actuales no se convertirán. Las cifras seguirán siendo las mismas y solo se mostrarán en la nueva moneda."
+      "body": "Todos tus importes se recalcularán al tipo de cambio de hoy. Los importes que introdujiste originalmente se conservan, así que volver a la moneda anterior los restaura exactamente."
     },
     "password": {
       "current": "Contraseña actual",
@@ -380,7 +406,8 @@
       "mismatch": "Las contraseñas no coinciden",
       "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo en 15 minutos",
       "invalid": "Revisa el formulario",
-      "generic": "Algo salió mal. Inténtalo de nuevo"
+      "generic": "Algo salió mal. Inténtalo de nuevo",
+      "ratesUnavailable": "Los tipos de cambio no están disponibles ahora. Inténtalo más tarde"
     }
   },
   "errorPage": {

@@ -3,6 +3,9 @@ export type TxItem = {
   type: "income" | "expense";
   /** Minor units of the user's currency. */
   amount: number;
+  /** What was typed: minor units of `originalCurrency` (null for very old rows). */
+  originalAmount: number | null;
+  originalCurrency: string | null;
   /** YYYY-MM-DD */
   occurredOn: string;
   note: string | null;

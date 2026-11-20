@@ -1,7 +1,8 @@
+import { eq } from "drizzle-orm";
 import { beforeAll, describe, expect, it } from "vitest";
 import { db } from "@/lib/db/client";
 import { isForeignKeyViolation, isUniqueViolation } from "@/lib/db/errors";
-import { loginAttempts } from "@/lib/db/schema";
+import { budgets, loginAttempts, users } from "@/lib/db/schema";
 import { attemptKeys, clearFailures, isRateLimited, recordFailure } from "@/lib/rate-limit";
 import { incomeExpenseSeries, totalsByCategory } from "@/lib/services/analytics";
 import {
@@ -30,6 +31,8 @@ import {
   sumTransactions,
   updateTransactionRow,
 } from "@/lib/services/transactions";
+import { switchUserCurrency } from "@/lib/services/currency-switch";
+import { touchLastSeen } from "@/lib/services/users";
 import { createTestUser } from "../helpers/db";
 
 type Tx = { type: "income" | "expense"; amount: number; occurredOn: string; note?: string | null };
@@ -285,5 +288,86 @@ describe("data of one user is invisible to another", () => {
     // ... and B's data is exactly as it was
     expect(await getTransaction(b.id, tx.id)).toMatchObject({ amount: 4200, note: "private" });
     expect((await listBudgets(b.id, period))[0]).toMatchObject({ limit: 9000, spent: 4200 });
+  });
+});
+
+describe("switching the main currency", () => {
+  const profile = { name: null, locale: "en", monthStartDay: 1 };
+
+  it("recalculates from the originally typed amounts, so switching back restores them exactly", async () => {
+    process.env.FX_FIXED_RATES = JSON.stringify({ USD: 1, EUR: 0.5, JPY: 150 });
+    try {
+      const u = await createTestUser("fx");
+      // 10.00 USD typed in dollars, and 20.00 EUR typed while the main currency was USD (converted to 40.00 USD)
+      await insertTransaction(u.id, { type: "expense", categoryId: u.cat.food, amount: 1000, occurredOn: "2026-11-05", note: null });
+      await insertTransaction(u.id, { type: "expense", categoryId: u.cat.food, amount: 4000, originalAmount: 2000, originalCurrency: "EUR", occurredOn: "2026-11-06", note: null });
+      await insertBudget(u.id, u.cat.food, 10000); // 100.00 USD
+
+      await switchUserCurrency(u.id, "USD", "EUR", profile);
+      const [user] = await db.select().from(users).where(eq(users.id, u.id));
+      expect(user.currency).toBe("EUR");
+      let rows = (await listTransactions(u.id, {}, 10)).items;
+      const byDate = Object.fromEntries(rows.map((r) => [r.occurredOn, r]));
+      expect(byDate["2026-11-05"].amount).toBe(500); // 10.00 USD -> 5.00 EUR
+      expect(byDate["2026-11-06"].amount).toBe(2000); // typed in EUR: exactly what was typed
+      expect((await db.select().from(budgets).where(eq(budgets.userId, u.id)))[0].limitAmount).toBe(5000);
+
+      await switchUserCurrency(u.id, "EUR", "JPY", profile); // different decimals: yen has none
+      rows = (await listTransactions(u.id, {}, 10)).items;
+      expect(rows.find((r) => r.occurredOn === "2026-11-05")!.amount).toBe(1500); // 10.00 USD = 1500 JPY
+      expect(rows.find((r) => r.occurredOn === "2026-11-06")!.amount).toBe(6000); // 20.00 EUR = 6000 JPY
+
+      await switchUserCurrency(u.id, "JPY", "USD", profile);
+      rows = (await listTransactions(u.id, {}, 10)).items;
+      expect(rows.find((r) => r.occurredOn === "2026-11-05")!.amount).toBe(1000); // back to exactly 10.00
+      expect(rows.find((r) => r.occurredOn === "2026-11-06")!.amount).toBe(4000); // and 40.00
+    } finally {
+      delete process.env.FX_FIXED_RATES;
+    }
+  });
+
+  it("changes nothing when a rate is missing", async () => {
+    process.env.FX_FIXED_RATES = JSON.stringify({ USD: 1, EUR: 0.5 });
+    try {
+      const u = await createTestUser("fx-missing");
+      await insertTransaction(u.id, { type: "expense", categoryId: u.cat.food, amount: 1000, occurredOn: "2026-11-05", note: null });
+      await expect(switchUserCurrency(u.id, "USD", "XXX", profile)).rejects.toThrow();
+      const [user] = await db.select().from(users).where(eq(users.id, u.id));
+      expect(user.currency).toBe("USD");
+      expect((await listTransactions(u.id, {}, 10)).items[0].amount).toBe(1000);
+    } finally {
+      delete process.env.FX_FIXED_RATES;
+    }
+  });
+
+  it("keeps the typed amount and currency next to the converted amount", async () => {
+    const u = await createTestUser("fx-original");
+    const row = (await insertTransaction(u.id, { type: "expense", categoryId: u.cat.food, amount: 2000, originalAmount: 1000, originalCurrency: "EUR", occurredOn: "2026-11-05", note: null }))!;
+    expect(await getTransaction(u.id, row.id)).toMatchObject({ amount: 2000, originalAmount: 1000, originalCurrency: "EUR" });
+    // without an explicit original, it is the same amount in the user's own currency
+    const plain = (await insertTransaction(u.id, { type: "expense", categoryId: u.cat.food, amount: 700, occurredOn: "2026-11-05", note: null }))!;
+    expect(await getTransaction(u.id, plain.id)).toMatchObject({ amount: 700, originalAmount: 700, originalCurrency: "USD" });
+  });
+});
+
+describe("welcome back", () => {
+  const DAY = 24 * 60 * 60 * 1000;
+  it("is shown after more than a week away, never on the first visit", async () => {
+    const u = await createTestUser("seen");
+    const now = Date.now();
+    expect(await touchLastSeen(u.id, null, now)).toBe(false); // first visit
+    expect(await touchLastSeen(u.id, now - 2 * DAY, now)).toBe(false);
+    expect(await touchLastSeen(u.id, now - 8 * DAY, now)).toBe(true);
+  });
+  it("saves the time, but at most once an hour", async () => {
+    const u = await createTestUser("seen-write");
+    const t0 = Date.now();
+    await touchLastSeen(u.id, null, t0);
+    const stored = async () => (await db.select({ at: users.lastSeenAt }).from(users).where(eq(users.id, u.id)))[0].at;
+    expect(await stored()).toBe(t0);
+    await touchLastSeen(u.id, t0, t0 + 10 * 60 * 1000); // 10 minutes later: no write
+    expect(await stored()).toBe(t0);
+    await touchLastSeen(u.id, t0, t0 + 2 * 60 * 60 * 1000); // 2 hours later: written
+    expect(await stored()).toBe(t0 + 2 * 60 * 60 * 1000);
   });
 });

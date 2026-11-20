@@ -7,7 +7,7 @@ test.describe("a new user, from sign-up to charts", () => {
 
     // --- 1. Sign up -> overview
     await register(page, email, "Ella Tester");
-    await expect(page.getByRole("heading", { name: "Hello, Ella" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /^(Good morning|Good afternoon|Good evening|Good night), Ella$/ })).toBeVisible();
     await expect(page.getByText("No data for this period").first()).toBeVisible(); // empty state
 
     // --- 2. A category of my own
@@ -81,18 +81,19 @@ test.describe("a new user, from sign-up to charts", () => {
     await expectToast(page, "Limit set");
     await expect(page.getByText("$85.00 left")).toBeVisible();
 
-    // --- 7. Currency -> euro (amounts are not converted, only shown differently)
+    // --- 7. Currency -> euro (every amount is recalculated at the exchange rate; the test rate is 1 USD = 0.5 EUR)
     await page.goto("/settings");
     await ready(page);
     await page.locator("#s-currency").click();
     await page.getByPlaceholder("Search by code or name").fill("euro");
     await page.getByRole("option", { name: /EUR/ }).click();
     await page.getByRole("button", { name: "Save" }).click();
-    await expect(page.getByRole("dialog").getByText("will not be converted")).toBeVisible();
+    await expect(page.getByRole("dialog").getByText("recalculated at today’s exchange rate")).toBeVisible();
     await page.getByRole("button", { name: "Change currency" }).click();
     await expectToast(page, "Settings saved");
     await page.goto("/transactions");
-    await expect(page.getByText("€15.00")).toBeVisible();
+    await expect(page.getByText("€7.50").first()).toBeVisible(); // $15.00 -> €7.50
+    await expect(page.getByText("$15.00")).toBeVisible(); // the original amount stays visible
 
     // --- 8. Export (the CSV of this user only)
     const csv = await page.request.get("/api/export");
@@ -100,7 +101,8 @@ test.describe("a new user, from sign-up to charts", () => {
     expect(csv.headers()["content-type"]).toContain("text/csv");
     const text = await csv.text();
     expect(text).toContain("date,type,category,amount,currency,note");
-    expect(text).toContain("15.00,EUR");
+    expect(text).toContain("7.50,EUR");
+    expect(text).toContain("15.00,USD"); // what was typed originally
     expect(text).toContain("Cat food");
 
     // --- 9. Language -> German; it follows the profile
@@ -125,6 +127,6 @@ test.describe("a new user, from sign-up to charts", () => {
     await page.locator("#password").fill(PASSWORD);
     await page.getByRole("button", { name: "Anmelden" }).click();
     await expect(page).toHaveURL("/");
-    await expect(page.getByRole("heading", { name: "Hallo, Ella" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /^(Guten Morgen|Guten Tag|Guten Abend|Gute Nacht), Ella$/ })).toBeVisible();
   });
 });

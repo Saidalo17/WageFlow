@@ -49,7 +49,7 @@ export async function GET(request: Request) {
   const rows = await exportTransactions(session.user.id, { from, to });
   const digits = minorDigits(user.currency);
 
-  const lines = ["date,type,category,amount,currency,note"];
+  const lines = ["date,type,category,amount,currency,note,original_amount,original_currency"];
   for (const r of rows) {
     const category = r.categorySystemKey
       ? (messages.categories.system[r.categorySystemKey] ?? r.categoryName)
@@ -63,6 +63,11 @@ export async function GET(request: Request) {
         fromMinor(r.amount, user.currency).toFixed(digits),
         user.currency,
         cell(r.note ?? ""),
+        // What was typed originally (differs from the amount above when another currency was used).
+        r.originalAmount != null && r.originalCurrency
+          ? fromMinor(r.originalAmount, r.originalCurrency).toFixed(minorDigits(r.originalCurrency))
+          : "",
+        r.originalCurrency ?? "",
       ].join(","),
     );
   }

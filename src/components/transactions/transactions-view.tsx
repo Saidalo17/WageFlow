@@ -112,7 +112,8 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
       id: item.id,
       type: item.type,
       categoryId: item.categoryId,
-      amount: item.amount,
+      amount: item.originalAmount ?? item.amount,
+      currency: item.originalCurrency ?? currency,
       occurredOn: item.occurredOn,
       note: item.note,
     });
@@ -234,14 +235,21 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
                               <span className="block truncate text-sm text-muted-foreground">{item.note}</span>
                             )}
                           </span>
-                          <span
-                            className={cn(
-                              "amount shrink-0 font-extrabold",
-                              isIncome ? "text-income" : "text-expense",
+                          <span className="shrink-0 text-right">
+                            <span
+                              className={cn(
+                                "amount block font-extrabold",
+                                isIncome ? "text-income" : "text-expense",
+                              )}
+                            >
+                              {isIncome ? "+" : "−"}
+                              {money(item.amount)}
+                            </span>
+                            {item.originalCurrency && item.originalCurrency !== currency && item.originalAmount != null && (
+                              <span className="amount block text-xs text-muted-foreground">
+                                {formatMoney(item.originalAmount, item.originalCurrency, locale)}
+                              </span>
                             )}
-                          >
-                            {isIncome ? "+" : "−"}
-                            {money(item.amount)}
                           </span>
                         </button>
                         <DropdownMenu>

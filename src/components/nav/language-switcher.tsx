@@ -43,7 +43,7 @@ export function LanguageSwitcher() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
         {locales.map((locale) => (
-          <DropdownMenuItem key={locale} onClick={() => choose(locale)} lang={locale}>
+          <DropdownMenuItem key={locale} onClick={() => choose(locale)}>
             <span className="flex-1">{localeLabels[locale]}</span>
             {locale === current && <Check className="size-4" />}
           </DropdownMenuItem>

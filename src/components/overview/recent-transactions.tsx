@@ -54,9 +54,16 @@ export function RecentTransactions({ items, currency }: { items: TxItem[]; curre
                   {item.note ? ` · ${item.note}` : ""}
                 </span>
               </span>
-              <span className={cn("amount shrink-0 font-extrabold", isIncome ? "text-income" : "text-expense")}>
-                {isIncome ? "+" : "−"}
-                {formatMoney(item.amount, currency, locale)}
+              <span className="shrink-0 text-right">
+                <span className={cn("amount block font-extrabold", isIncome ? "text-income" : "text-expense")}>
+                  {isIncome ? "+" : "−"}
+                  {formatMoney(item.amount, currency, locale)}
+                </span>
+                {item.originalCurrency && item.originalCurrency !== currency && item.originalAmount != null && (
+                  <span className="amount block text-xs text-muted-foreground">
+                    {formatMoney(item.originalAmount, item.originalCurrency, locale)}
+                  </span>
+                )}
               </span>
             </button>
           </li>

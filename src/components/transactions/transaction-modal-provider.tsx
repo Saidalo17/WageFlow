@@ -8,7 +8,7 @@ import type { CategoryOption, TxItem } from "./types";
 
 type ModalApi = {
   /** Opens the "new transaction" form from anywhere in the app. */
-  openAdd: (type?: "income" | "expense") => void;
+  openAdd: (type?: "income" | "expense", categoryId?: string) => void;
   openEdit: (item: TxItem) => void;
 };
 
@@ -33,12 +33,14 @@ export function TransactionModalProvider({
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<TxItem | null>(null);
   const [initialType, setInitialType] = useState<"income" | "expense">("expense");
+  const [initialCategoryId, setInitialCategoryId] = useState<string | undefined>(undefined);
   // A new key on every opening gives the form fresh state.
   const [nonce, setNonce] = useState(0);
 
-  const openAdd = useCallback((type: "income" | "expense" = "expense") => {
+  const openAdd = useCallback((type: "income" | "expense" = "expense", categoryId?: string) => {
     setEditing(null);
     setInitialType(type);
+    setInitialCategoryId(categoryId);
     setNonce((n) => n + 1);
     setOpen(true);
   }, []);
@@ -62,6 +64,7 @@ export function TransactionModalProvider({
           key={nonce}
           transaction={editing}
           initialType={initialType}
+          initialCategoryId={initialCategoryId}
           categories={categories}
           currency={currency}
           onDone={() => setOpen(false)}

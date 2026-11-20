@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CATEGORY_COLORS, CATEGORY_ICON_KEYS } from "@/lib/category-meta";
+import { CATEGORY_ICON_KEYS, HEX_COLOR } from "@/lib/category-meta";
 
 /** Error messages are translation keys (categories.errors.<key>). */
 export const categorySchema = z.object({
@@ -9,7 +9,10 @@ export const categorySchema = z.object({
     .min(1, { error: "required" })
     .max(40, { error: "nameLong" }),
   type: z.enum(["income", "expense"]),
-  color: z.enum(CATEGORY_COLORS, { error: "generic" }),
+  color: z
+    .string()
+    .regex(HEX_COLOR, { error: "generic" })
+    .transform((c) => c.toUpperCase()),
   icon: z.enum(CATEGORY_ICON_KEYS, { error: "generic" }),
 });
 

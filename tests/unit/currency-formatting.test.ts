@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { getCurrencies, getCurrencyCodes, isValidCurrency, POPULAR_CURRENCIES } from "@/lib/currencies";
 import { formatMoney, minorDigits } from "@/lib/money";
 
-const LOCALES = ["en", "de", "fr", "es", "ru", "zh"] as const;
+const LOCALES = ["en", "de", "fr", "es", "ru", "zh", "ja", "ko", "tr"] as const;
 const CURRENCIES = ["USD", "EUR", "JPY", "KWD", "CNY", "RUB"] as const;
 
 // Spaces are written differently by each language (no-break, narrow no-break). Compare with a plain space.

@@ -66,7 +66,7 @@ export function ProfileForm({ initial }: Props) {
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Changing the currency does not convert old amounts, so ask first.
+    // Changing the currency recalculates every amount, so ask first.
     if (currency !== initial.currency) setConfirmCurrency(true);
     else void save();
   }
@@ -111,7 +111,7 @@ export function ProfileForm({ initial }: Props) {
           </Label>
           <NativeSelect id="s-locale" value={locale} onChange={(e) => setLocale(e.target.value as Locale)}>
             {locales.map((l) => (
-              <option key={l} value={l} lang={l}>
+              <option key={l} value={l}>
                 {localeLabels[l]}
               </option>
             ))}

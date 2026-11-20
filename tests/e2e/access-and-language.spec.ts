@@ -34,20 +34,24 @@ test.describe("guests", () => {
 });
 
 test.describe("language of the interface", () => {
+  // Names in the menu are in English and in alphabetical order.
   const cases = [
-    ["Deutsch", "Willkommen zurück", "de"],
-    ["Français", "Bon retour", "fr"],
-    ["Español", "Te damos la bienvenida", "es"],
-    ["Русский", "С возвращением", "ru"],
-    ["中文", "欢迎回来", "zh"],
+    ["German", "Willkommen zurück", "de"],
+    ["French", "Bon retour", "fr"],
+    ["Spanish", "Te damos la bienvenida", "es"],
+    ["Russian", "С возвращением", "ru"],
+    ["Chinese", "欢迎回来", "zh"],
+    ["Japanese", "おかえりなさい", "ja"],
+    ["Korean", "다시 오신 것을 환영합니다", "ko"],
+    ["Turkish", "Tekrar hoş geldiniz", "tr"],
     ["English", "Welcome back", "en"],
   ] as const;
 
-  test("can be switched to each of the six languages on the sign-in page", async ({ page }) => {
+  test("can be switched to each of the nine languages on the sign-in page", async ({ page }) => {
     await page.goto("/login");
     await ready(page);
     for (const [label, heading, code] of cases) {
-      await page.getByRole("button", { name: /^Language|^Sprache|^Langue|^Idioma|^Язык|^语言/ }).click();
+      await page.getByRole("button", { name: /^Language|^Sprache|^Langue|^Idioma|^Язык|^语言|^言語|^언어|^Dil/ }).click();
       await page.getByRole("menuitem", { name: label }).click();
       await expect(page.getByRole("heading", { name: heading })).toBeVisible();
       await expect(page.locator("html")).toHaveAttribute("lang", code);
@@ -66,7 +70,7 @@ test.describe("language of the interface", () => {
     await page.goto("/register");
     await ready(page);
     await page.getByRole("button", { name: /^Language/ }).click();
-    await page.getByRole("menuitem", { name: "Français" }).click();
+    await page.getByRole("menuitem", { name: "French" }).click();
     await page.getByRole("button", { name: "Créer le compte" }).click();
     await expect(page.getByText("Ce champ est obligatoire")).toBeVisible();
   });

@@ -70,9 +70,13 @@ describe("transactions", () => {
 
 describe("categories", () => {
   const valid = { name: "Coffee", type: "expense", color: "#EC4899", icon: "coffee" };
-  it("accepts allowed colors and icons only", () => {
+  it("accepts any hex color and known icons only", () => {
     expect(categorySchema.safeParse(valid).success).toBe(true);
-    expect(categorySchema.safeParse({ ...valid, color: "#123456" }).success).toBe(false);
+    expect(categorySchema.safeParse({ ...valid, color: "#123456" }).success).toBe(true); // any color is allowed
+    expect(categorySchema.parse({ ...valid, color: "#abcdef" }).color).toBe("#ABCDEF");
+    for (const bad of ["red", "#12345", "#GGGGGG", "123456", "url(x)"]) {
+      expect(categorySchema.safeParse({ ...valid, color: bad }).success, bad).toBe(false);
+    }
     expect(categorySchema.safeParse({ ...valid, icon: "skull" }).success).toBe(false);
     expect(categorySchema.safeParse({ ...valid, type: "other" }).success).toBe(false);
   });
@@ -104,9 +108,9 @@ describe("budgets", () => {
 
 describe("settings", () => {
   const valid = { name: "Anna", currency: "EUR", locale: "de", monthStartDay: 15 };
-  it("accepts any real currency and the six languages", () => {
+  it("accepts any real currency and the nine languages", () => {
     expect(profileSchema.safeParse(valid).success).toBe(true);
-    for (const locale of ["en", "de", "fr", "es", "ru", "zh"]) expect(profileSchema.safeParse({ ...valid, locale }).success).toBe(true);
+    for (const locale of ["en", "de", "fr", "es", "ru", "zh", "ja", "ko", "tr"]) expect(profileSchema.safeParse({ ...valid, locale }).success).toBe(true);
     expect(profileSchema.safeParse({ ...valid, currency: "KWD" }).success).toBe(true);
   });
   it("rejects everything else", () => {

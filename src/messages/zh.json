@@ -121,7 +121,8 @@
       "side_income": "兼职收入",
       "gifts": "礼物",
       "other_income": "其他"
-    }
+    },
+    "customColor": "自定义颜色"
   },
   "transactions": {
     "title": "交易",
@@ -164,7 +165,10 @@
       "newTitle": "新建交易",
       "editTitle": "编辑交易",
       "noCategories": "此类型还没有分类。",
-      "createCategory": "去创建"
+      "createCategory": "去创建",
+      "currency": "货币",
+      "converted": "≈ {amount}（按当日汇率）",
+      "converting": "正在获取汇率…"
     },
     "today": "今天",
     "yesterday": "昨天",
@@ -205,7 +209,9 @@
       "typeMismatch": "分类与交易类型不匹配",
       "notFound": "未找到交易或分类",
       "invalid": "请检查表单",
-      "generic": "出了点问题，请重试"
+      "generic": "出了点问题，请重试",
+      "currencyInvalid": "请从列表中选择一种货币",
+      "ratesUnavailable": "暂时无法获取汇率，请稍后再试"
     }
   },
   "overview": {
@@ -228,7 +234,27 @@
     "budgetsEmpty": "为某个分类设置每月限额，即可看到还剩多少可花。",
     "budgetLeft": "剩余 {amount}",
     "budgetOver": "超出 {amount}",
-    "viewBudgets": "全部限额"
+    "viewBudgets": "全部限额",
+    "hello": {
+      "morning": "早上好，{name}",
+      "afternoon": "下午好，{name}",
+      "evening": "晚上好，{name}",
+      "night": "夜深了，{name}",
+      "back": "欢迎回来，{name}"
+    },
+    "helloAnon": {
+      "morning": "早上好",
+      "afternoon": "下午好",
+      "evening": "晚上好",
+      "night": "夜深了",
+      "back": "欢迎回来"
+    },
+    "quickAdd": {
+      "title": "按类别添加",
+      "type": "交易类型",
+      "addTo": "向“{name}”添加交易",
+      "noneYet": "暂无"
+    }
   },
   "charts": {
     "other": "其他",
@@ -342,7 +368,7 @@
     "currencyChange": {
       "title": "更改货币？",
       "confirm": "更改货币",
-      "body": "已有的金额不会被换算。数字保持不变，只是以新的货币显示。"
+      "body": "所有金额将按今天的汇率重新计算。您最初输入的金额会被保留，切换回原货币即可精确还原。"
     },
     "password": {
       "current": "当前密码",
@@ -380,7 +406,8 @@
       "mismatch": "两次输入的密码不一致",
       "tooManyAttempts": "尝试次数过多，请 15 分钟后再试",
       "invalid": "请检查表单",
-      "generic": "出了点问题，请重试"
+      "generic": "出了点问题，请重试",
+      "ratesUnavailable": "暂时无法获取汇率，请稍后再试"
     }
   },
   "errorPage": {

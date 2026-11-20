@@ -121,7 +121,8 @@
       "side_income": "Side income",
       "gifts": "Gifts",
       "other_income": "Other"
-    }
+    },
+    "customColor": "Custom color"
   },
   "transactions": {
     "title": "Transactions",
@@ -164,7 +165,10 @@
       "newTitle": "New transaction",
       "editTitle": "Edit transaction",
       "noCategories": "There are no categories of this type yet.",
-      "createCategory": "Create one"
+      "createCategory": "Create one",
+      "currency": "Currency",
+      "converted": "≈ {amount} at the exchange rate for this date",
+      "converting": "Getting the exchange rate…"
     },
     "today": "Today",
     "yesterday": "Yesterday",
@@ -205,7 +209,9 @@
       "typeMismatch": "The category does not match the transaction type",
       "notFound": "Transaction or category not found",
       "invalid": "Please check the form",
-      "generic": "Something went wrong. Please try again"
+      "generic": "Something went wrong. Please try again",
+      "currencyInvalid": "Choose a currency from the list",
+      "ratesUnavailable": "Exchange rates are unavailable right now. Please try again later"
     }
   },
   "overview": {
@@ -228,7 +234,27 @@
     "budgetsEmpty": "Set a monthly limit for a category to see how much you have left.",
     "budgetLeft": "{amount} left",
     "budgetOver": "Over by {amount}",
-    "viewBudgets": "All limits"
+    "viewBudgets": "All limits",
+    "hello": {
+      "morning": "Good morning, {name}",
+      "afternoon": "Good afternoon, {name}",
+      "evening": "Good evening, {name}",
+      "night": "Good night, {name}",
+      "back": "Glad you’re back, {name}"
+    },
+    "helloAnon": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Good night",
+      "back": "Glad you’re back"
+    },
+    "quickAdd": {
+      "title": "Add by category",
+      "type": "Transaction type",
+      "addTo": "Add a transaction to {name}",
+      "noneYet": "Nothing yet"
+    }
   },
   "charts": {
     "other": "Other",
@@ -342,7 +368,7 @@
     "currencyChange": {
       "title": "Change currency?",
       "confirm": "Change currency",
-      "body": "Your existing amounts will not be converted. They stay the same numbers and will simply be shown in the new currency."
+      "body": "All your amounts will be recalculated at today’s exchange rate. The amounts you originally entered are kept, so switching back restores them exactly."
     },
     "password": {
       "current": "Current password",
@@ -380,7 +406,8 @@
       "mismatch": "The passwords do not match",
       "tooManyAttempts": "Too many attempts. Try again in 15 minutes",
       "invalid": "Please check the form",
-      "generic": "Something went wrong. Please try again"
+      "generic": "Something went wrong. Please try again",
+      "ratesUnavailable": "Exchange rates are unavailable right now. Please try again later"
     }
   },
   "errorPage": {

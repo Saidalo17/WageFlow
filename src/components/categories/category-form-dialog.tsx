@@ -131,6 +131,29 @@ function CategoryForm({
               }}
             />
           ))}
+          {/* Any color: opens the system color picker */}
+          <label
+            className={cn(
+              "relative grid size-9 cursor-pointer place-items-center overflow-hidden rounded-full transition-transform focus-within:ring-3 focus-within:ring-ring/50 hover:scale-110",
+              !(CATEGORY_COLORS as readonly string[]).includes(color) && "ring-2 ring-offset-2 ring-offset-popover",
+            )}
+            style={{
+              background: (CATEGORY_COLORS as readonly string[]).includes(color)
+                ? "conic-gradient(#ef4444, #f59e0b, #84cc16, #06b6d4, #6366f1, #ec4899, #ef4444)"
+                : color,
+              ...(!(CATEGORY_COLORS as readonly string[]).includes(color) ? { ["--tw-ring-color" as string]: color } : {}),
+            }}
+            title={t("customColor")}
+          >
+            <span className="sr-only">{t("customColor")}</span>
+            <input
+              type="color"
+              value={color.toLowerCase()}
+              onChange={(e) => setColor(e.target.value.toUpperCase())}
+              className="absolute inset-0 size-full cursor-pointer opacity-0"
+              aria-label={t("customColor")}
+            />
+          </label>
         </div>
       </fieldset>
 
