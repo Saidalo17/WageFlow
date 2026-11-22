@@ -25,3 +25,8 @@ export const DonutChart = dynamic(() => import("./donut-chart").then((m) => m.Do
   ssr: false,
   loading: ChartPlaceholder,
 });
+
+export const SalaryChart = dynamic(() => import("./salary-chart").then((m) => m.SalaryChart), {
+  ssr: false,
+  loading: ChartPlaceholder,
+});

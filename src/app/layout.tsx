@@ -20,7 +20,7 @@ const notoSc = Noto_Sans_SC({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Salary", template: "%s · Salary" },
+  title: { default: "WageFlow", template: "%s · WageFlow" },
   description: "Personal finance tracker",
 };
 

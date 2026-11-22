@@ -25,6 +25,8 @@ export const users = sqliteTable("users", {
   currency: text("currency").notNull().default("USD"),
   locale: text("locale").notNull().default("en"),
   monthStartDay: integer("month_start_day").notNull().default(1),
+  /** Country whose tax rules the salary calculator applies by default (ISO 3166 alpha-2), or null for none. */
+  country: text("country"),
   /** When the user last opened the overview (ms). Used for the "welcome back" greeting. */
   lastSeenAt: integer("last_seen_at"),
   /** Profile photo: base64 of a small (<= 200 KB) JPEG/PNG/WebP, plus its type and when it was set. */
@@ -120,3 +122,92 @@ export const loginAttempts = sqliteTable(
   (t) => [index("login_attempts_key_time").on(t.key, t.createdAt)],
 );
 
+/**
+ * A saved salary calculation. Amounts are minor units of `currency` (the user's main currency when it was saved)
+ * and are never converted afterwards: a payslip stays what it was. Hours, days and the multiplier are stored in
+ * hundredths (160.5 h = 16050, 1.5x = 150), a percentage deduction in hundredths of a percent (13% = 1300).
+ */
+export const salaryRecords = sqliteTable(
+  "salary_records",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    currency: text("currency").notNull(),
+    /** Country whose tax rules were applied when it was saved, or null when deductions were entered by hand. */
+    country: text("country"),
+    title: text("title"),
+    /** Date the salary is (or was) paid, YYYY-MM-DD */
+    payDate: text("pay_date").notNull(),
+    mode: text("mode", { enum: ["monthly", "hourly", "daily"] }).notNull(),
+    /** Monthly salary, hourly rate or daily rate, depending on `mode`. */
+    rate: integer("rate").notNull(),
+    /** Hours (hourly) or days (daily) worked, in hundredths. 0 for monthly. */
+    quantity: integer("quantity").notNull().default(0),
+    /** Standard hours in a month / in a day, in hundredths; used to derive an hourly rate. */
+    monthHours: integer("month_hours").notNull().default(16000),
+    dayHours: integer("day_hours").notNull().default(800),
+    overtimeHours: integer("overtime_hours").notNull().default(0),
+    overtimeMultiplier: integer("overtime_multiplier").notNull().default(150),
+    /** JSON array of { label, kind: "percent" | "fixed", value }. */
+    deductions: text("deductions").notNull().default("[]"),
+    /** Result of the calculation when it was saved. */
+    basePay: integer("base_pay").notNull(),
+    overtimePay: integer("overtime_pay").notNull().default(0),
+    bonusTotal: integer("bonus_total").notNull().default(0),
+    gross: integer("gross").notNull(),
+    deductionTotal: integer("deduction_total").notNull().default(0),
+    net: integer("net").notNull(),
+    note: text("note"),
+    createdAt: createdAt(),
+  },
+  (t) => [index("salary_records_user_date").on(t.userId, t.payDate)],
+);
+
+/** Bonuses and premiums that belong to a salary calculation (the "history of bonuses"). */
+export const salaryBonuses = sqliteTable(
+  "salary_bonuses",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    recordId: text("record_id")
+      .notNull()
+      .references(() => salaryRecords.id, { onDelete: "cascade" }),
+    label: text("label").notNull(),
+    amount: integer("amount").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index("salary_bonuses_user_record").on(t.userId, t.recordId)],
+);
+
+
+/**
+ * When a salary is expected and how much. Drives the payment planner, the in-app reminders and the calendar export.
+ * Amounts are minor units of `currency` (the user's main currency when it was saved), like saved calculations.
+ */
+export const salarySchedules = sqliteTable(
+  "salary_schedules",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    currency: text("currency").notNull(),
+    title: text("title").notNull(),
+    frequency: text("frequency", { enum: ["monthly", "biweekly", "weekly"] }).notNull(),
+    /** monthly: day of the month, 1-31 (the last day when the month is shorter). */
+    dayOfMonth: integer("day_of_month").notNull().default(1),
+    /** weekly / biweekly: any date the payments fall on, YYYY-MM-DD. */
+    anchorDate: text("anchor_date"),
+    /** Expected net pay for one payment. */
+    expectedNet: integer("expected_net").notNull(),
+    /** Show a reminder this many days before the payment (0 = on the day). */
+    remindDaysBefore: integer("remind_days_before").notNull().default(1),
+    isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
+    createdAt: createdAt(),
+  },
+  (t) => [index("salary_schedules_user").on(t.userId)],
+);

@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/card";
+import { CountryForm } from "@/components/settings/country-form";
 import { DeleteAccount } from "@/components/settings/delete-account";
 import { ExportSection } from "@/components/settings/export-section";
 import { PasswordForm } from "@/components/settings/password-form";
@@ -43,6 +44,10 @@ export default async function SettingsPage() {
             monthStartDay: user.monthStartDay,
           }}
         />
+      </Card>
+
+      <Card title={t("sections.country")} index={3}>
+        <CountryForm initial={user.country ?? ""} currency={user.currency} />
       </Card>
 
       <Card title={t("sections.security")} index={3}>

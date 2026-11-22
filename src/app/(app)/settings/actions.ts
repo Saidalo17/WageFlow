@@ -16,6 +16,7 @@ import { MAX_AVATAR_BYTES } from "@/lib/profile-meta";
 import { removeAvatar, setAvatar, updateDecoration } from "@/lib/services/profile";
 import {
   changePasswordSchema,
+  countrySchema,
   decorationSchema,
   deleteAccountSchema,
   profileSchema,
@@ -172,6 +173,16 @@ export async function uploadAvatar(formData: FormData): Promise<ActionResult> {
 export async function deleteAvatar(): Promise<ActionResult> {
   const user = await getCurrentUser();
   await removeAvatar(user.id);
+  revalidatePath("/", "layout");
+  return { ok: true };
+}
+
+/** Saves the country whose tax rules the salary calculator uses by default ("" = none). */
+export async function updateCountry(input: unknown): Promise<ActionResult> {
+  const user = await getCurrentUser();
+  const parsed = countrySchema.safeParse(input);
+  if (!parsed.success) return { ok: false, error: "generic" };
+  await db.update(users).set({ country: parsed.data }).where(eq(users.id, user.id));
   revalidatePath("/", "layout");
   return { ok: true };
 }

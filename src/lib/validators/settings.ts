@@ -3,6 +3,7 @@ import { isValidCurrency } from "@/lib/currencies";
 import { locales } from "@/i18n/config";
 import { HEX_COLOR } from "@/lib/category-meta";
 import { BIO_MAX, PROFILE_EMOJIS } from "@/lib/profile-meta";
+import { TAX_COUNTRIES } from "@/lib/tax";
 
 /** Error messages are translation keys (settings.errors.<key>). */
 
@@ -33,6 +34,12 @@ export const decorationSchema = z.object({
     .refine((c) => c === "" || HEX_COLOR.test(c), { error: "generic" })
     .transform((c) => (c === "" ? null : c.toUpperCase())),
 });
+
+/** A country with tax rules, or "" for none (stored as null). */
+export const countrySchema = z
+  .string()
+  .refine((c) => c === "" || (TAX_COUNTRIES as readonly string[]).includes(c), { error: "generic" })
+  .transform((c) => (c === "" ? null : c));
 
 export const changePasswordSchema = z.object({
   current: z.string().min(1, { error: "required" }).max(72, { error: "passwordLong" }),

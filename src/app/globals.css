@@ -196,3 +196,18 @@
     animation: none;
   }
 }
+
+/* Printing (the salary report): white paper, exact colors for the chart, sensible page margins. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .report {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

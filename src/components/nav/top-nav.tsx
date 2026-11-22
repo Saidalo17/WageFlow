@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { LogOut, Menu, Plus, Settings, Wallet } from "lucide-react";
+import { LogOut, Menu, Plus, Settings } from "lucide-react";
 import { UserAvatar } from "@/components/user-avatar";
 import { DisplayCurrencySwitcher } from "./display-currency";
 import { logoutUser } from "@/app/(auth)/actions";
@@ -28,6 +29,7 @@ const links = [
   { href: "/categories", key: "categories" },
   { href: "/analytics", key: "analytics" },
   { href: "/budgets", key: "budgets" },
+  { href: "/salary", key: "salary" },
 ] as const;
 
 function useIsActive() {
@@ -55,7 +57,7 @@ export function TopNav({ user, displayCurrency }: { user: NavUser; displayCurren
   const [signingOut, startTransition] = useTransition();
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur print:hidden">
       <div className="mx-auto flex h-16 max-w-[1200px] items-center gap-2 px-4 sm:px-6">
         {/* Mobile: burger + sheet */}
         <Sheet open={open} onOpenChange={setOpen}>
@@ -68,7 +70,7 @@ export function TopNav({ user, displayCurrency }: { user: NavUser; displayCurren
           </SheetTrigger>
           <SheetContent side="left" className="p-4">
             <SheetTitle className="flex items-center gap-2 text-lg font-extrabold">
-              <Wallet className="size-5 text-primary" />
+              <Image src="/logo.png" alt="" width={28} height={28} className="size-7 rounded-lg object-cover" />
               {tApp("name")}
             </SheetTitle>
             <nav className="mt-2 flex flex-col gap-1">
@@ -97,9 +99,7 @@ export function TopNav({ user, displayCurrency }: { user: NavUser; displayCurren
         </Sheet>
 
         <Link href="/" className="flex items-center gap-2 text-lg font-extrabold tracking-tight">
-          <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-[#4f46e5] to-[#7c3aed] text-white">
-            <Wallet className="size-5" />
-          </span>
+          <Image src="/logo.png" alt="" width={36} height={36} className="size-9 rounded-xl object-cover" />
           <span className="sr-only sm:not-sr-only">{tApp("name")}</span>
         </Link>
 

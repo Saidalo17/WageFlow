@@ -23,6 +23,7 @@ export const getCurrentUser = cache(async () => {
       currency: users.currency,
       locale: users.locale,
       monthStartDay: users.monthStartDay,
+      country: users.country,
       lastSeenAt: users.lastSeenAt,
       avatarUpdatedAt: users.avatarUpdatedAt,
       bio: users.bio,

@@ -1,5 +1,5 @@
-import { Wallet } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { LanguageSwitcher } from "@/components/nav/language-switcher";
 import { ThemeToggle } from "@/components/nav/theme-toggle";
 
@@ -15,10 +15,8 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
       </a>
       <div className="flex items-center justify-between px-4 py-4 sm:px-6">
         <div className="flex items-center gap-2 text-lg font-extrabold tracking-tight">
-          <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-[#4f46e5] to-[#7c3aed] text-white">
-            <Wallet className="size-5" />
-          </span>
-          Salary
+          <Image src="/logo.png" alt="" width={36} height={36} className="size-9 rounded-xl object-cover" />
+          WageFlow
         </div>
         <div className="flex items-center gap-1">
           <LanguageSwitcher />

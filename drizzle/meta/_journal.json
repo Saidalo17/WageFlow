@@ -36,6 +36,27 @@
       "when": 1795189600294,
       "tag": "0004_profile_decoration",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1795360883634,
+      "tag": "0005_salary_module",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1795361809828,
+      "tag": "0006_country_taxes",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1795362534357,
+      "tag": "0007_pay_schedules",
+      "breakpoints": true
     }
   ]
 }

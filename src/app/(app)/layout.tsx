@@ -1,9 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { DisplayNotice } from "@/components/nav/display-currency";
 import { TopNav } from "@/components/nav/top-nav";
+import { PayReminders } from "@/components/salary/pay-reminders";
 import { TransactionModalProvider } from "@/components/transactions/transaction-modal-provider";
 import { getUserCategories } from "@/lib/data";
 import { getDisplay } from "@/lib/display-currency";
+import { listSchedules } from "@/lib/services/schedules";
 import { getCurrentUser, requireUser } from "@/lib/session";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -11,10 +13,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   // requireUser() only reads the session cookie, so the profile and the categories
   // can then be loaded from the database at the same time instead of one after another.
   const { id } = await requireUser();
-  const [user, categories, t] = await Promise.all([
+  const [user, categories, t, schedules] = await Promise.all([
     getCurrentUser(),
     getUserCategories(id),
     getTranslations("a11y"),
+    listSchedules(id),
   ]);
   const display = await getDisplay(user.currency);
   return (
@@ -37,6 +40,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         displayCurrency={display.currency}
       />
       <DisplayNotice currency={display.currency} main={user.currency} failed={display.failed} />
+      <PayReminders schedules={schedules} />
       <main
         id="main"
         tabIndex={-1}
