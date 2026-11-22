@@ -3,6 +3,7 @@
 import {
   ArrowDownLeft,
   ArrowUpRight,
+  FileUp,
   Loader2,
   MoreVertical,
   Pencil,
@@ -11,6 +12,7 @@ import {
   SearchX,
   Trash2,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -18,7 +20,7 @@ import { toast } from "sonner";
 import { deleteTransaction, restoreTransaction } from "@/app/(app)/transactions/actions";
 import { useCategoryName } from "@/components/categories/use-category-name";
 import { CategoryBadge } from "@/components/category-icon";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -57,6 +59,7 @@ type Props = {
 
 export function TransactionsView({ items, hasMore, limit, totals, currency, categories, filters }: Props) {
   const t = useTranslations("transactions");
+  const tImport = useTranslations("import");
   const tc = useTranslations("common");
   const locale = useLocale();
   const router = useRouter();
@@ -149,10 +152,16 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-[28px] font-extrabold tracking-tight">{t("title")}</h1>
-        <Button onClick={() => openAdd()} className="gap-1.5">
-          <Plus className="size-4" />
-          {t("form.newTitle")}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/transactions/import" className={cn(buttonVariants({ variant: "secondary" }), "gap-1.5")}>
+            <FileUp className="size-4" />
+            {tImport("link")}
+          </Link>
+          <Button onClick={() => openAdd()} className="gap-1.5">
+            <Plus className="size-4" />
+            {t("form.newTitle")}
+          </Button>
+        </div>
       </div>
 
       {/* Totals for everything that matches the filters */}
