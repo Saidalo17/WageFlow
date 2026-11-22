@@ -30,3 +30,8 @@ export const SalaryChart = dynamic(() => import("./salary-chart").then((m) => m.
   ssr: false,
   loading: ChartPlaceholder,
 });
+
+export const NetWorthChart = dynamic(() => import("./net-worth-chart").then((m) => m.NetWorthChart), {
+  ssr: false,
+  loading: ChartPlaceholder,
+});

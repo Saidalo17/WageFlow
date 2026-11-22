@@ -167,7 +167,6 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
                 ariaLabel={t("dynamicsAria")}
                 height={300}
               />
-              <Legend income={t("income")} expense={t("expenses")} />
             </>
           ) : (
             <Empty text={t("noData")} />
@@ -225,7 +224,8 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
 
         <Card title={t("topTitle")} index={6}>
           {topRows.length > 0 ? (
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[460px] text-sm">
               <caption className="sr-only">{t("topCaption")}</caption>
               <thead>
                 <tr className="text-left text-muted-foreground">
@@ -258,6 +258,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
                 ))}
               </tbody>
             </table>
+            </div>
           ) : (
             <Empty text={t("noData")} />
           )}

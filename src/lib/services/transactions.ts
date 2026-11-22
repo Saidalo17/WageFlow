@@ -6,6 +6,8 @@ import { categories, transactions, users } from "@/lib/db/schema";
 export type StoredTransaction = {
   type: "income" | "expense";
   categoryId: string;
+  /** The account the money moved on; null = none. */
+  accountId?: string | null;
   amount: number;
   /** Left out = the amount was typed in the user's own currency. */
   originalAmount?: number;
@@ -78,6 +80,7 @@ export async function listTransactions(userId: string, filters: TxFilters, limit
       occurredOn: transactions.occurredOn,
       note: transactions.note,
       categoryId: transactions.categoryId,
+      accountId: transactions.accountId,
       categoryName: categories.name,
       categorySystemKey: categories.systemKey,
       categoryColor: categories.color,

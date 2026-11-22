@@ -22,6 +22,13 @@ const isoDate = z
 export const transactionSchema = z.object({
   type: z.enum(["income", "expense"]),
   categoryId: z.string().min(1, { error: "categoryRequired" }).max(64),
+  /** The account the money moved on (optional). */
+  accountId: z
+    .string()
+    .max(64)
+    .nullable()
+    .optional()
+    .transform((s) => s || null),
   /** Minor units of `currency` (default: the user's currency); the upper bound is checked per currency on the server. */
   amount: z
     .number({ error: "amountInvalid" })

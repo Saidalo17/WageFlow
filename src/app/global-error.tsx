@@ -11,7 +11,7 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
           <p style={{ color: "#555" }}>Please try again in a moment.</p>
           <button
             onClick={reset}
-            style={{ padding: "12px 20px", borderRadius: 12, border: 0, background: "#4f46e5", color: "#fff", fontWeight: 700, fontSize: 16, cursor: "pointer" }}
+            style={{ padding: "12px 20px", borderRadius: 12, border: 0, background: "#12b981", color: "#04261d", fontWeight: 700, fontSize: 16, cursor: "pointer" }}
           >
             Try again
           </button>

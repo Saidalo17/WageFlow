@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useState } from "react";
 import { useLocale } from "next-intl";
 import {
   Area,
@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { formatDate } from "@/lib/format";
 import { formatMoney, fromMinor } from "@/lib/money";
+import { cn } from "@/lib/utils";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import type { Granularity, SeriesPoint } from "@/lib/services/analytics";
 
@@ -30,6 +31,10 @@ export function AreaChart({ data, currency, granularity, labels, ariaLabel, heig
   const locale = useLocale();
   const reduced = useReducedMotion();
   const uid = useId().replace(/:/g, "");
+  // Clicking a legend entry hides or shows that line (at least one always stays visible).
+  const [hidden, setHidden] = useState<{ income: boolean; expense: boolean }>({ income: false, expense: false });
+  const toggle = (k: "income" | "expense") =>
+    setHidden((h) => (h[k] || !h[k === "income" ? "expense" : "income"] ? { ...h, [k]: !h[k] } : h));
 
   const label = (key: string) =>
     granularity === "month"
@@ -45,6 +50,7 @@ export function AreaChart({ data, currency, granularity, labels, ariaLabel, heig
   const axisStyle = { fill: "var(--muted-foreground)", fontSize: 12 } as const;
 
   return (
+    <div>
     <div role="img" aria-label={ariaLabel} style={{ height }} className="w-full">
       <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 600, height }}>
         <RechartsAreaChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
@@ -93,6 +99,7 @@ export function AreaChart({ data, currency, granularity, labels, ariaLabel, heig
               );
             }}
           />
+          {!hidden.income && (
           <Area
             type="monotone"
             dataKey="income"
@@ -106,6 +113,8 @@ export function AreaChart({ data, currency, granularity, labels, ariaLabel, heig
             dot={false}
             activeDot={{ r: 5 }}
           />
+          )}
+          {!hidden.expense && (
           <Area
             type="monotone"
             dataKey="expense"
@@ -119,8 +128,27 @@ export function AreaChart({ data, currency, granularity, labels, ariaLabel, heig
             dot={false}
             activeDot={{ r: 5 }}
           />
+          )}
         </RechartsAreaChart>
       </ResponsiveContainer>
+    </div>
+    <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={labels.income + " / " + labels.expense}>
+      {(["income", "expense"] as const).map((k) => (
+        <button
+          key={k}
+          type="button"
+          aria-pressed={!hidden[k]}
+          onClick={() => toggle(k)}
+          className={cn(
+            "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold transition-all focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+            hidden[k] ? "border-border text-muted-foreground line-through opacity-70" : "bg-muted/60 hover:bg-muted",
+          )}
+        >
+          <span className={cn("size-3 rounded-full", k === "income" ? "bg-income" : "bg-expense")} aria-hidden />
+          {labels[k]}
+        </button>
+      ))}
+    </div>
     </div>
   );
 }

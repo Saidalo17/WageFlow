@@ -57,6 +57,13 @@
       "when": 1795362534357,
       "tag": "0007_pay_schedules",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1795365790778,
+      "tag": "0008_accounts_debts_net_worth",
+      "breakpoints": true
     }
   ]
 }

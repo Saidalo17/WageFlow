@@ -10,6 +10,8 @@ export type TxItem = {
   occurredOn: string;
   note: string | null;
   categoryId: string;
+  /** The account the money moved on, or null. */
+  accountId: string | null;
   categoryName: string;
   categorySystemKey: string | null;
   categoryColor: string;
@@ -24,4 +26,12 @@ export type CategoryOption = {
   icon: string;
   isArchived: boolean;
   systemKey: string | null;
+};
+
+/** An account the transaction form can offer. */
+export type AccountChoice = {
+  id: string;
+  name: string;
+  currency: string;
+  isArchived: boolean;
 };

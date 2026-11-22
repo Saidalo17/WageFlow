@@ -40,5 +40,12 @@ export const commitRowSchema = z.object({
   amount: z.number({ error: "amountInvalid" }).int({ error: "amountInvalid" }).positive({ error: "amountInvalid" }),
   type: z.enum(["income", "expense"]),
   categoryId: z.string().min(1, { error: "categoryRequired" }).max(64),
+  /** The account every row is linked to (optional). */
+  accountId: z
+    .string()
+    .max(64)
+    .nullable()
+    .optional()
+    .transform((s) => s || null),
 });
 export const commitSchema = z.array(commitRowSchema).min(1, { error: "empty" }).max(IMPORT_BATCH, { error: "tooMany" });

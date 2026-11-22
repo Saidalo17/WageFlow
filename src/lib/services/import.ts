@@ -33,6 +33,7 @@ export type ImportRow = {
   amount: number;
   type: "income" | "expense";
   categoryId: string;
+  accountId?: string | null;
 };
 
 /** Adds the rows, all or nothing. Amounts are in the user's main currency (what was in the file is taken as that). */
@@ -45,6 +46,7 @@ export async function insertImported(userId: string, currency: string, rows: Imp
         rows.slice(i, i + CHUNK).map((r) => ({
           userId,
           categoryId: r.categoryId,
+          accountId: r.accountId ?? null,
           type: r.type,
           amount: r.amount,
           originalAmount: r.amount,

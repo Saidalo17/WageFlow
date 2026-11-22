@@ -19,7 +19,8 @@ import { currencySymbol, editableAmount, formatAmountInput } from "@/lib/money-i
 import { AmountInput } from "@/components/amount-input";
 import { cn } from "@/lib/utils";
 import { MAX_AMOUNT_MAJOR } from "@/lib/validators/transaction";
-import type { CategoryOption, TxItem } from "./types";
+import { NativeSelect } from "@/components/ui/native-select";
+import type { AccountChoice, CategoryOption, TxItem } from "./types";
 
 type Type = "income" | "expense";
 
@@ -28,6 +29,7 @@ export function TransactionForm({
   initialType,
   initialCategoryId,
   categories,
+  accounts,
   currency,
   onDone,
 }: {
@@ -35,6 +37,7 @@ export function TransactionForm({
   initialType: Type;
   initialCategoryId?: string;
   categories: CategoryOption[];
+  accounts: AccountChoice[];
   currency: string;
   onDone: () => void;
 }) {
@@ -56,6 +59,7 @@ export function TransactionForm({
       : "",
   );
   const [categoryId, setCategoryId] = useState(transaction?.categoryId ?? initialCategoryId ?? "");
+  const [accountId, setAccountId] = useState(transaction?.accountId ?? "");
   const [date, setDate] = useState(transaction?.occurredOn ?? todayISO());
   const [note, setNote] = useState(transaction?.note ?? "");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -123,7 +127,7 @@ export function TransactionForm({
     if (Object.keys(next).length > 0) return;
 
     setSaving(true);
-    const payload = { type, categoryId, amount: minor, currency: inputCurrency, occurredOn: date, note };
+    const payload = { type, categoryId, accountId: accountId || null, amount: minor, currency: inputCurrency, occurredOn: date, note };
     const result = transaction
       ? await updateTransaction(transaction.id, payload)
       : await createTransaction(payload);
@@ -265,6 +269,45 @@ export function TransactionForm({
           </p>
         )}
       </fieldset>
+
+      {/* Account (optional) */}
+      {accounts.some((a) => !a.isArchived || a.id === transaction?.accountId) && (
+        <div className="space-y-1.5">
+          <Label htmlFor="tx-account" className="text-sm font-semibold">
+            {t("form.account")}
+          </Label>
+          <NativeSelect
+            id="tx-account"
+            value={accountId}
+            onChange={(e) => {
+              const id = e.target.value;
+              setAccountId(id);
+              setErrors((x) => ({ ...x, accountId: "" }));
+              // The amount is typed in the account's currency: that keeps the account balance exact.
+              const account = accounts.find((a) => a.id === id);
+              if (account && account.currency !== inputCurrency) {
+                setInputCurrency(account.currency);
+                setAmountText((text) => formatAmountInput(text, account.currency));
+              }
+            }}
+            aria-invalid={!!errors.accountId}
+          >
+            <option value="">{t("form.noAccount")}</option>
+            {accounts
+              .filter((a) => !a.isArchived || a.id === transaction?.accountId)
+              .map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.name} · {a.currency}
+                </option>
+              ))}
+          </NativeSelect>
+          {err("accountId") && (
+            <p role="alert" className="text-sm text-destructive">
+              {err("accountId")}
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Date */}
       <div className="space-y-1.5">

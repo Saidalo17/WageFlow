@@ -5,6 +5,7 @@ import { isForeignKeyViolation } from "@/lib/db/errors";
 import { convertMinor, getRate, RatesUnavailableError } from "@/lib/fx";
 import { isValidCurrency } from "@/lib/currencies";
 import { minorDigits } from "@/lib/money";
+import { findAccount } from "@/lib/services/accounts";
 import { getCategory } from "@/lib/services/categories";
 import {
   deleteTransactionRow,
@@ -41,6 +42,7 @@ async function prepare(
   userCurrency: string,
   values: TransactionValues,
   keepCategoryId?: string,
+  keepAccountId?: string | null,
 ): Promise<{ ok: true; stored: StoredTransaction } | Extract<ActionResult, { ok: false }>> {
   const currency = values.currency ?? userCurrency;
   if (values.amount > MAX_AMOUNT_MAJOR * 10 ** minorDigits(currency)) {
@@ -56,6 +58,18 @@ async function prepare(
   // An archived category can't get new transactions, but an old transaction may keep it.
   if (category.isArchived && category.id !== keepCategoryId) {
     return { ok: false, error: "invalid", fieldErrors: { categoryId: "categoryArchived" } };
+  }
+
+  // The account must be the user's own and active (an old transaction may keep an archived one), and the amount
+  // must be typed in the account's currency: that is what keeps the account balance exact.
+  if (values.accountId) {
+    const account = await findAccount(userId, values.accountId);
+    if (!account || (account.isArchived && account.id !== keepAccountId)) {
+      return { ok: false, error: "invalid", fieldErrors: { accountId: "accountInvalid" } };
+    }
+    if (account.currency !== currency) {
+      return { ok: false, error: "invalid", fieldErrors: { accountId: "accountCurrency" } };
+    }
   }
 
   let amount = values.amount;
@@ -76,6 +90,7 @@ async function prepare(
     stored: {
       type: values.type,
       categoryId: values.categoryId,
+      accountId: values.accountId,
       amount,
       originalAmount: values.amount,
       originalCurrency: currency,
@@ -134,7 +149,7 @@ export async function updateTransaction(id: unknown, input: unknown): Promise<Ac
   const existing = await getTransaction(user.id, idParsed.data);
   if (!existing) return { ok: false, error: "notFound" };
 
-  const prepared = await prepare(user.id, user.currency, parsed.data, existing.categoryId);
+  const prepared = await prepare(user.id, user.currency, parsed.data, existing.categoryId, existing.accountId);
   if (!prepared.ok) return prepared;
 
   try {
@@ -164,7 +179,7 @@ export async function restoreTransaction(input: unknown): Promise<ActionResult> 
   if (!parsed.success) return { ok: false, error: "generic" };
   const { id, ...values } = parsed.data;
 
-  const prepared = await prepare(user.id, user.currency, values, values.categoryId);
+  const prepared = await prepare(user.id, user.currency, values, values.categoryId, values.accountId);
   if (!prepared.ok) return prepared;
 
   try {

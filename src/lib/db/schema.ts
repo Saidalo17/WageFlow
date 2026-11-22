@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  type AnySQLiteColumn,
   index,
   integer,
   sqliteTable,
@@ -80,6 +81,8 @@ export const transactions = sqliteTable(
      */
     originalAmount: integer("original_amount"),
     originalCurrency: text("original_currency"),
+    /** The account the money moved on, if the user said so. Deleting an account keeps its transactions. */
+    accountId: text("account_id").references((): AnySQLiteColumn => accounts.id, { onDelete: "set null" }),
     /** Date as YYYY-MM-DD */
     occurredOn: text("occurred_on").notNull(),
     note: text("note"),
@@ -91,6 +94,7 @@ export const transactions = sqliteTable(
   (t) => [
     index("transactions_user_date").on(t.userId, t.occurredOn),
     index("transactions_user_category").on(t.userId, t.categoryId),
+    index("transactions_user_account").on(t.userId, t.accountId),
   ],
 );
 
@@ -210,4 +214,99 @@ export const salarySchedules = sqliteTable(
     createdAt: createdAt(),
   },
   (t) => [index("salary_schedules_user").on(t.userId)],
+);
+
+/**
+ * A place where money is kept: cash, a bank account or card, savings, investments, property...
+ * The balance is not stored: it is the opening balance plus the transactions linked to the account
+ * (counted in the account's own currency), so it can never drift away from the operations.
+ */
+export const accounts = sqliteTable(
+  "accounts",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    kind: text("kind", { enum: ["cash", "checking", "savings", "investment", "property", "other"] }).notNull(),
+    /** Currency of the account (any ISO currency). */
+    currency: text("currency").notNull(),
+    /** What was on the account before the first linked transaction, minor units of `currency`. Can be negative. */
+    openingBalance: integer("opening_balance").notNull().default(0),
+    /** Whether the account counts in the net worth. */
+    inNetWorth: integer("in_net_worth", { mode: "boolean" }).notNull().default(true),
+    isArchived: integer("is_archived", { mode: "boolean" }).notNull().default(false),
+    createdAt: createdAt(),
+  },
+  (t) => [index("accounts_user").on(t.userId)],
+);
+
+/**
+ * A loan, credit card, mortgage or a personal debt, in either direction.
+ * `principal` is the original amount; the remaining amount is the principal minus the payments.
+ */
+export const debts = sqliteTable(
+  "debts",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    /** owed_by_me: I owe (a liability). owed_to_me: somebody owes me (an asset). */
+    direction: text("direction", { enum: ["owed_by_me", "owed_to_me"] }).notNull(),
+    kind: text("kind", { enum: ["loan", "credit_card", "mortgage", "personal", "other"] }).notNull(),
+    currency: text("currency").notNull(),
+    principal: integer("principal").notNull(),
+    /** Yearly interest in hundredths of a percent (12.5% = 1250); 0 when there is none. */
+    interestRate: integer("interest_rate").notNull().default(0),
+    /** The usual payment per month, minor units; used for the payoff estimate. */
+    monthlyPayment: integer("monthly_payment"),
+    /** Day of the month the payment is due, 1-31. */
+    paymentDay: integer("payment_day"),
+    note: text("note"),
+    createdAt: createdAt(),
+  },
+  (t) => [index("debts_user").on(t.userId)],
+);
+
+export const debtPayments = sqliteTable(
+  "debt_payments",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    debtId: text("debt_id")
+      .notNull()
+      .references(() => debts.id, { onDelete: "cascade" }),
+    /** YYYY-MM-DD */
+    paidOn: text("paid_on").notNull(),
+    /** Minor units of the debt's currency; always > 0. */
+    amount: integer("amount").notNull(),
+    note: text("note"),
+    createdAt: createdAt(),
+  },
+  (t) => [index("debt_payments_user_debt").on(t.userId, t.debtId)],
+);
+
+/** One row per day the net worth page was opened: the history behind the net worth chart. */
+export const netWorthSnapshots = sqliteTable(
+  "net_worth_snapshots",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    /** YYYY-MM-DD */
+    date: text("date").notNull(),
+    /** The currency the three amounts are in (the user's main currency when it was taken). */
+    currency: text("currency").notNull(),
+    assets: integer("assets").notNull(),
+    liabilities: integer("liabilities").notNull(),
+    netWorth: integer("net_worth").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [uniqueIndex("net_worth_snapshots_user_date").on(t.userId, t.date)],
 );

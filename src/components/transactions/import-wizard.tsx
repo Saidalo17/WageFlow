@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { analyzeImport, commitImport } from "@/app/(app)/transactions/import/actions";
 import { Card } from "@/components/card";
 import { useCategoryName } from "@/components/categories/use-category-name";
-import type { CategoryOption } from "@/components/transactions/types";
+import type { AccountChoice, CategoryOption } from "@/components/transactions/types";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
@@ -49,7 +49,7 @@ type ReviewRow = {
 const ROLES = ["date", "description", "amount", "debit", "credit"] as const;
 const ROLE_KEY = { date: "colDate", description: "colDescription", amount: "colAmount", debit: "colDebit", credit: "colCredit" } as const;
 
-export function ImportWizard({ categories, currency }: { categories: CategoryOption[]; currency: string }) {
+export function ImportWizard({ categories, accounts, currency }: { categories: CategoryOption[]; accounts: AccountChoice[]; currency: string }) {
   const t = useTranslations("import");
   const locale = useLocale();
   const categoryName = useCategoryName();
@@ -67,6 +67,7 @@ export function ImportWizard({ categories, currency }: { categories: CategoryOpt
   const [imported, setImported] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [visible, setVisible] = useState(PAGE_ROWS);
+  const [accountId, setAccountId] = useState("");
 
   const width = Math.max(0, ...raw.slice(0, 20).map((r) => r.length));
   const columnLabel = (i: number) => (header && raw[0]?.[i] ? raw[0][i] : t("columnN", { n: i + 1 }));
@@ -140,6 +141,7 @@ export function ImportWizard({ categories, currency }: { categories: CategoryOpt
           amount: Math.abs(r.amount),
           type: r.amount > 0 ? "income" : "expense",
           categoryId: r.categoryId,
+          accountId: accountId || null,
         })),
       );
       if (!result.ok) {
@@ -294,6 +296,23 @@ export function ImportWizard({ categories, currency }: { categories: CategoryOpt
         <Card title={t("reviewTitle")} index={1}>
           <div className="space-y-5">
             <p className="text-sm text-muted-foreground">{t("reviewHint")}</p>
+
+            {accounts.length > 0 && (
+              <div className="space-y-1.5">
+                <Label htmlFor="imp-account" className="text-sm font-semibold">
+                  {t("account")}
+                </Label>
+                <NativeSelect id="imp-account" value={accountId} onChange={(e) => setAccountId(e.target.value)}>
+                  <option value="">{t("noAccount")}</option>
+                  {accounts.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.name} · {a.currency}
+                    </option>
+                  ))}
+                </NativeSelect>
+                <p className="text-sm text-muted-foreground">{t("accountHint", { currency })}</p>
+              </div>
+            )}
 
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl bg-muted p-4">

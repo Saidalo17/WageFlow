@@ -4,90 +4,124 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Design tokens — see design.md. Never hard-code hex in components. */
+/* Design tokens (see design.md). Never hard-code hex in components.
+ * Palette: Deep Navy #101827, Emerald #12B981, Gold #D6B56D, Light Gray #F3F5F8.
+ * Emerald on white is only 2.5:1, so UI parts use a slightly deeper emerald in the light theme and text uses
+ * --primary-strong; the pure brand emerald is --emerald (glows, gradients, charts on dark). */
 :root {
-  --radius: 0.875rem; /* 14px: buttons and inputs */
+  --radius: 0.875rem; /* 14px: inputs */
   --radius-card: 1.5rem; /* 24px: cards */
 
-  --background: #f7f7fb;
-  --foreground: #14142b;
+  --background: #f3f5f8;
+  --foreground: #101827;
   --card: #ffffff;
-  --card-foreground: #14142b;
+  --card-foreground: #101827;
   --popover: #ffffff;
-  --popover-foreground: #14142b;
-  --surface-2: #f1f1f7;
+  --popover-foreground: #101827;
+  --surface-2: #eaeef3;
 
-  --brand-50: #eef2ff;
-  --brand-100: #e0e7ff;
-  --brand-500: #6366f1;
-  --brand-600: #4f46e5;
-  --brand-700: #4338ca;
+  /* Glass: translucent panels over the soft background glow */
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(16, 24, 39, 0.08);
 
-  --primary: #4f46e5;
-  --link: #4f46e5;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f1f7;
-  --secondary-foreground: #14142b;
-  --muted: #f1f1f7;
-  --muted-foreground: #6b6b80;
-  --accent: #eef2ff;
-  --accent-foreground: #4338ca;
+  --emerald: #12b981;
+  --brand-50: #ecfdf5;
+  --brand-100: #d1fae5;
+  --brand-500: #12b981;
+  --brand-600: #0a9a6c;
+  --brand-700: #047857;
+
+  --primary: #0a9a6c;
+  --primary-strong: #046c4e; /* emerald as text */
+  --link: #046c4e;
+  --primary-foreground: #04261d; /* on solid emerald fills */
+  --gold: #d6b56d;
+  --gold-text: #7a5c14; /* gold as text on light surfaces */
+  --gold-foreground: #101827;
+  --secondary: #eaeef3;
+  --secondary-foreground: #101827;
+  --muted: #eaeef3;
+  --muted-foreground: #5b6577;
+  --accent: #dff5ec;
+  --accent-foreground: #065f46;
   --destructive: #b91c1c;
-  --border: #e6e6ef;
-  --input: #e6e6ef;
-  --ring: #6366f1;
+  --border: #dfe5ec;
+  --input: #dfe5ec;
+  --ring: #0a9a6c;
 
-  --income: #15803d;
-  --income-bg: #dcfce7;
+  --income: #047857;
+  --income-bg: #d8f3e7;
   --expense: #b91c1c;
-  --expense-bg: #fee2e2;
+  --expense-bg: #fde2e2;
   --warning: #b45309;
 
-  --chart-1: #6366f1;
-  --chart-2: #8b5cf6;
-  --chart-3: #ec4899;
-  --chart-4: #f59e0b;
-  --chart-5: #10b981;
+  --chart-1: #12b981;
+  --chart-2: #d6b56d;
+  --chart-3: #38bdf8;
+  --chart-4: #a78bfa;
+  --chart-5: #fb7185;
 
-  --shadow-card: 0 8px 30px rgba(20, 20, 43, 0.06);
+  --hero-from: #0d7a5f;
+  --hero-to: #0b3b4a;
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 12px 32px -14px rgba(16, 24, 39, 0.14);
+  --glow: 0 0 0 1px rgba(10, 154, 108, 0.12), 0 8px 24px -10px rgba(10, 154, 108, 0.5);
+  --glow-strong: 0 0 0 1px rgba(10, 154, 108, 0.2), 0 12px 30px -8px rgba(10, 154, 108, 0.6);
+  --page-glow-1: rgba(18, 185, 129, 0.12);
+  --page-glow-2: rgba(214, 181, 109, 0.12);
 }
 
 .dark {
-  --background: #0e0e16;
-  --foreground: #f2f2f8;
-  --card: #17171f;
-  --card-foreground: #f2f2f8;
-  --popover: #17171f;
-  --popover-foreground: #f2f2f8;
-  --surface-2: #1f1f2a;
+  --background: #0a101c;
+  --foreground: #f3f5f8;
+  --card: #101827; /* Deep Navy */
+  --card-foreground: #f3f5f8;
+  --popover: #131d30;
+  --popover-foreground: #f3f5f8;
+  --surface-2: #162036;
 
-  --brand-50: #1e1b4b;
-  --brand-100: #312e81;
-  --brand-500: #818cf8;
-  --brand-600: #6366f1;
-  --brand-700: #a5b4fc;
+  --glass: rgba(19, 28, 46, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.09);
 
-  --primary: #5b5ef0; /* white text 4.9:1; #6366f1 gave 4.47 */
-  --link: #818cf8; /* readable as text on dark cards (6:1) */
-  --primary-foreground: #ffffff;
-  --secondary: #1f1f2a;
-  --secondary-foreground: #f2f2f8;
-  --muted: #1f1f2a;
-  --muted-foreground: #9a9aaf;
-  --accent: #1e1b4b;
-  --accent-foreground: #a5b4fc;
+  --emerald: #12b981;
+  --brand-50: #052e22;
+  --brand-100: #064e3b;
+  --brand-500: #34d399;
+  --brand-600: #12b981;
+  --brand-700: #6ee7b7;
+
+  --primary: #12b981;
+  --primary-strong: #34d399;
+  --link: #34d399;
+  --primary-foreground: #04261d;
+  --gold: #d6b56d;
+  --gold-text: #e3c98f;
+  --gold-foreground: #101827;
+  --secondary: #162036;
+  --secondary-foreground: #f3f5f8;
+  --muted: #162036;
+  --muted-foreground: #9aa6ba;
+  --accent: #0f2d2a;
+  --accent-foreground: #6ee7b7;
   --destructive: #f87171;
-  --border: #2a2a38;
-  --input: #2a2a38;
-  --ring: #818cf8;
+  --border: #1e2a40;
+  --input: #1e2a40;
+  --ring: #34d399;
 
-  --income: #4ade80;
-  --income-bg: #052e16;
+  --income: #34d399;
+  --income-bg: #0b2b25;
   --expense: #f87171;
-  --expense-bg: #450a0a;
+  --expense-bg: #3a1417;
   --warning: #fbbf24;
 
-  --shadow-card: none;
+  --hero-from: #0d7a5f;
+  --hero-to: #0b3b4a;
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 44px -18px rgba(0, 0, 0, 0.7);
+  --glow: 0 0 0 1px rgba(18, 185, 129, 0.18), 0 0 30px -6px rgba(18, 185, 129, 0.55);
+  --glow-strong: 0 0 0 1px rgba(18, 185, 129, 0.3), 0 0 40px -4px rgba(18, 185, 129, 0.7);
+  --page-glow-1: rgba(18, 185, 129, 0.16);
+  --page-glow-2: rgba(214, 181, 109, 0.07);
 }
 
 @theme inline {
@@ -102,6 +136,11 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-surface-2: var(--surface-2);
   --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-emerald: var(--emerald);
+  --color-gold: var(--gold);
+  --color-gold-text: var(--gold-text);
+  --color-gold-foreground: var(--gold-foreground);
   --color-link: var(--link);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -127,6 +166,9 @@
   --color-expense-bg: var(--expense-bg);
   --color-warning: var(--warning);
 
+  --color-hero-from: var(--hero-from);
+  --color-hero-to: var(--hero-to);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -151,6 +193,10 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(900px 520px at 8% -10%, var(--page-glow-1), transparent 62%),
+      radial-gradient(760px 460px at 100% 0%, var(--page-glow-2), transparent 62%);
+    background-repeat: no-repeat;
     transition:
       background-color 200ms ease-out,
       color 200ms ease-out;
@@ -163,6 +209,27 @@
 /* Amounts: equal-width digits */
 .amount {
   font-variant-numeric: tabular-nums;
+}
+
+/* Glassmorphism, used on a few elements only (hero, floating panels, the command center) */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+}
+
+/* A card that rises a little when pointed at */
+.lift {
+  transition:
+    transform 180ms ease-out,
+    box-shadow 180ms ease-out,
+    border-color 180ms ease-out;
+}
+.lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card), 0 16px 36px -18px color-mix(in oklab, var(--emerald) 45%, transparent);
+  border-color: color-mix(in oklab, var(--emerald) 35%, var(--border));
 }
 
 /* Soft appearance of cards and list items: fade in and rise 8px, one after another via --i. */
@@ -194,6 +261,9 @@
   }
   .reveal {
     animation: none;
+  }
+  .lift:hover {
+    transform: none;
   }
 }
 

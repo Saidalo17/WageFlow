@@ -115,6 +115,7 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
       id: item.id,
       type: item.type,
       categoryId: item.categoryId,
+      accountId: item.accountId,
       amount: item.originalAmount ?? item.amount,
       currency: item.originalCurrency ?? currency,
       occurredOn: item.occurredOn,

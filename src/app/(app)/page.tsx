@@ -1,30 +1,46 @@
-import { ArrowDownLeft, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { AreaChart } from "@/components/charts/lazy";
 import { DonutChart } from "@/components/charts/lazy";
 import { Card } from "@/components/card";
-import { BudgetProgress } from "@/components/budgets/budget-progress";
-import { CategoryBadge } from "@/components/category-icon";
+import { AccountsTile } from "@/components/dashboard/accounts-tile";
+import { BudgetRing } from "@/components/dashboard/budget-ring";
+import { HeatmapTile } from "@/components/dashboard/heatmap-tile";
+import { HeroBalance } from "@/components/dashboard/hero-balance";
+import { InsightsTile } from "@/components/dashboard/insights-tile";
+import { RangeChips } from "@/components/dashboard/range-chips";
+import { StatTile } from "@/components/dashboard/stat-tile";
 import { Greeting } from "@/components/overview/greeting";
 import { QuickAdd } from "@/components/overview/quick-add";
 import { RecentTransactions } from "@/components/overview/recent-transactions";
 import { buttonVariants } from "@/components/ui/button";
-import { budgetStatus } from "@/lib/budget-status";
 import { convertBudgets, convertSeries, convertTotals, convertTotalsBy, convertTransactions } from "@/lib/display-convert";
 import { getDisplay } from "@/lib/display-currency";
-import { formatDate } from "@/lib/format";
+import { formatDate, todayISO } from "@/lib/format";
+import { buildHeatmap, heatmapStart } from "@/lib/heatmap";
+import { buildInsights } from "@/lib/insights";
 import { formatMoney } from "@/lib/money";
-import { capAtTomorrow, currentPeriod, isRange, rangeBounds, type Range } from "@/lib/period";
+import {
+  analyticsBounds,
+  capAtTomorrow,
+  comparisonBounds,
+  currentPeriod,
+  isAnalyticsRange,
+  percentChange,
+  type AnalyticsRange,
+} from "@/lib/period";
+import { listAccounts } from "@/lib/services/accounts";
 import { listBudgets } from "@/lib/services/budgets";
 import { listCategoriesWithTotals } from "@/lib/services/categories";
+import { loadNetWorth } from "@/lib/services/net-worth";
 import { touchLastSeen } from "@/lib/services/users";
 import { incomeExpenseSeries, totalsByCategory } from "@/lib/services/analytics";
 import { listTransactions, sumTransactions } from "@/lib/services/transactions";
 import { getCurrentUser } from "@/lib/session";
-import { cn } from "@/lib/utils";
 
-const OVERVIEW_RANGES = ["month", "prev", "quarter", "year"] as const satisfies readonly Range[];
+const OVERVIEW_RANGES = ["week", "month", "prev", "quarter", "year"] as const satisfies readonly AnalyticsRange[];
+type OverviewRange = (typeof OVERVIEW_RANGES)[number];
+const HEAT_WEEKS = 13;
 
 export async function generateMetadata() {
   const t = await getTranslations("nav");
@@ -35,23 +51,24 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
   const user = await getCurrentUser();
   const [t, tRanges, tSys, locale, sp] = await Promise.all([
     getTranslations("overview"),
-    getTranslations("transactions.filters.ranges"),
+    getTranslations("analytics.ranges"),
     getTranslations("categories.system"),
     getLocale(),
     searchParams,
   ]);
 
   const raw = Array.isArray(sp.range) ? sp.range[0] : sp.range;
-  const range: (typeof OVERVIEW_RANGES)[number] =
-    isRange(raw) && (OVERVIEW_RANGES as readonly string[]).includes(raw)
-      ? (raw as (typeof OVERVIEW_RANGES)[number])
-      : "month";
-  const { from, to } = rangeBounds(range, user.monthStartDay) as { from: string; to: string };
+  const range: OverviewRange = isAnalyticsRange(raw) && (OVERVIEW_RANGES as readonly string[]).includes(raw) ? (raw as OverviewRange) : "month";
+  const bounds = analyticsBounds(range, user.monthStartDay, null);
+  const { from, to } = bounds;
+  const previous = comparisonBounds(range, bounds, user.monthStartDay);
   const granularity = range === "quarter" || range === "year" ? "month" : "day";
+  const today = todayISO();
 
   const display = await getDisplay(user.currency);
-  const [rawTotals, rawSeries, rawByCategory, rawRecent, rawBudgets, rawCategories, away] = await Promise.all([
+  const [rawTotals, rawPrevious, rawSeries, rawByCategory, rawRecent, rawBudgets, rawCategories, away, heatSeries, accounts, worth] = await Promise.all([
     sumTransactions(user.id, { from, to }),
+    sumTransactions(user.id, { from: previous.from, to: previous.to }),
     incomeExpenseSeries(user.id, from, capAtTomorrow(to), granularity),
     totalsByCategory(user.id, "expense", from, to),
     listTransactions(user.id, {}, 5),
@@ -60,231 +77,148 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
     listCategoriesWithTotals(user.id, { from, to }),
     // True when the user has been away for a long time ("Glad you're back").
     touchLastSeen(user.id, user.lastSeenAt),
+    incomeExpenseSeries(user.id, heatmapStart(today, HEAT_WEEKS), today, "day"),
+    listAccounts(user.id),
+    loadNetWorth(user.id, user.currency),
   ]);
 
   // Amounts are stored in the main currency; show them in the chosen display currency.
   const totals = convertTotals(display, rawTotals);
+  const prevTotals = convertTotals(display, rawPrevious);
   const series = convertSeries(display, rawSeries);
   const byCategory = convertTotalsBy(display, rawByCategory);
   const recent = { ...rawRecent, items: convertTransactions(display, rawRecent.items) };
   const budgets = convertBudgets(display, rawBudgets);
   const allCategories = convertTotalsBy(display, rawCategories);
-
-  // The three limits that are closest to being used up.
-  const topBudgets = [...budgets]
-    .sort((a, b) => b.spent / b.limit - a.spent / a.limit)
-    .slice(0, 3);
+  const heatmap = buildHeatmap(convertSeries(display, heatSeries), today, HEAT_WEEKS);
 
   const money = (minor: number) => formatMoney(minor, display.currency, locale);
+  const percent = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });
   const balance = totals.income - totals.expense;
+  const previousBalance = prevTotals.income - prevTotals.expense;
   const hasData = series.some((p) => p.income > 0 || p.expense > 0);
   const firstName = user.name?.trim().split(/\s+/)[0];
 
+  // The running balance over the period, for the hero's little chart
+  const curve = series.reduce<number[]>((acc, p) => [...acc, (acc[acc.length - 1] ?? 0) + p.income - p.expense], []);
+  const incomeChange = percentChange(totals.income, prevTotals.income);
+  const expenseChange = percentChange(totals.expense, prevTotals.expense);
+  const changeText = (c: number | null) => (c === null ? null : percent.format(c));
+  const changeLabel = (c: number | null) => (c === null ? null : t("vsPrevious", { change: percent.format(c) }));
+
+  const insights = buildInsights({
+    income: totals.income,
+    expense: totals.expense,
+    previousExpense: prevTotals.expense,
+    categories: byCategory.map((c) => ({ name: c.systemKey ? tSys(c.systemKey) : c.name, total: c.total })),
+    budgets: budgets.map((b) => ({ name: b.systemKey ? tSys(b.systemKey) : b.name, spent: b.spent, limit: b.limit })),
+  });
+
   return (
     <div className="space-y-6">
-      <div className="space-y-1">
-        <Greeting name={firstName} away={away} />
-        <p className="text-muted-foreground">
-          {formatDate(
-            from,
-            locale,
-            from.slice(0, 4) === to.slice(0, 4)
-              ? { day: "numeric", month: "long" }
-              : { day: "numeric", month: "long", year: "numeric" },
-          )}{" "}
-          –{" "}
-          {formatDate(to, locale, { day: "numeric", month: "long", year: "numeric" })}
-        </p>
-      </div>
-
-      {/* Period */}
-      <nav className="flex gap-2 overflow-x-auto pb-1" aria-label={t("period")}>
-        {OVERVIEW_RANGES.map((r) => (
-          <Link
-            key={r}
-            href={r === "month" ? "/" : `/?range=${r}`}
-            scroll={false}
-            aria-current={range === r ? "true" : undefined}
-            className={cn(
-              "h-9 shrink-0 content-center rounded-full border px-4 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
-              range === r
-                ? "border-transparent bg-accent text-accent-foreground"
-                : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
-            )}
-          >
-            {tRanges(r)}
-          </Link>
-        ))}
-      </nav>
-
-      {/* Balance, income, expenses */}
-      <div className="grid gap-4 lg:grid-cols-3">
-        <div
-          className="reveal rounded-3xl bg-gradient-to-br from-[#4f46e5] to-[#7c3aed] p-6 text-white shadow-lg"
-          style={{ "--i": 0 } as React.CSSProperties}
-        >
-          <p className="text-sm font-semibold text-white/80">{t("balance")}</p>
-          <p className="amount mt-1 text-[40px] leading-tight font-extrabold break-words">
-            {balance > 0 ? "+" : balance < 0 ? "−" : ""}
-            {money(Math.abs(balance))}
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="space-y-1">
+          <Greeting name={firstName} away={away} />
+          <p className="text-muted-foreground">
+            {formatDate(from, locale, from.slice(0, 4) === to.slice(0, 4) ? { day: "numeric", month: "long" } : { day: "numeric", month: "long", year: "numeric" })} –{" "}
+            {formatDate(to, locale, { day: "numeric", month: "long", year: "numeric" })}
           </p>
         </div>
-        <StatCard
-          label={t("income")}
-          value={`${totals.income > 0 ? "+" : ""}${money(totals.income)}`}
-          tone="income"
-          index={1}
-          icon={<ArrowUpRight className="size-5" />}
-        />
-        <StatCard
-          label={t("expenses")}
-          value={`${totals.expense > 0 ? "−" : ""}${money(totals.expense)}`}
-          tone="expense"
-          index={2}
-          icon={<ArrowDownLeft className="size-5" />}
+        <RangeChips
+          ranges={OVERVIEW_RANGES}
+          active={range}
+          hrefFor={(r) => (r === "month" ? "/" : `/?range=${r}`)}
+          labelFor={(r) => tRanges(r)}
+          ariaLabel={t("period")}
         />
       </div>
 
-      {/* Charts */}
-      <div className="grid gap-4 lg:grid-cols-3">
-        <Card title={t("dynamicsTitle")} className="lg:col-span-2" index={3}>
+      {/* Bento grid: tiles of different sizes that fall into one column on a phone */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
+        <HeroBalance balance={balance} previousBalance={previousBalance} curve={curve} currency={display.currency} locale={locale} className="md:col-span-2 lg:col-span-6" />
+        <StatTile
+          label={t("income")}
+          tone="income"
+          value={totals.income}
+          change={incomeChange}
+          changeText={changeText(incomeChange)}
+          changeLabel={changeLabel(incomeChange)}
+          bars={series.map((p) => p.income)}
+          currency={display.currency}
+          index={1}
+          className="lg:col-span-3"
+        />
+        <StatTile
+          label={t("expenses")}
+          tone="expense"
+          value={totals.expense}
+          change={expenseChange}
+          changeText={changeText(expenseChange)}
+          changeLabel={changeLabel(expenseChange)}
+          bars={series.map((p) => p.expense)}
+          currency={display.currency}
+          index={2}
+          className="lg:col-span-3"
+        />
+
+        <Card title={t("dynamicsTitle")} className="md:col-span-2 lg:col-span-8" index={3}>
           {hasData ? (
-            <>
-              <AreaChart
-                data={series}
-                currency={display.currency}
-                granularity={granularity}
-                labels={{ income: t("income"), expense: t("expenses") }}
-                ariaLabel={t("dynamicsAria")}
-              />
-              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm font-medium">
-                <span className="flex items-center gap-2">
-                  <span className="size-3 rounded-full bg-income" aria-hidden />
-                  {t("income")}
-                </span>
-                <span className="flex items-center gap-2">
-                  <span className="size-3 rounded-full bg-expense" aria-hidden />
-                  {t("expenses")}
-                </span>
-              </div>
-            </>
+            <AreaChart
+              data={series}
+              currency={display.currency}
+              granularity={granularity}
+              labels={{ income: t("income"), expense: t("expenses") }}
+              ariaLabel={t("dynamicsAria")}
+              height={280}
+            />
           ) : (
-            <p className="grid h-[260px] place-items-center text-muted-foreground">{t("noData")}</p>
+            <p className="grid h-[280px] place-items-center text-muted-foreground">{t("noData")}</p>
           )}
         </Card>
 
-        <Card title={t("structureTitle")} index={4}>
+        <AccountsTile
+          accounts={accounts}
+          netWorth={worth.ok && worth.netWorth.items.length > 0 ? worth.netWorth.netWorth : null}
+          netWorthCurrency={user.currency}
+          index={4}
+          className="lg:col-span-4"
+        />
+
+        <Card title={t("structureTitle")} className="lg:col-span-4" index={5}>
           {byCategory.length > 0 ? (
             <DonutChart data={byCategory} currency={display.currency} ariaLabel={t("structureAria")} />
           ) : (
-            <p className="grid h-[260px] place-items-center text-muted-foreground">{t("noData")}</p>
+            <p className="grid h-[220px] place-items-center text-muted-foreground">{t("noData")}</p>
           )}
         </Card>
-      </div>
 
-      {/* Categories: tap one to add a transaction by hand */}
-      <Card index={5} title={t("quickAdd.title")}>
-        <QuickAdd categories={allCategories} currency={display.currency} />
-      </Card>
+        <BudgetRing
+          items={budgets.map((b) => ({ id: b.id, name: b.systemKey ? tSys(b.systemKey) : b.name, color: b.color, spent: b.spent, limit: b.limit }))}
+          money={money}
+          index={6}
+          className="lg:col-span-4"
+        />
 
-      {/* Limits */}
-      <Card
-        index={6}
-        title={t("budgetsTitle")}
-        action={
-          <Link href="/budgets" className={buttonVariants({ variant: "ghost", size: "sm" })}>
-            {topBudgets.length > 0 ? t("viewBudgets") : t("setLimit")}
-          </Link>
-        }
-      >
-        {topBudgets.length === 0 ? (
-          <p className="text-muted-foreground">{t("budgetsEmpty")}</p>
-        ) : (
-          <ul className="space-y-4">
-            {topBudgets.map((b) => {
-              const ratio = b.limit ? b.spent / b.limit : 0;
-              const status = budgetStatus(ratio);
-              const name = b.systemKey ? tSys(b.systemKey) : b.name;
-              const left = b.limit - b.spent;
-              return (
-                <li key={b.id} className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <CategoryBadge icon={b.icon} color={b.color} className="size-9" />
-                    <span className="min-w-0 flex-1 truncate font-bold">{name}</span>
-                    <span className="amount text-sm text-muted-foreground">
-                      {money(b.spent)} / {money(b.limit)}
-                    </span>
-                  </div>
-                  <BudgetProgress ratio={ratio} label={name} />
-                  <p
-                    className={cn(
-                      "amount text-xs font-semibold",
-                      status === "ok" && "text-muted-foreground",
-                      status === "warning" && "text-warning",
-                      status === "over" && "text-expense",
-                    )}
-                  >
-                    {left >= 0 ? t("budgetLeft", { amount: money(left) }) : t("budgetOver", { amount: money(-left) })}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </Card>
-
-      {/* Latest transactions */}
-      <Card
-        index={7}
-        title={t("recentTitle")}
-        action={
-          <Link href="/transactions?range=all" className={buttonVariants({ variant: "ghost", size: "sm" })}>
-            {t("viewAll")}
-          </Link>
-        }
-      >
-        <RecentTransactions items={recent.items} currency={display.currency} />
-      </Card>
-    </div>
-  );
-}
-
-function StatCard({
-  label,
-  value,
-  tone,
-  icon,
-  index,
-}: {
-  label: string;
-  value: string;
-  tone: "income" | "expense";
-  icon: React.ReactNode;
-  index: number;
-}) {
-  return (
-    <div
-      className="reveal flex items-center gap-4 rounded-3xl border bg-card p-6 shadow-[var(--shadow-card)]"
-      style={{ "--i": index } as React.CSSProperties}
-    >
-      <span
-        className={cn(
-          "grid size-12 shrink-0 place-items-center rounded-full",
-          tone === "income" ? "bg-income-bg text-income" : "bg-expense-bg text-expense",
-        )}
-      >
-        {icon}
-      </span>
-      <div className="min-w-0">
-        <p className="text-sm font-semibold text-muted-foreground">{label}</p>
-        <p
-          className={cn(
-            "amount text-2xl font-extrabold break-words",
-            tone === "income" ? "text-income" : "text-expense",
-          )}
+        <Card
+          index={7}
+          title={t("recentTitle")}
+          className="lg:col-span-4"
+          action={
+            <Link href="/transactions?range=all" className={buttonVariants({ variant: "ghost", size: "sm" })}>
+              {t("viewAll")}
+            </Link>
+          }
         >
-          {value}
-        </p>
+          <RecentTransactions items={recent.items} currency={display.currency} />
+        </Card>
+
+        <HeatmapTile heatmap={heatmap} currency={display.currency} index={8} className="md:col-span-2 lg:col-span-8" />
+        <InsightsTile insights={insights} currency={display.currency} index={9} className="lg:col-span-4" />
+
+        {/* Categories: tap one to add a transaction by hand */}
+        <Card index={10} title={t("quickAdd.title")} className="md:col-span-2 lg:col-span-12">
+          <QuickAdd categories={allCategories} currency={display.currency} />
+        </Card>
       </div>
     </div>
   );

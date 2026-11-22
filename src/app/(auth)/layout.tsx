@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/components/nav/theme-toggle";
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const t = await getTranslations("a11y");
   return (
-    <div className="relative flex min-h-screen flex-col bg-gradient-to-br from-brand-500/15 via-background to-violet-500/15">
+    <div className="relative flex min-h-screen flex-col bg-gradient-to-br from-emerald/10 via-background to-gold/10">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-xl focus:bg-primary focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-primary-foreground focus:shadow-lg"

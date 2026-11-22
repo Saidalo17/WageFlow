@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useMemo, useState } from "react
 import { useTranslations } from "next-intl";
 import { ResponsiveModal } from "@/components/responsive-modal";
 import { TransactionForm } from "./transaction-form";
-import type { CategoryOption, TxItem } from "./types";
+import type { AccountChoice, CategoryOption, TxItem } from "./types";
 
 type ModalApi = {
   /** Opens the "new transaction" form from anywhere in the app. */
@@ -22,10 +22,12 @@ export function useTransactionModal() {
 
 export function TransactionModalProvider({
   categories,
+  accounts,
   currency,
   children,
 }: {
   categories: CategoryOption[];
+  accounts: AccountChoice[];
   currency: string;
   children: React.ReactNode;
 }) {
@@ -66,6 +68,7 @@ export function TransactionModalProvider({
           initialType={initialType}
           initialCategoryId={initialCategoryId}
           categories={categories}
+          accounts={accounts}
           currency={currency}
           onDone={() => setOpen(false)}
         />

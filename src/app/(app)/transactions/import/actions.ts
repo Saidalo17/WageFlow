@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { isForeignKeyViolation } from "@/lib/db/errors";
 import { buildLearning, suggest } from "@/lib/import/categorize";
 import { minorDigits } from "@/lib/money";
+import { findAccount } from "@/lib/services/accounts";
 import { listCategories } from "@/lib/services/categories";
 import { existingBetween, insertImported, loadLearningHistory } from "@/lib/services/import";
 import { getCurrentUser } from "@/lib/session";
@@ -87,6 +88,12 @@ export async function commitImport(input: unknown): Promise<CommitResult> {
   for (const r of rows) {
     const c = byId.get(r.categoryId);
     if (!c || c.isArchived || c.type !== r.type) return { ok: false, error: "categoryRequired" };
+  }
+
+  // An account must be the user's own, active, and in the currency the file is taken to be in.
+  for (const accountId of new Set(rows.map((r) => r.accountId).filter(Boolean) as string[])) {
+    const account = await findAccount(user.id, accountId);
+    if (!account || account.isArchived || account.currency !== user.currency) return { ok: false, error: "accountInvalid" };
   }
 
   try {
