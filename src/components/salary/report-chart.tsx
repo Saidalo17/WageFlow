@@ -1,9 +1,11 @@
 import { formatDate } from "@/lib/format";
 import type { MonthTotals } from "@/lib/salary-stats";
+import { cn } from "@/lib/utils";
 
 /**
- * Gross and net pay per month as a plain SVG: it prints sharply, needs no script and does not depend on the theme.
- * Colors are fixed on purpose (the report is always a light sheet of paper).
+ * Gross and net pay per month as plain HTML bars: they stay sharp and readable at any width (the labels are real
+ * text, not scaled drawing), need no script and do not depend on the theme. Colors are fixed on purpose
+ * (the report is always a light sheet of paper). On a narrow screen every second month label is hidden.
  */
 export function ReportChart({
   months,
@@ -16,35 +18,30 @@ export function ReportChart({
   labels: { gross: string; net: string };
   ariaLabel: string;
 }) {
-  const W = 720;
-  const H = 190;
-  const padTop = 10;
-  const padBottom = 24;
-  const plotH = H - padTop - padBottom;
   const max = Math.max(...months.map((m) => m.gross), 1);
-  const slot = W / months.length;
-  const barW = Math.min(slot * 0.34, 22);
+  const height = (value: number) => (value > 0 ? `${Math.max((value / max) * 100, 1.5)}%` : "0%");
 
   return (
     <figure className="break-inside-avoid">
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={ariaLabel} className="h-auto w-full">
-        <line x1="0" x2={W} y1={padTop + plotH} y2={padTop + plotH} stroke="#d4d4d8" />
-        {months.map((m, i) => {
-          const cx = slot * i + slot / 2;
-          const gh = (m.gross / max) * plotH;
-          const nh = (m.net / max) * plotH;
-          return (
-            <g key={m.month}>
-              {m.gross > 0 && <rect x={cx - barW - 1} y={padTop + plotH - gh} width={barW} height={gh} rx="3" fill="#a1a1aa" />}
-              {m.net > 0 && <rect x={cx + 1} y={padTop + plotH - nh} width={barW} height={nh} rx="3" fill="#16a34a" />}
-              <text x={cx} y={H - 7} textAnchor="middle" fontSize="11" fill="#52525b">
-                {formatDate(`${m.month}-01`, locale, { month: "short" })}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
-      <figcaption className="mt-1 flex gap-4 text-xs text-neutral-600">
+      <div role="img" aria-label={ariaLabel} className="flex h-44 items-end gap-1 border-b border-neutral-300 sm:gap-2">
+        {months.map((m) => (
+          <div key={m.month} className="flex h-full min-w-0 flex-1 items-end justify-center gap-px">
+            <div className="w-1/2 max-w-[22px] rounded-t-[3px] bg-[#a1a1aa]" style={{ height: height(m.gross) }} />
+            <div className="w-1/2 max-w-[22px] rounded-t-[3px] bg-[#16a34a]" style={{ height: height(m.net) }} />
+          </div>
+        ))}
+      </div>
+      <div className="mt-1 flex gap-1 sm:gap-2" aria-hidden>
+        {months.map((m, i) => (
+          <span
+            key={m.month}
+            className={cn("min-w-0 flex-1 truncate text-center text-[10px] text-neutral-600 sm:text-xs", i % 2 === 1 && "max-sm:invisible")}
+          >
+            {formatDate(`${m.month}-01`, locale, { month: "short" })}
+          </span>
+        ))}
+      </div>
+      <figcaption className="mt-2 flex gap-4 text-xs text-neutral-600">
         <span className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-sm bg-[#a1a1aa]" aria-hidden />
           {labels.gross}

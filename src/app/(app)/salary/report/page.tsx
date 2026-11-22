@@ -124,7 +124,8 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
 
             <section className="break-inside-avoid">
               <h2 className="mb-2 text-base font-bold">{t("report.monthsTitle")}</h2>
-              <table className="w-full text-sm">
+              <div className="overflow-x-auto print:overflow-visible">
+<table className="w-full min-w-[420px] text-sm print:min-w-0">
                 <thead>
                   <tr>
                     <th className={th}>{t("report.month")}</th>
@@ -150,11 +151,13 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
                   </tr>
                 </tbody>
               </table>
+</div>
             </section>
 
             <section>
               <h2 className="mb-2 text-base font-bold">{t("report.recordsTitle")}</h2>
-              <table className="w-full text-sm">
+              <div className="overflow-x-auto print:overflow-visible">
+<table className="w-full min-w-[420px] text-sm print:min-w-0">
                 <thead>
                   <tr>
                     <th className={th}>{t("report.date")}</th>
@@ -178,12 +181,14 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
                     ))}
                 </tbody>
               </table>
+</div>
             </section>
 
             {bonuses.length > 0 && (
               <section className="break-inside-avoid">
                 <h2 className="mb-2 text-base font-bold">{t("bonusHistoryTitle")}</h2>
-                <table className="w-full text-sm">
+                <div className="overflow-x-auto print:overflow-visible">
+<table className="w-full min-w-[420px] text-sm print:min-w-0">
                   <tbody>
                     {bonuses.map((b) => (
                       <tr key={b.id} className="border-b border-neutral-100">
@@ -194,6 +199,7 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
                     ))}
                   </tbody>
                 </table>
+</div>
               </section>
             )}
           </>

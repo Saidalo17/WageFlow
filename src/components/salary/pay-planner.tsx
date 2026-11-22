@@ -91,7 +91,7 @@ export function PayPlanner({
         title={t("title")}
         index={5}
         action={
-          <Button size="sm" onClick={openCreate} className="gap-1.5">
+          <Button size="sm" onClick={openCreate} className="gap-1.5 max-sm:h-10">
             <Plus className="size-4" />
             {t("add")}
           </Button>
@@ -201,7 +201,7 @@ export function PayPlanner({
               <a
                 href="/api/salary/calendar"
                 download
-                className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "gap-1.5")}
+                className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "gap-1.5 max-sm:h-10")}
               >
                 <CalendarPlus className="size-4" />
                 {t("calendar")}

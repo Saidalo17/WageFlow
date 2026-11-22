@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 /** Ways into the printable report: the last 12 months, or one year. Opens in a new tab and offers "Save as PDF". */
 export async function SalaryReportLinks({ years }: { years: number[] }) {
   const t = await getTranslations("salary");
-  const link = cn(buttonVariants({ variant: "secondary", size: "sm" }), "gap-1.5");
+  const link = cn(buttonVariants({ variant: "secondary", size: "sm" }), "gap-1.5 max-sm:h-10");
 
   return (
     <Card title={t("report.cardTitle")} index={5}>

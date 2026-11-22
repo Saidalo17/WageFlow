@@ -21,6 +21,7 @@ import {
   deleteAccountSchema,
   profileSchema,
 } from "@/lib/validators/settings";
+import { containsEmailName } from "@/lib/validators/auth";
 import { LOCALE_COOKIE } from "@/i18n/config";
 
 export type ActionResult =
@@ -99,6 +100,9 @@ export async function changePassword(input: unknown): Promise<ActionResult> {
   }
   if (current === next) {
     return { ok: false, error: "invalid", fieldErrors: { next: "samePassword" } };
+  }
+  if (containsEmailName(next, user.email)) {
+    return { ok: false, error: "invalid", fieldErrors: { next: "passwordEmail" } };
   }
 
   await db

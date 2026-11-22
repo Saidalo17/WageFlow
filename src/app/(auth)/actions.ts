@@ -10,6 +10,7 @@ import { db } from "@/lib/db/client";
 import { isUniqueViolation } from "@/lib/db/errors";
 import { categories, users } from "@/lib/db/schema";
 import { DEFAULT_CATEGORIES, DEFAULT_CURRENCY_BY_LOCALE } from "@/lib/default-categories";
+import { checkEmailDomain, deliverabilityCheckEnabled } from "@/lib/email-check";
 import { loginSchema, registerSchema } from "@/lib/validators/auth";
 import { isLocale, LOCALE_COOKIE } from "@/i18n/config";
 
@@ -56,6 +57,13 @@ export async function registerUser(input: unknown): Promise<AuthResult> {
   }
   const { name, password } = parsed.data;
   const email = parsed.data.email.toLowerCase();
+
+  // Is this address one that can receive mail at all? (production; see lib/email-check.ts)
+  if (deliverabilityCheckEnabled()) {
+    const domain = await checkEmailDomain(email);
+    if (domain === "reserved") return { ok: false, error: "invalid", fieldErrors: { email: "email" } };
+    if (domain === "no-mail") return { ok: false, error: "invalid", fieldErrors: { email: "emailDomain" } };
+  }
 
   const [existing] = await db.select({ id: users.id }).from(users).where(eq(users.email, email));
   if (existing) return { ok: false, error: "emailTaken", fieldErrors: { email: "emailTaken" } };

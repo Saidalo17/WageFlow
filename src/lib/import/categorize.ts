@@ -85,8 +85,16 @@ export function keywordCategory(description: string, kind: Kind): string | null 
 
 export type HistoryEntry = { note: string | null; categoryId: string; type: Kind };
 
-/** What the user's earlier operations say: normalized description -> the category used most often for it. */
-export function buildLearning(history: HistoryEntry[]): Map<string, string> {
+/**
+ * What the user's earlier operations say. `exact` maps "kind|normalized description" to the category used most often;
+ * `partial` lists the longer descriptions once, already split, for the "one contains the other" match.
+ */
+export type Learning = {
+  exact: Map<string, string>;
+  partial: { kind: Kind; text: string; categoryId: string }[];
+};
+
+export function buildLearning(history: HistoryEntry[]): Learning {
   const counts = new Map<string, Map<string, number>>();
   for (const h of history) {
     if (!h.note) continue;
@@ -96,7 +104,8 @@ export function buildLearning(history: HistoryEntry[]): Map<string, string> {
     byCategory.set(h.categoryId, (byCategory.get(h.categoryId) ?? 0) + 1);
     counts.set(key, byCategory);
   }
-  const best = new Map<string, string>();
+  const exact = new Map<string, string>();
+  const partial: Learning["partial"] = [];
   for (const [key, byCategory] of counts) {
     let top = "";
     let topCount = 0;
@@ -106,28 +115,30 @@ export function buildLearning(history: HistoryEntry[]): Map<string, string> {
         topCount = n;
       }
     }
-    best.set(key, top);
+    exact.set(key, top);
+    const cut = key.indexOf("|");
+    const text = key.slice(cut + 1);
+    if (text.length >= 6) partial.push({ kind: key.slice(0, cut) as Kind, text, categoryId: top });
   }
-  return best;
+  return { exact, partial };
 }
 
 /** The user's own category for this description, when an equal (or clearly contained) one was seen before. */
-export function learnedCategory(learning: Map<string, string>, description: string, kind: Kind): string | null {
+export function learnedCategory(learning: Learning, description: string, kind: Kind): string | null {
   const normalized = normalizeDescription(description);
   if (!normalized) return null;
-  const exact = learning.get(`${kind}|${normalized}`);
+  const exact = learning.exact.get(`${kind}|${normalized}`);
   if (exact) return exact;
   // "pyaterochka moskva" vs a remembered "pyaterochka": one contains the other (at least 6 letters, so tiny words never match).
-  for (const [key, categoryId] of learning) {
-    const [k, text] = [key.slice(0, key.indexOf("|")), key.slice(key.indexOf("|") + 1)];
-    if (k !== kind || text.length < 6) continue;
-    if (normalized.includes(text) || (normalized.length >= 6 && text.includes(normalized))) return categoryId;
+  for (const p of learning.partial) {
+    if (p.kind !== kind) continue;
+    if (normalized.includes(p.text) || (normalized.length >= 6 && p.text.includes(normalized))) return p.categoryId;
   }
   return null;
 }
 
 /** The final suggestion for one operation. */
-export function suggest(description: string, kind: Kind, learning: Map<string, string>): Suggestion {
+export function suggest(description: string, kind: Kind, learning: Learning): Suggestion {
   const own = learnedCategory(learning, description, kind);
   if (own) return { systemKey: "", source: "history", categoryId: own };
   const key = keywordCategory(description, kind);

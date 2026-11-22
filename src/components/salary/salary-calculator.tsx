@@ -390,7 +390,7 @@ export function SalaryCalculator({ currency, defaultCountry }: { currency: strin
               type="button"
               variant="secondary"
               size="sm"
-              className="gap-1.5"
+              className="gap-1.5 max-sm:h-10"
               onClick={() => setBonuses((rows) => [...rows, { key: newKey(), label: "", amount: "" }])}
             >
               <Plus className="size-4" />
@@ -498,7 +498,7 @@ export function SalaryCalculator({ currency, defaultCountry }: { currency: strin
               type="button"
               variant="secondary"
               size="sm"
-              className="gap-1.5"
+              className="gap-1.5 max-sm:h-10"
               onClick={() =>
                 setDeductions((rows) => [...rows, { key: newKey(), label: "", kind: "percent", value: "" }])
               }

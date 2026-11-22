@@ -4,6 +4,7 @@ import { locales } from "@/i18n/config";
 import { HEX_COLOR } from "@/lib/category-meta";
 import { BIO_MAX, PROFILE_EMOJIS } from "@/lib/profile-meta";
 import { TAX_COUNTRIES } from "@/lib/tax";
+import { passwordSchema } from "@/lib/validators/auth";
 
 /** Error messages are translation keys (settings.errors.<key>). */
 
@@ -43,7 +44,7 @@ export const countrySchema = z
 
 export const changePasswordSchema = z.object({
   current: z.string().min(1, { error: "required" }).max(72, { error: "passwordLong" }),
-  next: z.string().min(8, { error: "passwordShort" }).max(72, { error: "passwordLong" }),
+  next: passwordSchema,
 });
 
 export const deleteAccountSchema = z.object({

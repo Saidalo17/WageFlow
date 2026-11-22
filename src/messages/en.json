@@ -51,7 +51,7 @@
       "name": "Name (optional)",
       "email": "Email",
       "password": "Password",
-      "passwordHint": "At least 8 characters",
+      "passwordHint": "At least 8 characters, with letters and numbers",
       "showPassword": "Show password",
       "hidePassword": "Hide password"
     },
@@ -64,7 +64,12 @@
       "emailTaken": "An account with this email already exists",
       "invalidCredentials": "Incorrect email or password",
       "tooManyAttempts": "Too many attempts. Try again in 15 minutes",
-      "generic": "Something went wrong. Please try again"
+      "generic": "Something went wrong. Please try again",
+      "passwordWeak": "Use at least one letter and one number",
+      "passwordCommon": "This password is too common or too simple",
+      "passwordEmail": "The password must not contain your email name",
+      "passwordChars": "The password contains characters that are not allowed",
+      "emailDomain": "This email domain can not receive mail. Check for typos"
     }
   },
   "categories": {
@@ -378,7 +383,7 @@
       "current": "Current password",
       "new": "New password",
       "confirm": "Repeat new password",
-      "hint": "At least 8 characters",
+      "hint": "At least 8 characters, with letters and numbers",
       "submit": "Change password",
       "changed": "Password changed"
     },
@@ -414,7 +419,11 @@
       "ratesUnavailable": "Exchange rates are unavailable right now. Please try again later",
       "photoInvalid": "Choose a JPG, PNG or WebP picture",
       "photoTooLarge": "The picture is too large",
-      "bioLong": "The text must be at most 120 characters"
+      "bioLong": "The text must be at most 120 characters",
+      "passwordWeak": "Use at least one letter and one number",
+      "passwordCommon": "This password is too common or too simple",
+      "passwordEmail": "The password must not contain your email name",
+      "passwordChars": "The password contains characters that are not allowed"
     },
     "profileCard": {
       "title": "Profile card",
@@ -763,6 +772,7 @@
       "tooMany": "Too many rows at once",
       "invalid": "Please check the data",
       "generic": "Something went wrong. Please try again"
-    }
+    },
+    "showMore": "Show more ({count} left)"
   }
 }

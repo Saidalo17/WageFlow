@@ -51,7 +51,7 @@
       "name": "Name (optional)",
       "email": "E-Mail",
       "password": "Passwort",
-      "passwordHint": "Mindestens 8 Zeichen",
+      "passwordHint": "Mindestens 8 Zeichen, mit Buchstaben und Zahlen",
       "showPassword": "Passwort anzeigen",
       "hidePassword": "Passwort verbergen"
     },
@@ -64,7 +64,12 @@
       "emailTaken": "Ein Konto mit dieser E-Mail existiert bereits",
       "invalidCredentials": "E-Mail oder Passwort ist falsch",
       "tooManyAttempts": "Zu viele Versuche. Bitte versuchen Sie es in 15 Minuten erneut",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut"
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut",
+      "passwordWeak": "Verwende mindestens einen Buchstaben und eine Zahl",
+      "passwordCommon": "Dieses Passwort ist zu verbreitet oder zu einfach",
+      "passwordEmail": "Das Passwort darf den Namen aus deiner E-Mail nicht enthalten",
+      "passwordChars": "Das Passwort enthält nicht erlaubte Zeichen",
+      "emailDomain": "Diese E-Mail-Domain kann keine Nachrichten empfangen. Prüfe auf Tippfehler"
     }
   },
   "categories": {
@@ -378,7 +383,7 @@
       "current": "Aktuelles Passwort",
       "new": "Neues Passwort",
       "confirm": "Neues Passwort wiederholen",
-      "hint": "Mindestens 8 Zeichen",
+      "hint": "Mindestens 8 Zeichen, mit Buchstaben und Zahlen",
       "submit": "Passwort ändern",
       "changed": "Passwort geändert"
     },
@@ -414,7 +419,11 @@
       "ratesUnavailable": "Die Wechselkurse sind gerade nicht verfügbar. Bitte versuche es später erneut",
       "photoInvalid": "Wähle ein JPG-, PNG- oder WebP-Bild",
       "photoTooLarge": "Das Bild ist zu groß",
-      "bioLong": "Der Text darf höchstens 120 Zeichen lang sein"
+      "bioLong": "Der Text darf höchstens 120 Zeichen lang sein",
+      "passwordWeak": "Verwende mindestens einen Buchstaben und eine Zahl",
+      "passwordCommon": "Dieses Passwort ist zu verbreitet oder zu einfach",
+      "passwordEmail": "Das Passwort darf den Namen aus deiner E-Mail nicht enthalten",
+      "passwordChars": "Das Passwort enthält nicht erlaubte Zeichen"
     },
     "profileCard": {
       "title": "Profilkarte",
@@ -763,6 +772,7 @@
       "tooMany": "Zu viele Zeilen auf einmal",
       "invalid": "Bitte prüfe die Daten",
       "generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut"
-    }
+    },
+    "showMore": "Mehr anzeigen ({count} übrig)"
   }
 }

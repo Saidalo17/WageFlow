@@ -29,6 +29,8 @@ import { cn } from "@/lib/utils";
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const MAX_ROWS = 2000;
+/** Rows drawn at first and per "show more": a long statement never builds thousands of fields at once. */
+const PAGE_ROWS = 100;
 
 type Stage = "upload" | "map" | "review" | "done";
 
@@ -64,6 +66,7 @@ export function ImportWizard({ categories, currency }: { categories: CategoryOpt
   const [error, setError] = useState<string | null>(null);
   const [imported, setImported] = useState(0);
   const [dragging, setDragging] = useState(false);
+  const [visible, setVisible] = useState(PAGE_ROWS);
 
   const width = Math.max(0, ...raw.slice(0, 20).map((r) => r.length));
   const columnLabel = (i: number) => (header && raw[0]?.[i] ? raw[0][i] : t("columnN", { n: i + 1 }));
@@ -119,6 +122,7 @@ export function ImportWizard({ categories, currency }: { categories: CategoryOpt
     }
     setBusy(false);
     setReview(out);
+    setVisible(PAGE_ROWS);
     setStage("review");
   }
 
@@ -327,7 +331,7 @@ export function ImportWizard({ categories, currency }: { categories: CategoryOpt
                   </tr>
                 </thead>
                 <tbody>
-                  {review.map((r) => {
+                  {review.slice(0, visible).map((r) => {
                     const type = r.amount > 0 ? "income" : "expense";
                     const options = categories.filter((c) => c.type === type && !c.isArchived);
                     return (
@@ -367,6 +371,11 @@ export function ImportWizard({ categories, currency }: { categories: CategoryOpt
                 </tbody>
               </table>
             </div>
+            {review.length > visible && (
+              <Button variant="secondary" className="w-full max-sm:h-10" onClick={() => setVisible((v) => v + PAGE_ROWS * 2)}>
+                {t("showMore", { count: review.length - visible })}
+              </Button>
+            )}
 
             {errorBox}
             <div className="flex flex-wrap gap-2">

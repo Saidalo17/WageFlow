@@ -51,7 +51,7 @@
       "name": "姓名（可选）",
       "email": "电子邮箱",
       "password": "密码",
-      "passwordHint": "至少 8 个字符",
+      "passwordHint": "至少 8 个字符，包含字母和数字",
       "showPassword": "显示密码",
       "hidePassword": "隐藏密码"
     },
@@ -64,7 +64,12 @@
       "emailTaken": "该邮箱已注册",
       "invalidCredentials": "邮箱或密码错误",
       "tooManyAttempts": "尝试次数过多，请 15 分钟后再试",
-      "generic": "出了点问题，请重试"
+      "generic": "出了点问题，请重试",
+      "passwordWeak": "请至少使用一个字母和一个数字",
+      "passwordCommon": "此密码过于常见或过于简单",
+      "passwordEmail": "密码不能包含你邮箱中的用户名部分",
+      "passwordChars": "密码包含不允许的字符",
+      "emailDomain": "此邮箱域名无法接收邮件，请检查是否有拼写错误"
     }
   },
   "categories": {
@@ -378,7 +383,7 @@
       "current": "当前密码",
       "new": "新密码",
       "confirm": "再次输入新密码",
-      "hint": "至少 8 个字符",
+      "hint": "至少 8 个字符，包含字母和数字",
       "submit": "修改密码",
       "changed": "密码已修改"
     },
@@ -414,7 +419,11 @@
       "ratesUnavailable": "暂时无法获取汇率，请稍后再试",
       "photoInvalid": "请选择 JPG、PNG 或 WebP 图片",
       "photoTooLarge": "图片太大",
-      "bioLong": "文字最多 120 个字符"
+      "bioLong": "文字最多 120 个字符",
+      "passwordWeak": "请至少使用一个字母和一个数字",
+      "passwordCommon": "此密码过于常见或过于简单",
+      "passwordEmail": "密码不能包含你邮箱中的用户名部分",
+      "passwordChars": "密码包含不允许的字符"
     },
     "profileCard": {
       "title": "个人资料卡",
@@ -763,6 +772,7 @@
       "tooMany": "一次行数过多",
       "invalid": "请检查数据",
       "generic": "出了点问题，请重试"
-    }
+    },
+    "showMore": "显示更多（还剩 {count} 笔）"
   }
 }

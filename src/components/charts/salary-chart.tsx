@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { formatDate } from "@/lib/format";
 import { formatMoney, fromMinor } from "@/lib/money";
+import { useIsMobile } from "@/lib/use-media";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 export type SalaryPoint = {
@@ -39,6 +40,7 @@ export function SalaryChart({
 }) {
   const locale = useLocale();
   const reduced = useReducedMotion();
+  const mobile = useIsMobile();
   const compact = new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 });
   const axisStyle = { fill: "var(--muted-foreground)", fontSize: 12 } as const;
   const dense = data.length > 8;
@@ -47,7 +49,7 @@ export function SalaryChart({
     formatDate(
       `${key}-01`,
       locale,
-      index === 0 || key.endsWith("-01") ? { month: "short", year: "2-digit" } : { month: "short" },
+      !mobile && (index === 0 || key.endsWith("-01")) ? { month: "short", year: "2-digit" } : { month: "short" },
     );
 
   return (
@@ -62,7 +64,7 @@ export function SalaryChart({
             tickLine={false}
             axisLine={false}
             tickMargin={8}
-            interval={0}
+            interval={mobile ? 1 : 0}
           />
           <YAxis
             width="auto"

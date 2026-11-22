@@ -32,6 +32,8 @@ export default defineConfig({
       TURSO_DATABASE_URL: "file:.test/e2e.db",
       TURSO_AUTH_TOKEN: "",
       AUTH_SECRET: "e2e-secret-not-used-in-production",
+      // The tests sign up with made-up addresses (example.test): no DNS or reserved-domain check there.
+      EMAIL_DELIVERABILITY_CHECK: "off",
       // Fixed exchange rates, so the tests do not depend on the internet.
       FX_FIXED_RATES: JSON.stringify({ USD: 1, EUR: 0.5, JPY: 150 }),
     },

@@ -51,7 +51,7 @@
       "name": "Nombre (opcional)",
       "email": "Correo electrónico",
       "password": "Contraseña",
-      "passwordHint": "Al menos 8 caracteres",
+      "passwordHint": "Al menos 8 caracteres, con letras y números",
       "showPassword": "Mostrar contraseña",
       "hidePassword": "Ocultar contraseña"
     },
@@ -64,7 +64,12 @@
       "emailTaken": "Ya existe una cuenta con este correo",
       "invalidCredentials": "Correo o contraseña incorrectos",
       "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo en 15 minutos",
-      "generic": "Algo salió mal. Inténtalo de nuevo"
+      "generic": "Algo salió mal. Inténtalo de nuevo",
+      "passwordWeak": "Usa al menos una letra y un número",
+      "passwordCommon": "Esta contraseña es demasiado común o simple",
+      "passwordEmail": "La contraseña no debe contener el nombre de tu correo",
+      "passwordChars": "La contraseña contiene caracteres no permitidos",
+      "emailDomain": "Este dominio de correo no puede recibir mensajes. Revisa si hay errores"
     }
   },
   "categories": {
@@ -378,7 +383,7 @@
       "current": "Contraseña actual",
       "new": "Nueva contraseña",
       "confirm": "Repite la nueva contraseña",
-      "hint": "Al menos 8 caracteres",
+      "hint": "Al menos 8 caracteres, con letras y números",
       "submit": "Cambiar contraseña",
       "changed": "Contraseña cambiada"
     },
@@ -414,7 +419,11 @@
       "ratesUnavailable": "Los tipos de cambio no están disponibles ahora. Inténtalo más tarde",
       "photoInvalid": "Elige una imagen JPG, PNG o WebP",
       "photoTooLarge": "La imagen es demasiado grande",
-      "bioLong": "El texto debe tener 120 caracteres como máximo"
+      "bioLong": "El texto debe tener 120 caracteres como máximo",
+      "passwordWeak": "Usa al menos una letra y un número",
+      "passwordCommon": "Esta contraseña es demasiado común o simple",
+      "passwordEmail": "La contraseña no debe contener el nombre de tu correo",
+      "passwordChars": "La contraseña contiene caracteres no permitidos"
     },
     "profileCard": {
       "title": "Tarjeta de perfil",
@@ -763,6 +772,7 @@
       "tooMany": "Demasiadas filas a la vez",
       "invalid": "Revisa los datos",
       "generic": "Algo salió mal. Inténtalo de nuevo"
-    }
+    },
+    "showMore": "Mostrar más (quedan {count})"
   }
 }

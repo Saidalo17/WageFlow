@@ -1,4 +1,4 @@
-import { and, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, lte, sql } from "drizzle-orm";
 import type { SQLiteColumn } from "drizzle-orm/sqlite-core";
 import { db } from "@/lib/db/client";
 import { salaryBonuses, salaryRecords } from "@/lib/db/schema";
@@ -120,13 +120,17 @@ export async function listSalaryRecords(
       amount: salaryBonuses.amount,
     })
     .from(salaryBonuses)
-    .where(eq(salaryBonuses.userId, userId))
+    // Only the bonuses of the records being listed, not every bonus the user ever had.
+    .where(and(eq(salaryBonuses.userId, userId), inArray(salaryBonuses.recordId, rows.map((r) => r.id))))
     .orderBy(salaryBonuses.createdAt);
 
-  return rows.map((r) => ({
-    ...r,
-    bonuses: bonuses.filter((b) => b.recordId === r.id).map(({ id, label, amount }) => ({ id, label, amount })),
-  }));
+  const byRecord = new Map<string, { id: string; label: string; amount: number }[]>();
+  for (const { recordId, id, label, amount } of bonuses) {
+    const list = byRecord.get(recordId) ?? [];
+    list.push({ id, label, amount });
+    byRecord.set(recordId, list);
+  }
+  return rows.map((r) => ({ ...r, bonuses: byRecord.get(r.id) ?? [] }));
 }
 
 /**

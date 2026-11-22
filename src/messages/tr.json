@@ -51,7 +51,7 @@
       "name": "Ad (isteğe bağlı)",
       "email": "E-posta",
       "password": "Şifre",
-      "passwordHint": "En az 8 karakter",
+      "passwordHint": "En az 8 karakter, harf ve rakamlarla",
       "showPassword": "Şifreyi göster",
       "hidePassword": "Şifreyi gizle"
     },
@@ -64,7 +64,12 @@
       "emailTaken": "Bu e-posta ile zaten bir hesap var",
       "invalidCredentials": "E-posta veya şifre hatalı",
       "tooManyAttempts": "Çok fazla deneme yapıldı. 15 dakika sonra tekrar deneyin",
-      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin",
+      "passwordWeak": "En az bir harf ve bir rakam kullanın",
+      "passwordCommon": "Bu parola çok yaygın veya çok basit",
+      "passwordEmail": "Parola e-postanızdaki adı içermemelidir",
+      "passwordChars": "Parola izin verilmeyen karakterler içeriyor",
+      "emailDomain": "Bu e-posta alan adı posta alamıyor. Yazım hatası olup olmadığını kontrol edin"
     }
   },
   "categories": {
@@ -378,7 +383,7 @@
       "current": "Mevcut şifre",
       "new": "Yeni şifre",
       "confirm": "Yeni şifreyi tekrarlayın",
-      "hint": "En az 8 karakter",
+      "hint": "En az 8 karakter, harf ve rakamlarla",
       "submit": "Şifreyi değiştir",
       "changed": "Şifre değiştirildi"
     },
@@ -414,7 +419,11 @@
       "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin",
       "photoInvalid": "JPG, PNG veya WebP bir resim seçin",
       "photoTooLarge": "Resim çok büyük",
-      "bioLong": "Metin en fazla 120 karakter olabilir"
+      "bioLong": "Metin en fazla 120 karakter olabilir",
+      "passwordWeak": "En az bir harf ve bir rakam kullanın",
+      "passwordCommon": "Bu parola çok yaygın veya çok basit",
+      "passwordEmail": "Parola e-postanızdaki adı içermemelidir",
+      "passwordChars": "Parola izin verilmeyen karakterler içeriyor"
     },
     "profileCard": {
       "title": "Profil kartı",
@@ -763,6 +772,7 @@
       "tooMany": "Bir seferde çok fazla satır",
       "invalid": "Lütfen verileri kontrol edin",
       "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin"
-    }
+    },
+    "showMore": "Daha fazla göster ({count} kaldı)"
   }
 }

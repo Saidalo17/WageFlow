@@ -8,6 +8,7 @@ import { changePassword } from "@/app/(app)/settings/actions";
 import { Field } from "@/components/auth/field";
 import { PasswordInput } from "@/components/auth/password-input";
 import { Button } from "@/components/ui/button";
+import { passwordSchema } from "@/lib/validators/auth";
 
 export function PasswordForm() {
   const t = useTranslations("settings");
@@ -26,8 +27,8 @@ export function PasswordForm() {
 
     const local: Record<string, string> = {};
     if (!current) local.current = "required";
-    if (next.length < 8) local.next = "passwordShort";
-    else if (next.length > 72) local.next = "passwordLong";
+    const strength = passwordSchema.safeParse(next);
+    if (!strength.success) local.next = strength.error.issues[0]?.message ?? "passwordWeak";
     if (confirm !== next) local.confirm = "mismatch";
     setErrors(local);
     if (Object.keys(local).length > 0) return;
