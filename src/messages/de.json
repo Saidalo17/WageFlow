@@ -76,6 +76,7 @@
     }
   },
   "categories": {
+    "reorder": "Ziehen zum Sortieren (oder Pfeiltasten)",
     "title": "Kategorien",
     "expenses": "Ausgaben",
     "income": "Einnahmen",

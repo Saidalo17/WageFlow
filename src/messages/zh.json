@@ -76,6 +76,7 @@
     }
   },
   "categories": {
+    "reorder": "拖动以排序(也可使用方向键)",
     "title": "分类",
     "expenses": "支出",
     "income": "收入",

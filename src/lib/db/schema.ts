@@ -56,6 +56,8 @@ export const categories = sqliteTable(
       .notNull()
       .default(false),
     systemKey: text("system_key"),
+    /** Position chosen by dragging; categories with the same value keep their creation order. */
+    sortOrder: integer("sort_order").notNull().default(0),
     createdAt: createdAt(),
   },
   (t) => [uniqueIndex("categories_user_type_name").on(t.userId, t.type, t.name)],

@@ -76,6 +76,7 @@
     }
   },
   "categories": {
+    "reorder": "Drag to reorder (or use the arrow keys)",
     "title": "Categories",
     "expenses": "Expenses",
     "income": "Income",

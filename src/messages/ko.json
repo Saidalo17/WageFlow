@@ -76,6 +76,7 @@
     }
   },
   "categories": {
+    "reorder": "드래그하여 순서 변경(방향키도 사용 가능)",
     "title": "카테고리",
     "expenses": "지출",
     "income": "수입",

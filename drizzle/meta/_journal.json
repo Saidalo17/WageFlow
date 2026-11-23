@@ -64,6 +64,13 @@
       "when": 1795365790778,
       "tag": "0008_accounts_debts_net_worth",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1795450717513,
+      "tag": "0009_minor_warbird",
+      "breakpoints": true
     }
   ]
 }

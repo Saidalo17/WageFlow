@@ -19,6 +19,7 @@ import {
   insertCategory,
   listCategories,
   listCategoriesWithTotals,
+  reorderCategories,
   setCategoryArchived,
   updateCategoryRow,
 } from "@/lib/services/categories";
@@ -150,6 +151,25 @@ describe("categories", () => {
     await expect(insertCategory(u.id, { name: "Pets", type: "expense", color: "#10B981", icon: "paw-print" })).rejects.toSatisfy(isUniqueViolation);
     // the same name is fine for the other type
     await expect(insertCategory(u.id, { name: "Pets", type: "income", color: "#10B981", icon: "paw-print" })).resolves.toBeTruthy();
+  });
+
+  it("keeps the order the user dragged, puts new categories last and ignores other people's ids", async () => {
+    const u = await createTestUser("cat");
+    const other = await createTestUser("cat");
+    const expenses = () => listCategories(u.id).then((r) => r.filter((c) => c.type === "expense").map((c) => c.id));
+    const before = await expenses();
+    // the last one goes first, one id is foreign, one is listed twice
+    const dragged = [before[before.length - 1], other.cat.food, before[0], before[0]];
+    await reorderCategories(u.id, "expense", dragged);
+    const after = await expenses();
+    expect(after.slice(0, 2)).toEqual([before[before.length - 1], before[0]]);
+    expect(after).toHaveLength(before.length); // nothing lost or duplicated
+    expect(after.slice(2)).toEqual(before.slice(1, -1)); // the rest keep their relative order
+    // the other user's list is untouched
+    expect((await listCategories(other.id)).filter((c) => c.type === "expense")).toHaveLength(before.length);
+    // a new category goes to the end
+    const created = (await insertCategory(u.id, { name: "Gifts", type: "expense", color: "#EC4899", icon: "coffee" }))!;
+    expect((await expenses()).at(-1)).toBe(created.id);
   });
 
   it("refuses to delete a category that has transactions", async () => {

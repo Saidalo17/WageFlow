@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { z } from "zod";
 import { isForeignKeyViolation, isUniqueViolation } from "@/lib/db/errors";
 import { requireUser } from "@/lib/session";
 import {
@@ -9,6 +10,7 @@ import {
   deleteCategoryRow,
   getCategory,
   insertCategory,
+  reorderCategories,
   setCategoryArchived,
   updateCategoryRow,
 } from "@/lib/services/categories";
@@ -111,6 +113,22 @@ export async function deleteCategory(id: unknown): Promise<ActionResult> {
       return { ok: false, error: "hasTransactions" };
     }
     console.error("deleteCategory failed", e instanceof Error ? e.message : e);
+    return { ok: false, error: "generic" };
+  }
+  revalidatePath("/categories");
+  return { ok: true };
+}
+
+/** Saves the order the user dragged one list (expenses or income) into. */
+export async function reorderCategoryList(type: unknown, ids: unknown): Promise<ActionResult> {
+  const { id: userId } = await requireUser();
+  if (type !== "income" && type !== "expense") return { ok: false, error: "generic" };
+  const parsed = z.array(categoryIdSchema).max(500).safeParse(ids);
+  if (!parsed.success) return { ok: false, error: "generic" };
+  try {
+    await reorderCategories(userId, type, parsed.data);
+  } catch (e) {
+    console.error("reorderCategoryList failed", e instanceof Error ? e.message : e);
     return { ok: false, error: "generic" };
   }
   revalidatePath("/categories");

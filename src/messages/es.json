@@ -76,6 +76,7 @@
     }
   },
   "categories": {
+    "reorder": "Arrastra para reordenar (o usa las flechas)",
     "title": "Categorías",
     "expenses": "Gastos",
     "income": "Ingresos",

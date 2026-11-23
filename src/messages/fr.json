@@ -76,6 +76,7 @@
     }
   },
   "categories": {
+    "reorder": "Glisser pour réorganiser (ou touches fléchées)",
     "title": "Catégories",
     "expenses": "Dépenses",
     "income": "Revenus",

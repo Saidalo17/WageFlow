@@ -35,7 +35,7 @@ export async function listCategoriesWithTotals(
     )
     .where(eq(categories.userId, userId))
     .groupBy(categories.id)
-    .orderBy(asc(categories.isArchived), sql`categories.rowid`);
+    .orderBy(asc(categories.isArchived), asc(categories.sortOrder), sql`categories.rowid`);
 }
 
 export async function listCategories(userId: string) {
@@ -51,7 +51,7 @@ export async function listCategories(userId: string) {
     })
     .from(categories)
     .where(eq(categories.userId, userId))
-    .orderBy(asc(categories.isArchived), sql`categories.rowid`);
+    .orderBy(asc(categories.isArchived), asc(categories.sortOrder), sql`categories.rowid`);
 }
 
 export async function getCategory(userId: string, id: string) {
@@ -71,11 +71,42 @@ export async function countCategoryTransactions(userId: string, id: string) {
 }
 
 export async function insertCategory(userId: string, values: CategoryValues) {
+  // A new category goes to the end of its list.
+  const [last] = await db
+    .select({ n: sql<number>`coalesce(max(${categories.sortOrder}), -1)`.mapWith(Number) })
+    .from(categories)
+    .where(and(eq(categories.userId, userId), eq(categories.type, values.type)));
   const [row] = await db
     .insert(categories)
-    .values({ ...values, userId })
+    .values({ ...values, userId, sortOrder: (last?.n ?? -1) + 1 })
     .returning({ id: categories.id });
   return row;
+}
+
+/**
+ * Saves a new order for the categories of one type. `orderedIds` is what the user sees (maybe without the
+ * archived ones); anything not listed keeps its relative order after them. Ids of other users or the other type
+ * are ignored, so nobody can reorder somebody else's categories.
+ */
+export async function reorderCategories(userId: string, type: "income" | "expense", orderedIds: string[]) {
+  const rows = await db
+    .select({ id: categories.id })
+    .from(categories)
+    .where(and(eq(categories.userId, userId), eq(categories.type, type)))
+    .orderBy(asc(categories.sortOrder), sql`categories.rowid`);
+  const own = new Set(rows.map((r) => r.id));
+  const first = [...new Set(orderedIds)].filter((id) => own.has(id));
+  const firstSet = new Set(first);
+  const final = [...first, ...rows.map((r) => r.id).filter((id) => !firstSet.has(id))];
+  if (final.length === 0) return;
+  await db.batch(
+    final.map((id, i) =>
+      db
+        .update(categories)
+        .set({ sortOrder: i })
+        .where(and(eq(categories.id, id), eq(categories.userId, userId), eq(categories.type, type))),
+    ) as unknown as Parameters<typeof db.batch>[0],
+  );
 }
 
 export async function updateCategoryRow(

@@ -3,6 +3,7 @@
 import {
   Archive,
   ArchiveRestore,
+  GripVertical,
   Loader2,
   MoreVertical,
   Pencil,
@@ -11,10 +12,10 @@ import {
   Trash2,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { archiveCategory, deleteCategory } from "@/app/(app)/categories/actions";
+import { archiveCategory, deleteCategory, reorderCategoryList } from "@/app/(app)/categories/actions";
 import { CategoryBadge } from "@/components/category-icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -65,6 +66,144 @@ export function CategoriesView({
   const ofType = categories.filter((c) => c.type === tab);
   const visible = ofType.filter((c) => showArchived || !c.isArchived);
   const archivedCount = ofType.filter((c) => c.isArchived).length;
+
+  // ----- Dragging to reorder -----
+  // `override` is the order the user just made; it is used while it still describes the same set of categories.
+  const [override, setOverride] = useState<{ sig: string; ids: string[] } | null>(null);
+  const [dragId, setDragId] = useState<string | null>(null);
+  const sig = visible.map((c) => c.id).sort().join(",");
+  const byId = new Map(visible.map((c) => [c.id, c]));
+  const orderedIds = override && override.sig === sig ? override.ids : visible.map((c) => c.id);
+  const items = orderedIds.map((id) => byId.get(id)).filter((c): c is CategoryItem => !!c);
+
+  const listRef = useRef<HTMLUListElement>(null);
+  const itemRefs = useRef(new Map<string, HTMLLIElement>());
+  const idsRef = useRef(orderedIds);
+  const startIds = useRef(orderedIds);
+  const drag = useRef<{ id: string; grabX: number; grabY: number; x: number; y: number } | null>(null);
+  const focusAfter = useRef<string | null>(null);
+  const handlers = useRef<{ move: (e: PointerEvent) => void; up: () => void }>({ move: () => {}, up: () => {} });
+
+  function applyDragOffset() {
+    const d = drag.current;
+    const li = d && itemRefs.current.get(d.id);
+    const ul = listRef.current;
+    if (!d || !li || !ul) return;
+    const box = ul.getBoundingClientRect();
+    // offsetLeft/Top are the item's place in the grid without the drag offset, so the item follows the pointer
+    li.style.translate = `${d.x - box.left - d.grabX - li.offsetLeft}px ${d.y - box.top - d.grabY - li.offsetTop}px`;
+  }
+
+  useLayoutEffect(() => {
+    idsRef.current = orderedIds;
+    if (!drag.current) startIds.current = orderedIds;
+    applyDragOffset();
+    if (focusAfter.current) {
+      itemRefs.current.get(focusAfter.current)?.querySelector<HTMLButtonElement>("[data-handle]")?.focus();
+      focusAfter.current = null;
+    }
+  });
+
+  async function saveOrder(ids: string[]) {
+    const result = await reorderCategoryList(tab, ids);
+    if (!result.ok) {
+      toast.error(t(`errors.${result.error}`));
+      setOverride(null);
+    }
+    router.refresh();
+  }
+
+  function moveTo(id: string, to: number) {
+    const ids = idsRef.current;
+    const from = ids.indexOf(id);
+    if (from < 0 || to < 0 || to >= ids.length || to === from) return false;
+    const next = [...ids];
+    next.splice(from, 1);
+    next.splice(to, 0, id);
+    idsRef.current = next;
+    setOverride({ sig, ids: next });
+    return true;
+  }
+
+  function onHandleDown(e: React.PointerEvent<HTMLButtonElement>, id: string) {
+    if (e.button !== 0) return;
+    const li = itemRefs.current.get(id);
+    if (!li) return;
+    const r = li.getBoundingClientRect();
+    e.preventDefault();
+    startIds.current = idsRef.current;
+    drag.current = { id, grabX: e.clientX - r.left, grabY: e.clientY - r.top, x: e.clientX, y: e.clientY };
+    setDragId(id);
+    // Moving a card in the grid re-inserts its element, which would drop a pointer capture; window listeners do not care
+    const move = (ev: PointerEvent) => handlers.current.move(ev);
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+      handlers.current.up();
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+  }
+
+  function onHandleMove(e: PointerEvent) {
+    const d = drag.current;
+    if (!d) return;
+    d.x = e.clientX;
+    d.y = e.clientY;
+    // The card whose centre is closest to the pointer is the slot the dragged one takes
+    let best = -1;
+    let bestDist = Infinity;
+    idsRef.current.forEach((id, i) => {
+      if (id === d.id) return;
+      const r = itemRefs.current.get(id)?.getBoundingClientRect();
+      if (!r) return;
+      const dist = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    });
+    // The dragged card sits under the pointer, so measure from where its slot is in the grid
+    const li = itemRefs.current.get(d.id);
+    const ul = listRef.current;
+    let myDist = Infinity;
+    if (li && ul) {
+      const box = ul.getBoundingClientRect();
+      myDist = Math.hypot(e.clientX - (box.left + li.offsetLeft + li.offsetWidth / 2), e.clientY - (box.top + li.offsetTop + li.offsetHeight / 2));
+    }
+    // Only swap when the pointer is clearly nearer to the other card, so cards do not flicker back and forth
+    if (best >= 0 && bestDist < myDist * 0.8) moveTo(d.id, best);
+    applyDragOffset();
+  }
+
+  function onHandleUp() {
+    const d = drag.current;
+    if (!d) return;
+    const li = itemRefs.current.get(d.id);
+    if (li) li.style.translate = "";
+    const changed = idsRef.current.some((id, i) => id !== startIds.current[i]);
+    drag.current = null;
+    setDragId(null);
+    if (changed) void saveOrder(idsRef.current);
+  }
+
+  // The window listeners added when a drag starts call the newest versions of these
+  useLayoutEffect(() => {
+    handlers.current = { move: onHandleMove, up: onHandleUp };
+  });
+
+  function onHandleKey(e: React.KeyboardEvent<HTMLButtonElement>, id: string) {
+    const step = e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const to = idsRef.current.indexOf(id) + step;
+    if (moveTo(id, to)) {
+      focusAfter.current = id;
+      void saveOrder(idsRef.current);
+    }
+  }
 
   function openCreate() {
     setEditing(null);
@@ -163,18 +302,37 @@ export function CategoriesView({
           </Button>
         </div>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((c, i) => {
+        <ul ref={listRef} className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((c, i) => {
             const isIncome = c.type === "income";
             return (
               <li
                 key={c.id}
+                ref={(el) => {
+                  if (el) itemRefs.current.set(c.id, el);
+                  else itemRefs.current.delete(c.id);
+                }}
                 style={{ "--i": Math.min(i, 8) } as React.CSSProperties}
                 className={cn(
-                  "reveal flex items-center gap-4 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)] transition-shadow",
+                  "reveal flex items-center gap-3 rounded-3xl border bg-card p-5 shadow-[var(--shadow-card)] transition-shadow",
                   c.isArchived && "opacity-60",
+                  dragId === c.id && "relative z-20 scale-[1.03] border-primary shadow-2xl",
                 )}
               >
+                <button
+                  type="button"
+                  data-handle
+                  aria-label={`${t("reorder")}: ${displayName(c)}`}
+                  title={t("reorder")}
+                  onPointerDown={(e) => onHandleDown(e, c.id)}
+                  onKeyDown={(e) => onHandleKey(e, c.id)}
+                  className={cn(
+                    "-ml-2 grid size-8 shrink-0 touch-none place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+                    dragId === c.id ? "cursor-grabbing" : "cursor-grab",
+                  )}
+                >
+                  <GripVertical className="size-5" />
+                </button>
                 <CategoryBadge icon={c.icon} color={c.color} className="size-12" />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-bold">{displayName(c)}</p>

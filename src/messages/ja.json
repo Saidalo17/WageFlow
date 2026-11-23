@@ -76,6 +76,7 @@
     }
   },
   "categories": {
+    "reorder": "ドラッグして並べ替え(矢印キーも使えます)",
     "title": "カテゴリ",
     "expenses": "支出",
     "income": "収入",
