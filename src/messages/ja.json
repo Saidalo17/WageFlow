@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "概要",
@@ -71,7 +71,8 @@
       "passwordCommon": "このパスワードはよく使われているか、単純すぎます",
       "passwordEmail": "パスワードにメールアドレスの名前部分を含めないでください",
       "passwordChars": "パスワードに使用できない文字が含まれています",
-      "emailDomain": "このメールドメインはメールを受信できません。入力ミスを確認してください"
+      "emailDomain": "このメールドメインはメールを受信できません。入力ミスを確認してください",
+      "emailProvider": "Gmail、Mail.ru、iCloud のアドレスを使用してください (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "今後12か月分のすべての支給日と、それぞれの事前通知を含むカレンダーファイル（.ics）をダウンロードします。Googleカレンダー、Appleカレンダー、Outlookで開けます。",
       "calendarEvent": "給与：{title}",
       "calendarExpected": "見込み額：{amount}",
-      "calendarName": "WageFlow：支給日",
+      "calendarName": "Kapio：支給日",
       "reminderToday": "{title}：今日は支給日です（見込み {amount}）",
       "reminderTomorrow": "{title}：明日は支給日です（見込み {amount}）",
       "reminderDays": "{title}：{count}日後が支給日です（見込み {amount}）",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "取引明細のインポート",
-    "subtitle": "銀行のCSVファイルをアップロードします。WageFlowが収入と支出を見つけ、カテゴリに分類します。",
+    "subtitle": "銀行のCSVファイルをアップロードします。Kapioが収入と支出を見つけ、カテゴリに分類します。",
     "steps": "ステップ",
     "step": {
       "upload": "アップロード",
@@ -864,7 +865,7 @@
     "balance": "残高",
     "setBalance": "残高を設定",
     "setBalanceTitle": "現在の残高を設定",
-    "setBalanceHint": "口座の実際の残高を入力してください。WageFlowが開始残高を調整して合わせます。",
+    "setBalanceHint": "口座の実際の残高を入力してください。Kapioが開始残高を調整して合わせます。",
     "edit": "編集",
     "delete": "削除",
     "cancel": "キャンセル",

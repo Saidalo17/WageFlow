@@ -39,6 +39,15 @@ export async function HeroBalance({
       )}
       style={{ "--i": 0 } as React.CSSProperties}
     >
+      {/* The brand photo fades in from the right edge */}
+      <Image
+        src="/hero.png"
+        alt=""
+        width={427}
+        height={426}
+        sizes="320px"
+        className="pointer-events-none absolute inset-y-0 right-0 h-full w-3/5 object-cover object-[60%_40%] opacity-55 [mask-image:linear-gradient(to_left,black_20%,transparent)]"
+      />
       {/* Soft light spots: decoration only */}
       <div aria-hidden className="pointer-events-none absolute -top-16 -right-10 size-64 rounded-full bg-[radial-gradient(circle,rgba(214,181,109,0.28),transparent_65%)]" />
       <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-[radial-gradient(circle,rgba(18,185,129,0.35),transparent_65%)]" />
@@ -54,7 +63,6 @@ export async function HeroBalance({
             {t("vsPrevious", { change: `${delta >= 0 ? "+" : "−"}${formatMoney(Math.abs(delta), currency, locale)}` })}
           </p>
         </div>
-        <Image src="/logo.png" alt="" width={72} height={72} className="hidden size-[72px] shrink-0 rounded-2xl object-cover opacity-95 shadow-lg sm:block" />
       </div>
 
       <Sparkline values={curve} className="relative mt-4 text-emerald-300" />

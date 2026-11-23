@@ -21,7 +21,8 @@ export class TooManyAttempts extends CredentialsSignin {
 const dummyHash = bcrypt.hash("not-a-real-password", 12);
 
 function clientIp(request: Request): string | null {
-  return request.headers.get("x-forwarded-for")?.split(",")[0].trim() || null;
+  // The last entry is the one our own proxy appended; earlier ones can be written by the client.
+  return request.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() || null;
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({

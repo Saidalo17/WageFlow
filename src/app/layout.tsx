@@ -20,8 +20,9 @@ const notoSc = Noto_Sans_SC({
 });
 
 export const metadata: Metadata = {
-  title: { default: "WageFlow", template: "%s · WageFlow" },
+  title: { default: "Kapio", template: "%s · Kapio" },
   description: "Personal finance tracker",
+  openGraph: { title: "Kapio", description: "Personal finance tracker", images: [{ url: "/hero.png", width: 397, height: 228 }] },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

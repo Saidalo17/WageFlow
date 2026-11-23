@@ -36,13 +36,22 @@ export function isSensibleEmail(value: string): boolean {
   return /^[a-z]{2,24}$/i.test(tld) || /^xn--[a-z0-9-]{2,59}$/i.test(tld);
 }
 
+/** Mail providers accepted for sign-up and sign-in. */
+export const ALLOWED_EMAIL_DOMAINS = ["gmail.com", "googlemail.com", "mail.ru", "icloud.com"];
+
+export function isAllowedEmailProvider(value: string): boolean {
+  const domain = value.slice(value.lastIndexOf("@") + 1).toLowerCase();
+  return ALLOWED_EMAIL_DOMAINS.includes(domain);
+}
+
 const email = z
   .string()
   .trim()
   .min(1, { error: "required" })
   .max(254, { error: "email" })
   .pipe(z.email({ error: "email" }))
-  .refine(isSensibleEmail, { error: "email" });
+  .refine(isSensibleEmail, { error: "email" })
+  .refine(isAllowedEmailProvider, { error: "emailProvider" });
 
 // ---------- Password ----------
 
@@ -57,7 +66,7 @@ const COMMON_PASSWORDS = new Set([
   "abc12345", "abcd1234", "abcdefgh", "a1b2c3d4", "admin123", "admin1234", "administrator", "letmein123", "welcome1",
   "welcome123", "iloveyou", "iloveyou1", "monkey123", "dragon123", "football1", "baseball1", "sunshine1", "princess1",
   "master123", "login123", "changeme", "changeme1", "trustno1", "11111111", "00000000", "88888888", "987654321",
-  "йцукенгшщ", "qwertyuiop1", "wageflow1", "wageflow123",
+  "йцукенгшщ", "qwertyuiop1", "wageflow1", "wageflow123", "kapio1", "kapio123",
 ]);
 
 /** The whole password is one character, or a plain run like 12345678 / abcdefgh / 87654321. */
@@ -88,12 +97,13 @@ export const passwordSchema = z
   .refine((s) => /\p{L}/u.test(s) && /\p{Nd}/u.test(s), { error: "passwordWeak" })
   .refine((s) => !isCommonPassword(s), { error: "passwordCommon" });
 
-/** The password typed at sign-in: only checked for being sane, never for strength (old accounts must still get in). */
+/** The password typed at sign-in: must be sane and contain letters and digits (every account was created under that rule). */
 const loginPassword = z
   .string()
   .min(1, { error: "required" })
   .refine((s) => byteLength(s) <= 72, { error: "passwordLong" })
-  .refine((s) => !/[\u0000-\u001f\u007f]/.test(s), { error: "passwordChars" });
+  .refine((s) => !/[\u0000-\u001f\u007f]/.test(s), { error: "passwordChars" })
+  .refine((s) => /\p{L}/u.test(s) && /\p{Nd}/u.test(s), { error: "passwordWeak" });
 
 export const loginSchema = z.object({
   email,

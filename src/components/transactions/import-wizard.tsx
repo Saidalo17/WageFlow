@@ -1,6 +1,7 @@
 "use client";
 
 import { CheckCircle2, FileUp, Loader2, Sparkles, TriangleAlert } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -175,12 +176,14 @@ export function ImportWizard({ categories, accounts, currency }: { categories: C
 
   return (
     <div className="mx-auto max-w-[960px] space-y-6">
-      <div className="space-y-1">
+      <div className="relative isolate space-y-1 overflow-hidden rounded-3xl p-6 text-white shadow-[var(--shadow-card)]">
+        <Image src="/hero.png" alt="" fill sizes="960px" className="-z-20 object-cover" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(11,18,32,0.94),rgba(11,18,32,0.7)_55%,rgba(11,18,32,0.35))]" />
         <h1 className="text-[28px] font-extrabold tracking-tight">{t("title")}</h1>
-        <p className="text-muted-foreground">{t("subtitle")}</p>
-        <ol className="flex gap-2 pt-2 text-xs font-semibold text-muted-foreground" aria-label={t("steps")}>
+        <p className="max-w-xl text-white/80">{t("subtitle")}</p>
+        <ol className="flex flex-wrap gap-2 pt-2 text-xs font-semibold text-white/80" aria-label={t("steps")}>
           {steps.map((s, i) => (
-            <li key={s} aria-current={s === stage ? "step" : undefined} className={cn("rounded-full px-3 py-1", s === stage ? "bg-accent text-accent-foreground" : "bg-muted")}>
+            <li key={s} aria-current={s === stage ? "step" : undefined} className={cn("rounded-full px-3 py-1", s === stage ? "bg-primary text-primary-foreground" : "bg-white/15")}>
               {i + 1}. {t(`step.${s}`)}
             </li>
           ))}

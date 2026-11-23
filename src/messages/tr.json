@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "Genel bakış",
@@ -71,7 +71,8 @@
       "passwordCommon": "Bu parola çok yaygın veya çok basit",
       "passwordEmail": "Parola e-postanızdaki adı içermemelidir",
       "passwordChars": "Parola izin verilmeyen karakterler içeriyor",
-      "emailDomain": "Bu e-posta alan adı posta alamıyor. Yazım hatası olup olmadığını kontrol edin"
+      "emailDomain": "Bu e-posta alan adı posta alamıyor. Yazım hatası olup olmadığını kontrol edin",
+      "emailProvider": "Gmail, Mail.ru veya iCloud adresi kullanın (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "Önümüzdeki 12 aydaki tüm ödemeleri ve her birinden önce bir hatırlatmayı içeren bir takvim dosyası (.ics) indirir. Google Takvim, Apple Takvim veya Outlook’ta açın.",
       "calendarEvent": "Maaş: {title}",
       "calendarExpected": "Beklenen: {amount}",
-      "calendarName": "WageFlow: ödeme günleri",
+      "calendarName": "Kapio: ödeme günleri",
       "reminderToday": "{title}: bugün ödeme günü, {amount} bekleniyor",
       "reminderTomorrow": "{title}: yarın ödeme günü, {amount} bekleniyor",
       "reminderDays": "{title}: ödeme günü {count} gün sonra, {amount} bekleniyor",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "Banka ekstresini içe aktar",
-    "subtitle": "Bankanızdan bir CSV dosyası yükleyin. WageFlow gelir ve giderleri bulur ve kategorilere ayırır.",
+    "subtitle": "Bankanızdan bir CSV dosyası yükleyin. Kapio gelir ve giderleri bulur ve kategorilere ayırır.",
     "steps": "Adımlar",
     "step": {
       "upload": "Yükle",
@@ -864,7 +865,7 @@
     "balance": "Bakiye",
     "setBalance": "Bakiyeyi ayarla",
     "setBalanceTitle": "Güncel bakiyeyi ayarla",
-    "setBalanceHint": "Hesapta gerçekte ne olduğunu girin. WageFlow başlangıç bakiyesini eşleşecek şekilde ayarlar.",
+    "setBalanceHint": "Hesapta gerçekte ne olduğunu girin. Kapio başlangıç bakiyesini eşleşecek şekilde ayarlar.",
     "edit": "Düzenle",
     "delete": "Sil",
     "cancel": "İptal",

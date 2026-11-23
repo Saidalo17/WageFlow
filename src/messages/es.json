@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "Resumen",
@@ -71,7 +71,8 @@
       "passwordCommon": "Esta contraseña es demasiado común o simple",
       "passwordEmail": "La contraseña no debe contener el nombre de tu correo",
       "passwordChars": "La contraseña contiene caracteres no permitidos",
-      "emailDomain": "Este dominio de correo no puede recibir mensajes. Revisa si hay errores"
+      "emailDomain": "Este dominio de correo no puede recibir mensajes. Revisa si hay errores",
+      "emailProvider": "Usa una dirección de Gmail, Mail.ru o iCloud (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "Descarga un archivo de calendario (.ics) con todos los pagos de los próximos 12 meses y un aviso antes de cada uno. Ábrelo en Google Calendar, Calendario de Apple o Outlook.",
       "calendarEvent": "Salario: {title}",
       "calendarExpected": "Esperado: {amount}",
-      "calendarName": "WageFlow: fechas de pago",
+      "calendarName": "Kapio: fechas de pago",
       "reminderToday": "{title}: hoy es día de pago, se esperan {amount}",
       "reminderTomorrow": "{title}: mañana es día de pago, se esperan {amount}",
       "reminderDays": "{title}: día de pago en {count} días, se esperan {amount}",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "Importar extracto bancario",
-    "subtitle": "Sube un archivo CSV de tu banco. WageFlow encuentra ingresos y gastos y los ordena por categorías.",
+    "subtitle": "Sube un archivo CSV de tu banco. Kapio encuentra ingresos y gastos y los ordena por categorías.",
     "steps": "Pasos",
     "step": {
       "upload": "Subir",
@@ -864,7 +865,7 @@
     "balance": "Saldo",
     "setBalance": "Fijar saldo",
     "setBalanceTitle": "Fija el saldo actual",
-    "setBalanceHint": "Introduce lo que hay realmente en la cuenta. WageFlow ajusta el saldo inicial para que coincida.",
+    "setBalanceHint": "Introduce lo que hay realmente en la cuenta. Kapio ajusta el saldo inicial para que coincida.",
     "edit": "Editar",
     "delete": "Eliminar",
     "cancel": "Cancelar",

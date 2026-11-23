@@ -40,7 +40,7 @@ export async function GET() {
     .filter((s) => s.isActive)
     .flatMap((s) =>
       payDatesBetween(s, today, end).map((date) => ({
-        uid: `${s.id}-${date}@wageflow`,
+        uid: `${s.id}-${date}@kapio`,
         date,
         summary: fill(text.calendarEvent, { title: s.title }),
         description: fill(text.calendarExpected, { amount: formatMoney(s.expectedNet, s.currency, locale) }),
@@ -51,7 +51,7 @@ export async function GET() {
   return new Response(buildIcs(events, text.calendarName), {
     headers: {
       "Content-Type": "text/calendar; charset=utf-8",
-      "Content-Disposition": `attachment; filename="wageflow-pay-dates.ics"`,
+      "Content-Disposition": `attachment; filename="kapio-pay-dates.ics"`,
       "Cache-Control": "no-store",
     },
   });

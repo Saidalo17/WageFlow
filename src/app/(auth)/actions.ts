@@ -2,7 +2,8 @@
 
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { isRateLimited, recordFailure } from "@/lib/rate-limit";
 import { getLocale } from "next-intl/server";
 import { AuthError } from "next-auth";
 import { signIn, signOut } from "@/lib/auth";
@@ -57,6 +58,14 @@ export async function registerUser(input: unknown): Promise<AuthResult> {
   }
   const { name, password } = parsed.data;
   const email = parsed.data.email.toLowerCase();
+
+  // At most 5 sign-up attempts per address in 15 minutes (each costs a DNS lookup and a slow hash).
+  const ip = (await headers()).get("x-forwarded-for")?.split(",").at(-1)?.trim();
+  if (ip) {
+    const key = [`register:${ip}`];
+    if (await isRateLimited(key)) return { ok: false, error: "tooManyAttempts" };
+    await recordFailure(key);
+  }
 
   // Is this address one that can receive mail at all? (production; see lib/email-check.ts)
   if (deliverabilityCheckEnabled()) {

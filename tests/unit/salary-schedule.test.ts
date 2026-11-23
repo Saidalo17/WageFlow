@@ -117,10 +117,10 @@ describe("calendar file", () => {
   it("builds events with an alarm", () => {
     const ics = buildIcs(
       [
-        { uid: "x-1@wageflow", date: "2026-11-28", summary: "Salary, main", remindDaysBefore: 2 },
-        { uid: "x-2@wageflow", date: "2026-12-28", summary: "Salary", remindDaysBefore: 0 },
+        { uid: "x-1@kapio", date: "2026-11-28", summary: "Salary, main", remindDaysBefore: 2 },
+        { uid: "x-2@kapio", date: "2026-12-28", summary: "Salary", remindDaysBefore: 0 },
       ],
-      "WageFlow",
+      "Kapio",
       new Date(Date.UTC(2026, 10, 22, 8, 30, 0)),
     );
     expect(ics.startsWith("BEGIN:VCALENDAR\r\n")).toBe(true);

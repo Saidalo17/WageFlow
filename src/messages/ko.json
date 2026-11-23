@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "개요",
@@ -71,7 +71,8 @@
       "passwordCommon": "이 비밀번호는 너무 흔하거나 단순합니다",
       "passwordEmail": "비밀번호에 이메일의 이름 부분을 넣을 수 없습니다",
       "passwordChars": "비밀번호에 허용되지 않는 문자가 있습니다",
-      "emailDomain": "이 이메일 도메인은 메일을 받을 수 없습니다. 오타를 확인하세요"
+      "emailDomain": "이 이메일 도메인은 메일을 받을 수 없습니다. 오타를 확인하세요",
+      "emailProvider": "Gmail, Mail.ru 또는 iCloud 주소를 사용하세요 (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "앞으로 12개월의 모든 지급일과 각각의 사전 알림이 담긴 캘린더 파일(.ics)을 내려받습니다. Google 캘린더, Apple 캘린더 또는 Outlook에서 열 수 있습니다.",
       "calendarEvent": "급여: {title}",
       "calendarExpected": "예상: {amount}",
-      "calendarName": "WageFlow: 급여일",
+      "calendarName": "Kapio: 급여일",
       "reminderToday": "{title}: 오늘은 급여일입니다(예상 {amount})",
       "reminderTomorrow": "{title}: 내일은 급여일입니다(예상 {amount})",
       "reminderDays": "{title}: {count}일 후가 급여일입니다(예상 {amount})",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "거래내역 가져오기",
-    "subtitle": "은행에서 받은 CSV 파일을 업로드하세요. WageFlow가 수입과 지출을 찾아 카테고리로 분류합니다.",
+    "subtitle": "은행에서 받은 CSV 파일을 업로드하세요. Kapio가 수입과 지출을 찾아 카테고리로 분류합니다.",
     "steps": "단계",
     "step": {
       "upload": "업로드",
@@ -864,7 +865,7 @@
     "balance": "잔액",
     "setBalance": "잔액 설정",
     "setBalanceTitle": "현재 잔액 설정",
-    "setBalanceHint": "계좌에 실제로 있는 금액을 입력하세요. WageFlow가 시작 잔액을 조정해 맞춥니다.",
+    "setBalanceHint": "계좌에 실제로 있는 금액을 입력하세요. Kapio가 시작 잔액을 조정해 맞춥니다.",
     "edit": "수정",
     "delete": "삭제",
     "cancel": "취소",

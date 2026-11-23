@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "概览",
@@ -71,7 +71,8 @@
       "passwordCommon": "此密码过于常见或过于简单",
       "passwordEmail": "密码不能包含你邮箱中的用户名部分",
       "passwordChars": "密码包含不允许的字符",
-      "emailDomain": "此邮箱域名无法接收邮件，请检查是否有拼写错误"
+      "emailDomain": "此邮箱域名无法接收邮件，请检查是否有拼写错误",
+      "emailProvider": "请使用 Gmail、Mail.ru 或 iCloud 邮箱 (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "下载包含未来 12 个月所有发薪日及各自提前提醒的日历文件（.ics）。可在 Google 日历、苹果日历或 Outlook 中打开。",
       "calendarEvent": "薪资：{title}",
       "calendarExpected": "预计：{amount}",
-      "calendarName": "WageFlow：发薪日",
+      "calendarName": "Kapio：发薪日",
       "reminderToday": "{title}：今天发薪，预计 {amount}",
       "reminderTomorrow": "{title}：明天发薪，预计 {amount}",
       "reminderDays": "{title}：{count} 天后发薪，预计 {amount}",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "导入银行对账单",
-    "subtitle": "上传银行导出的 CSV 文件。WageFlow 会找出收入和支出，并按类别归类。",
+    "subtitle": "上传银行导出的 CSV 文件。Kapio 会找出收入和支出，并按类别归类。",
     "steps": "步骤",
     "step": {
       "upload": "上传",
@@ -864,7 +865,7 @@
     "balance": "余额",
     "setBalance": "设置余额",
     "setBalanceTitle": "设置当前余额",
-    "setBalanceHint": "输入账户里实际有多少钱。WageFlow 会调整初始余额使其一致。",
+    "setBalanceHint": "输入账户里实际有多少钱。Kapio 会调整初始余额使其一致。",
     "edit": "编辑",
     "delete": "删除",
     "cancel": "取消",

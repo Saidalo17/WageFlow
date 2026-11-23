@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "Aperçu",
@@ -71,7 +71,8 @@
       "passwordCommon": "Ce mot de passe est trop courant ou trop simple",
       "passwordEmail": "Le mot de passe ne doit pas contenir le nom de votre e-mail",
       "passwordChars": "Le mot de passe contient des caractères non autorisés",
-      "emailDomain": "Ce domaine e-mail ne peut pas recevoir de messages. Vérifiez les fautes de frappe"
+      "emailDomain": "Ce domaine e-mail ne peut pas recevoir de messages. Vérifiez les fautes de frappe",
+      "emailProvider": "Utilisez une adresse Gmail, Mail.ru ou iCloud (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "Télécharge un fichier de calendrier (.ics) avec tous les paiements des 12 prochains mois et un rappel avant chacun. Ouvrez-le dans Google Agenda, Calendrier Apple ou Outlook.",
       "calendarEvent": "Salaire : {title}",
       "calendarExpected": "Attendu : {amount}",
-      "calendarName": "WageFlow : dates de paie",
+      "calendarName": "Kapio : dates de paie",
       "reminderToday": "{title} : jour de paie aujourd’hui, {amount} attendus",
       "reminderTomorrow": "{title} : jour de paie demain, {amount} attendus",
       "reminderDays": "{title} : jour de paie dans {count} jours, {amount} attendus",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "Importer un relevé bancaire",
-    "subtitle": "Importez un fichier CSV de votre banque. WageFlow repère revenus et dépenses et les classe par catégories.",
+    "subtitle": "Importez un fichier CSV de votre banque. Kapio repère revenus et dépenses et les classe par catégories.",
     "steps": "Étapes",
     "step": {
       "upload": "Importer",
@@ -864,7 +865,7 @@
     "balance": "Solde",
     "setBalance": "Définir le solde",
     "setBalanceTitle": "Définir le solde actuel",
-    "setBalanceHint": "Saisissez ce qu’il y a réellement sur le compte. WageFlow ajuste le solde de départ pour que cela corresponde.",
+    "setBalanceHint": "Saisissez ce qu’il y a réellement sur le compte. Kapio ajuste le solde de départ pour que cela corresponde.",
     "edit": "Modifier",
     "delete": "Supprimer",
     "cancel": "Annuler",

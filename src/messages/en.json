@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "Overview",
@@ -71,7 +71,8 @@
       "passwordCommon": "This password is too common or too simple",
       "passwordEmail": "The password must not contain your email name",
       "passwordChars": "The password contains characters that are not allowed",
-      "emailDomain": "This email domain can not receive mail. Check for typos"
+      "emailDomain": "This email domain can not receive mail. Check for typos",
+      "emailProvider": "Use a Gmail, Mail.ru or iCloud address (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "Downloads a calendar file (.ics) with every payment for the next 12 months and a reminder before each. Open it in Google Calendar, Apple Calendar or Outlook.",
       "calendarEvent": "Salary: {title}",
       "calendarExpected": "Expected: {amount}",
-      "calendarName": "WageFlow: pay dates",
+      "calendarName": "Kapio: pay dates",
       "reminderToday": "{title}: pay day today, {amount} expected",
       "reminderTomorrow": "{title}: pay day tomorrow, {amount} expected",
       "reminderDays": "{title}: pay day in {count} days, {amount} expected",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "Import bank statement",
-    "subtitle": "Upload a CSV file from your bank. WageFlow finds income and expenses and sorts them into categories.",
+    "subtitle": "Upload a CSV file from your bank. Kapio finds income and expenses and sorts them into categories.",
     "steps": "Steps",
     "step": {
       "upload": "Upload",
@@ -864,7 +865,7 @@
     "balance": "Balance",
     "setBalance": "Set balance",
     "setBalanceTitle": "Set the current balance",
-    "setBalanceHint": "Enter what is really on the account now. WageFlow adjusts the starting balance so that it matches.",
+    "setBalanceHint": "Enter what is really on the account now. Kapio adjusts the starting balance so that it matches.",
     "edit": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",

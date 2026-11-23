@@ -12,20 +12,29 @@ const firstError = (r: { success: boolean; error?: { issues: { message: string }
 describe("sign up and sign in", () => {
   it("accepts a normal account", () => {
     expect(registerSchema.safeParse({ name: "Anna", email: "anna@gmail.com", password: "Blue-sky-2026" }).success).toBe(true);
-    expect(registerSchema.safeParse({ name: "", email: "a@b.co", password: "x1".repeat(36) }).success).toBe(true); // 72 bytes
+    expect(registerSchema.safeParse({ name: "", email: "a@gmail.com", password: "x1".repeat(36) }).success).toBe(true); // 72 bytes
   });
 
   it("explains what is wrong", () => {
     expect(firstError(registerSchema.safeParse({ name: "", email: "", password: "Blue-sky-2026" }))).toBe("required");
     expect(firstError(registerSchema.safeParse({ name: "", email: "not-an-email", password: "Blue-sky-2026" }))).toBe("email");
-    expect(firstError(registerSchema.safeParse({ name: "", email: "a@b.co", password: "sh0rt" }))).toBe("passwordShort");
-    expect(firstError(registerSchema.safeParse({ name: "", email: "a@b.co", password: "x1".repeat(37) }))).toBe("passwordLong");
-    expect(firstError(registerSchema.safeParse({ name: "n".repeat(61), email: "a@b.co", password: "Blue-sky-2026" }))).toBe("nameLong");
+    expect(firstError(registerSchema.safeParse({ name: "", email: "a@gmail.com", password: "sh0rt" }))).toBe("passwordShort");
+    expect(firstError(registerSchema.safeParse({ name: "", email: "a@gmail.com", password: "x1".repeat(37) }))).toBe("passwordLong");
+    expect(firstError(registerSchema.safeParse({ name: "n".repeat(61), email: "a@gmail.com", password: "Blue-sky-2026" }))).toBe("nameLong");
   });
 
-  it("login only needs something in both fields", () => {
-    expect(loginSchema.safeParse({ email: "a@b.co", password: "x" }).success).toBe(true);
-    expect(loginSchema.safeParse({ email: "a@b.co", password: "" }).success).toBe(false);
+  it("login needs an allowed email and a password with letters and digits", () => {
+    expect(loginSchema.safeParse({ email: "a@gmail.com", password: "x1" }).success).toBe(true);
+    expect(loginSchema.safeParse({ email: "a@gmail.com", password: "" }).success).toBe(false);
+    expect(firstError(loginSchema.safeParse({ email: "a@gmail.com", password: "onlyletters" }))).toBe("passwordWeak");
+    expect(firstError(loginSchema.safeParse({ email: "a@gmail.com", password: "12345678" }))).toBe("passwordWeak");
+    for (const domain of ["gmail.com", "mail.ru", "icloud.com", "GMAIL.COM"]) {
+      expect(loginSchema.safeParse({ email: `anna@${domain}`, password: "x1" }).success, domain).toBe(true);
+    }
+    for (const domain of ["yahoo.com", "outlook.com", "gmail.com.evil.org", "evilgmail.com", "mail.ru.com"]) {
+      expect(firstError(loginSchema.safeParse({ email: `anna@${domain}`, password: "x1" })), domain).toBe("emailProvider");
+      expect(firstError(registerSchema.safeParse({ name: "", email: `anna@${domain}`, password: "Blue-sky-2026" })), domain).toBe("emailProvider");
+    }
   });
 });
 
@@ -123,7 +132,7 @@ describe("settings", () => {
     expect(firstError(changePasswordSchema.safeParse({ current: "old", next: "sh0rt" }))).toBe("passwordShort");
     expect(firstError(changePasswordSchema.safeParse({ current: "", next: "Blue-sky-2026" }))).toBe("required");
     expect(firstError(changePasswordSchema.safeParse({ current: "old", next: "onlyletters" }))).toBe("passwordWeak");
-    expect(deleteAccountSchema.safeParse({ password: "x" }).success).toBe(true);
+    expect(deleteAccountSchema.safeParse({ password: "x1" }).success).toBe(true);
     expect(deleteAccountSchema.safeParse({ password: "" }).success).toBe(false);
   });
 });

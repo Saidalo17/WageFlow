@@ -91,7 +91,7 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
           </div>
           <div className="flex items-center gap-2 text-lg font-extrabold">
             <Image src="/logo.png" alt="" width={32} height={32} className="size-8 rounded-lg" />
-            WageFlow
+            Kapio
           </div>
         </header>
 

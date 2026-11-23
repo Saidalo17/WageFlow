@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "WageFlow"
+    "name": "Kapio"
   },
   "nav": {
     "overview": "Übersicht",
@@ -71,7 +71,8 @@
       "passwordCommon": "Dieses Passwort ist zu verbreitet oder zu einfach",
       "passwordEmail": "Das Passwort darf den Namen aus deiner E-Mail nicht enthalten",
       "passwordChars": "Das Passwort enthält nicht erlaubte Zeichen",
-      "emailDomain": "Diese E-Mail-Domain kann keine Nachrichten empfangen. Prüfe auf Tippfehler"
+      "emailDomain": "Diese E-Mail-Domain kann keine Nachrichten empfangen. Prüfe auf Tippfehler",
+      "emailProvider": "Verwende eine Gmail-, Mail.ru- oder iCloud-Adresse (@gmail.com, @mail.ru, @icloud.com)"
     }
   },
   "categories": {
@@ -710,7 +711,7 @@
       "calendarHint": "Lädt eine Kalenderdatei (.ics) mit allen Zahlungen der nächsten 12 Monate und einer Erinnerung davor herunter. Öffne sie in Google Kalender, Apple Kalender oder Outlook.",
       "calendarEvent": "Gehalt: {title}",
       "calendarExpected": "Erwartet: {amount}",
-      "calendarName": "WageFlow: Zahltage",
+      "calendarName": "Kapio: Zahltage",
       "reminderToday": "{title}: heute ist Zahltag, erwartet werden {amount}",
       "reminderTomorrow": "{title}: morgen ist Zahltag, erwartet werden {amount}",
       "reminderDays": "{title}: Zahltag in {count} Tagen, erwartet werden {amount}",
@@ -735,7 +736,7 @@
   },
   "import": {
     "title": "Kontoauszug importieren",
-    "subtitle": "Lade eine CSV-Datei deiner Bank hoch. WageFlow erkennt Einnahmen und Ausgaben und ordnet sie Kategorien zu.",
+    "subtitle": "Lade eine CSV-Datei deiner Bank hoch. Kapio erkennt Einnahmen und Ausgaben und ordnet sie Kategorien zu.",
     "steps": "Schritte",
     "step": {
       "upload": "Hochladen",
@@ -864,7 +865,7 @@
     "balance": "Saldo",
     "setBalance": "Saldo festlegen",
     "setBalanceTitle": "Aktuellen Saldo festlegen",
-    "setBalanceHint": "Gib ein, was wirklich auf dem Konto ist. WageFlow passt den Anfangssaldo an, damit es stimmt.",
+    "setBalanceHint": "Gib ein, was wirklich auf dem Konto ist. Kapio passt den Anfangssaldo an, damit es stimmt.",
     "edit": "Bearbeiten",
     "delete": "Löschen",
     "cancel": "Abbrechen",
