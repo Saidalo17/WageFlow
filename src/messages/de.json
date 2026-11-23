@@ -55,7 +55,9 @@
       "password": "Passwort",
       "passwordHint": "Mindestens 8 Zeichen, mit Buchstaben und Zahlen",
       "showPassword": "Passwort anzeigen",
-      "hidePassword": "Passwort verbergen"
+      "hidePassword": "Passwort verbergen",
+      "code": "Code aus der Authenticator-App",
+      "codeHint": "6 Ziffern oder ein Backup-Code"
     },
     "errors": {
       "required": "Dieses Feld ist erforderlich",
@@ -72,7 +74,9 @@
       "passwordEmail": "Das Passwort darf den Namen aus deiner E-Mail nicht enthalten",
       "passwordChars": "Das Passwort enthält nicht erlaubte Zeichen",
       "emailDomain": "Diese E-Mail-Domain kann keine Nachrichten empfangen. Prüfe auf Tippfehler",
-      "emailProvider": "Verwende eine Gmail-, Mail.ru- oder iCloud-Adresse (@gmail.com, @mail.ru, @icloud.com)"
+      "emailProvider": "Verwende eine Gmail-, Mail.ru- oder iCloud-Adresse (@gmail.com, @mail.ru, @icloud.com)",
+      "invalidCode": "Der Code ist falsch oder wurde schon benutzt",
+      "totpRequired": "Code aus der Authenticator-App"
     }
   },
   "categories": {
@@ -456,7 +460,10 @@
       "passwordWeak": "Verwende mindestens einen Buchstaben und eine Zahl",
       "passwordCommon": "Dieses Passwort ist zu verbreitet oder zu einfach",
       "passwordEmail": "Das Passwort darf den Namen aus deiner E-Mail nicht enthalten",
-      "passwordChars": "Das Passwort enthält nicht erlaubte Zeichen"
+      "passwordChars": "Das Passwort enthält nicht erlaubte Zeichen",
+      "invalidCode": "Der Code ist falsch oder wurde schon benutzt",
+      "alreadyEnabled": "Die Zwei-Faktor-Anmeldung ist bereits aktiv",
+      "notStarted": "Starte die Einrichtung neu"
     },
     "profileCard": {
       "title": "Profilkarte",
@@ -480,7 +487,33 @@
       "save": "Speichern",
       "saved": "Profilkarte gespeichert"
     },
-    "countryHint": "Der Gehaltsrechner startet mit den Steuern und Beiträgen dieses Landes. Du kannst es für jede Berechnung ändern."
+    "countryHint": "Der Gehaltsrechner startet mit den Steuern und Beiträgen dieses Landes. Du kannst es für jede Berechnung ändern.",
+    "twoFactor": {
+      "title": "Zwei-Faktor-Anmeldung",
+      "intro": "Füge bei der Anmeldung einen zweiten Schritt hinzu: einen 6-stelligen Code aus einer Authenticator-App (Google Authenticator, Authy, 1Password). Selbst wenn jemand dein Passwort kennt, kommt er ohne dein Handy nicht hinein.",
+      "enable": "Aktivieren",
+      "enabledTitle": "Zwei-Faktor-Anmeldung ist aktiv",
+      "enabledHint": "Bei jeder Anmeldung wird ein Code aus der App verlangt. Übrige Backup-Codes: {count}.",
+      "disable": "Deaktivieren",
+      "disableHint": "Gib dein Passwort und einen aktuellen Code aus der App (oder einen Backup-Code) ein, um die Zwei-Faktor-Anmeldung auszuschalten.",
+      "cancel": "Abbrechen",
+      "scanTitle": "1. QR-Code scannen",
+      "scanHint": "Öffne deine Authenticator-App, füge ein Konto hinzu und scanne diesen Code. Gib dann die 6 Ziffern ein, die sie anzeigt.",
+      "qrAlt": "QR-Code für die Authenticator-App",
+      "manualKey": "Scannen klappt nicht? Gib diesen Schlüssel von Hand ein:",
+      "codeLabel": "Code",
+      "codeHint": "6 Ziffern aus der App",
+      "codeOrBackup": "6 Ziffern aus der App oder ein Backup-Code",
+      "confirm": "Bestätigen und aktivieren",
+      "enabledToast": "Zwei-Faktor-Anmeldung ist aktiv",
+      "disabledToast": "Zwei-Faktor-Anmeldung ist aus",
+      "passwordLabel": "Dein Passwort",
+      "backupTitle": "Backup-Codes",
+      "backupHint": "Speichere diese Codes sicher. Jeder funktioniert einmal, falls du dein Handy verlierst. Sie werden nur jetzt angezeigt.",
+      "copy": "Kopieren",
+      "copied": "Kopiert",
+      "saved": "Ich habe sie gespeichert"
+    }
   },
   "errorPage": {
     "title": "Etwas ist schiefgelaufen",

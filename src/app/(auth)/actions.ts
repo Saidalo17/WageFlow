@@ -30,24 +30,25 @@ function flatten(issues: { path: PropertyKey[]; message: string }[]) {
   return fieldErrors;
 }
 
-async function doSignIn(email: string, password: string): Promise<AuthResult> {
+function errorKey(code: string | undefined | null) {
+  if (code === "too_many_attempts") return "tooManyAttempts";
+  if (code === "totp_required") return "totpRequired";
+  if (code === "invalid_code") return "invalidCode";
+  return "invalidCredentials";
+}
+
+async function doSignIn(email: string, password: string, code = ""): Promise<AuthResult> {
   try {
-    const result = await signIn("credentials", { email, password, redirect: false });
+    const result = await signIn("credentials", { email, password, code, redirect: false });
     // With redirect:false some versions return the callback URL instead of throwing.
     if (typeof result === "string" && result.includes("error=")) {
-      return {
-        ok: false,
-        error: result.includes("too_many_attempts") ? "tooManyAttempts" : "invalidCredentials",
-      };
+      const found = /code=([a-z_]+)/.exec(result)?.[1] ?? (result.includes("too_many_attempts") ? "too_many_attempts" : null);
+      return { ok: false, error: errorKey(found) };
     }
     return { ok: true };
   } catch (e) {
     if (e instanceof AuthError) {
-      const code = (e as AuthError & { code?: string }).code;
-      return {
-        ok: false,
-        error: code === "too_many_attempts" ? "tooManyAttempts" : "invalidCredentials",
-      };
+      return { ok: false, error: errorKey((e as AuthError & { code?: string }).code) };
     }
     throw e;
   }
@@ -125,7 +126,8 @@ export async function loginUser(input: unknown): Promise<AuthResult> {
     return { ok: false, error: "invalid", fieldErrors: flatten(parsed.error.issues) };
   }
   const email = parsed.data.email.toLowerCase();
-  const result = await doSignIn(email, parsed.data.password);
+  const code = typeof (input as { code?: unknown })?.code === "string" ? (input as { code: string }).code : "";
+  const result = await doSignIn(email, parsed.data.password, code);
 
   if (result.ok) {
     // Continue in the language the user chose last time.

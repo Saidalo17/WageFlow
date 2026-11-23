@@ -55,7 +55,9 @@
       "password": "密码",
       "passwordHint": "至少 8 个字符，包含字母和数字",
       "showPassword": "显示密码",
-      "hidePassword": "隐藏密码"
+      "hidePassword": "隐藏密码",
+      "code": "验证器应用中的验证码",
+      "codeHint": "6位数字或备用码"
     },
     "errors": {
       "required": "此项为必填",
@@ -72,7 +74,9 @@
       "passwordEmail": "密码不能包含你邮箱中的用户名部分",
       "passwordChars": "密码包含不允许的字符",
       "emailDomain": "此邮箱域名无法接收邮件，请检查是否有拼写错误",
-      "emailProvider": "请使用 Gmail、Mail.ru 或 iCloud 邮箱 (@gmail.com, @mail.ru, @icloud.com)"
+      "emailProvider": "请使用 Gmail、Mail.ru 或 iCloud 邮箱 (@gmail.com, @mail.ru, @icloud.com)",
+      "invalidCode": "验证码错误或已被使用",
+      "totpRequired": "验证器应用中的验证码"
     }
   },
   "categories": {
@@ -456,7 +460,10 @@
       "passwordWeak": "请至少使用一个字母和一个数字",
       "passwordCommon": "此密码过于常见或过于简单",
       "passwordEmail": "密码不能包含你邮箱中的用户名部分",
-      "passwordChars": "密码包含不允许的字符"
+      "passwordChars": "密码包含不允许的字符",
+      "invalidCode": "验证码错误或已被使用",
+      "alreadyEnabled": "两步验证已开启",
+      "notStarted": "请重新开始设置"
     },
     "profileCard": {
       "title": "个人资料卡",
@@ -480,7 +487,33 @@
       "save": "保存",
       "saved": "个人资料卡已保存"
     },
-    "countryHint": "薪资计算器会先使用该国家的税费和缴费，每次计算时都可以更改。"
+    "countryHint": "薪资计算器会先使用该国家的税费和缴费，每次计算时都可以更改。",
+    "twoFactor": {
+      "title": "两步验证登录",
+      "intro": "为登录增加第二步:来自验证器应用(Google Authenticator、Authy、1Password)的6位验证码。即使别人知道了你的密码,没有你的手机也无法登录。",
+      "enable": "开启",
+      "enabledTitle": "两步验证已开启",
+      "enabledHint": "每次登录都需要输入应用中的验证码。剩余备用码:{count}个。",
+      "disable": "关闭",
+      "disableHint": "输入密码和应用中的当前验证码(或一个备用码)即可关闭两步验证。",
+      "cancel": "取消",
+      "scanTitle": "1. 扫描二维码",
+      "scanHint": "打开验证器应用,添加账户并扫描此二维码。然后输入应用显示的6位数字。",
+      "qrAlt": "验证器应用二维码",
+      "manualKey": "无法扫描?请手动输入此密钥:",
+      "codeLabel": "验证码",
+      "codeHint": "应用中的6位数字",
+      "codeOrBackup": "应用中的6位数字或备用码",
+      "confirm": "确认并开启",
+      "enabledToast": "两步验证已开启",
+      "disabledToast": "两步验证已关闭",
+      "passwordLabel": "你的密码",
+      "backupTitle": "备用码",
+      "backupHint": "请将这些备用码保存在安全的地方。如果丢失手机,每个备用码只能使用一次。它们只会显示这一次。",
+      "copy": "复制",
+      "copied": "已复制",
+      "saved": "我已保存"
+    }
   },
   "errorPage": {
     "title": "出了点问题",

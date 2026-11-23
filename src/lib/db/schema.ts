@@ -24,6 +24,12 @@ export const users = sqliteTable("users", {
   passwordHash: text("password_hash").notNull(),
   /** Raised when the password changes: every session issued before that stops working. */
   sessionVersion: integer("session_version").notNull().default(0),
+  /** Two-factor sign-in (authenticator app). The secret is stored encrypted; backup codes only as keyed hashes. */
+  totpSecret: text("totp_secret"),
+  totpEnabled: integer("totp_enabled", { mode: "boolean" }).notNull().default(false),
+  /** The last 30-second step that was accepted, so a code cannot be used twice. */
+  totpLastStep: integer("totp_last_step"),
+  totpBackup: text("totp_backup"),
   name: text("name"),
   currency: text("currency").notNull().default("USD"),
   locale: text("locale").notNull().default("en"),

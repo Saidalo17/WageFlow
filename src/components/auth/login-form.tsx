@@ -21,6 +21,8 @@ export function LoginForm() {
   const router = useRouter();
   const hydrated = useHydrated();
   const [formError, setFormError] = useState<string | null>(null);
+  const [needCode, setNeedCode] = useState(false);
+  const [code, setCode] = useState("");
   const {
     register,
     handleSubmit,
@@ -31,7 +33,11 @@ export function LoginForm() {
 
   async function onSubmit(values: LoginValues) {
     setFormError(null);
-    const result = await loginUser(values);
+    const result = await loginUser({ ...values, code });
+    if (!result.ok && result.error === "totpRequired") {
+      setNeedCode(true);
+      return;
+    }
     if (result.ok) {
       markActive();
       router.replace("/");
@@ -67,6 +73,24 @@ export function LoginForm() {
           {...register("password")}
         />
       </Field>
+
+      {needCode && (
+        <Field id="code" label={t("fields.code")} hint={t("fields.codeHint")} error={undefined}>
+          <Input
+            id="code"
+            autoFocus
+            autoComplete="one-time-code"
+            inputMode="text"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            maxLength={12}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            aria-invalid={formError === "invalidCode"}
+          />
+        </Field>
+      )}
 
       {formError && (
         <p role="alert" className="rounded-xl bg-expense-bg px-4 py-3 text-sm font-medium text-expense">

@@ -55,7 +55,9 @@
       "password": "パスワード",
       "passwordHint": "8文字以上で、英字と数字を含めてください",
       "showPassword": "パスワードを表示",
-      "hidePassword": "パスワードを隠す"
+      "hidePassword": "パスワードを隠す",
+      "code": "認証アプリのコード",
+      "codeHint": "6桁またはバックアップコード"
     },
     "errors": {
       "required": "この項目は必須です",
@@ -72,7 +74,9 @@
       "passwordEmail": "パスワードにメールアドレスの名前部分を含めないでください",
       "passwordChars": "パスワードに使用できない文字が含まれています",
       "emailDomain": "このメールドメインはメールを受信できません。入力ミスを確認してください",
-      "emailProvider": "Gmail、Mail.ru、iCloud のアドレスを使用してください (@gmail.com, @mail.ru, @icloud.com)"
+      "emailProvider": "Gmail、Mail.ru、iCloud のアドレスを使用してください (@gmail.com, @mail.ru, @icloud.com)",
+      "invalidCode": "コードが違うか、すでに使用されています",
+      "totpRequired": "認証アプリのコード"
     }
   },
   "categories": {
@@ -456,7 +460,10 @@
       "passwordWeak": "英字と数字をそれぞれ1文字以上使ってください",
       "passwordCommon": "このパスワードはよく使われているか、単純すぎます",
       "passwordEmail": "パスワードにメールアドレスの名前部分を含めないでください",
-      "passwordChars": "パスワードに使用できない文字が含まれています"
+      "passwordChars": "パスワードに使用できない文字が含まれています",
+      "invalidCode": "コードが違うか、すでに使用されています",
+      "alreadyEnabled": "2段階認証はすでに有効です",
+      "notStarted": "設定をやり直してください"
     },
     "profileCard": {
       "title": "プロフィールカード",
@@ -480,7 +487,33 @@
       "save": "保存",
       "saved": "プロフィールカードを保存しました"
     },
-    "countryHint": "給与計算は、この国の税金と保険料から始まります。計算ごとに変更できます。"
+    "countryHint": "給与計算は、この国の税金と保険料から始まります。計算ごとに変更できます。",
+    "twoFactor": {
+      "title": "2段階認証",
+      "intro": "ログイン時に2つ目のステップを追加します。認証アプリ(Google Authenticator、Authy、1Password)の6桁のコードです。パスワードが知られても、あなたのスマートフォンがなければログインできません。",
+      "enable": "有効にする",
+      "enabledTitle": "2段階認証は有効です",
+      "enabledHint": "ログインのたびにアプリのコードが必要です。残りのバックアップコード:{count}",
+      "disable": "無効にする",
+      "disableHint": "2段階認証を無効にするには、パスワードとアプリの現在のコード(またはバックアップコード1つ)を入力してください。",
+      "cancel": "キャンセル",
+      "scanTitle": "1. QRコードをスキャン",
+      "scanHint": "認証アプリを開いてアカウントを追加し、このコードをスキャンしてください。表示された6桁を入力します。",
+      "qrAlt": "認証アプリ用のQRコード",
+      "manualKey": "スキャンできない場合は、このキーを手入力してください:",
+      "codeLabel": "コード",
+      "codeHint": "アプリの6桁のコード",
+      "codeOrBackup": "アプリの6桁のコードまたはバックアップコード",
+      "confirm": "確認して有効にする",
+      "enabledToast": "2段階認証を有効にしました",
+      "disabledToast": "2段階認証を無効にしました",
+      "passwordLabel": "パスワード",
+      "backupTitle": "バックアップコード",
+      "backupHint": "これらのコードを安全な場所に保存してください。スマートフォンを紛失した場合、各コードは1回だけ使えます。表示されるのは今回だけです。",
+      "copy": "コピー",
+      "copied": "コピーしました",
+      "saved": "保存しました"
+    }
   },
   "errorPage": {
     "title": "問題が発生しました",

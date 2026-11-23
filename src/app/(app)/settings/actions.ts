@@ -4,12 +4,15 @@ import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import QRCode from "qrcode";
 import { signOut, unstable_update } from "@/lib/auth";
 import { db } from "@/lib/db/client";
 import { budgets, categories, loginAttempts, transactions, users } from "@/lib/db/schema";
 import { RatesUnavailableError } from "@/lib/fx";
 import { switchUserCurrency } from "@/lib/services/currency-switch";
 import { clearFailures, isRateLimited, recordFailure } from "@/lib/rate-limit";
+import { beginSetup, checkSecondFactor, confirmSetup, disableTwoFactor, isTwoFactorEnabled, pendingSecret } from "@/lib/services/two-factor";
+import { groupSecret, otpauthUri } from "@/lib/totp";
 import { getCurrentUser } from "@/lib/session";
 import { detectImageType } from "@/lib/avatar";
 import { MAX_AVATAR_BYTES } from "@/lib/profile-meta";
@@ -190,5 +193,69 @@ export async function updateCountry(input: unknown): Promise<ActionResult> {
   if (!parsed.success) return { ok: false, error: "generic" };
   await db.update(users).set({ country: parsed.data }).where(eq(users.id, user.id));
   revalidatePath("/", "layout");
+  return { ok: true };
+}
+
+// ---------- Two-factor sign-in ----------
+
+export type TwoFactorSetup = { ok: true; secret: string; qr: string } | { ok: false; error: string };
+
+async function setupPayload(email: string, secret: string): Promise<TwoFactorSetup> {
+  const qr = await QRCode.toDataURL(otpauthUri(secret, email), { margin: 1, width: 224, color: { dark: "#101827", light: "#ffffff" } });
+  return { ok: true, secret: groupSecret(secret), qr };
+}
+
+/** Step 1: a new secret and its QR code. Nothing is switched on until the first code is confirmed. */
+export async function startTwoFactor(): Promise<TwoFactorSetup> {
+  const user = await getCurrentUser();
+  const begun = await beginSetup(user.id);
+  if (!begun) return { ok: false, error: "alreadyEnabled" };
+  return setupPayload(user.email, begun.secret);
+}
+
+/** The same QR code again after a reload, while setup is unfinished. */
+export async function resumeTwoFactor(): Promise<TwoFactorSetup> {
+  const user = await getCurrentUser();
+  const secret = await pendingSecret(user.id);
+  if (!secret) return { ok: false, error: "notStarted" };
+  return setupPayload(user.email, secret);
+}
+
+/** Step 2: the code from the app proves the phone has the secret; two-factor is on and the backup codes come back once. */
+export async function confirmTwoFactor(code: unknown): Promise<{ ok: true; codes: string[] } | { ok: false; error: string }> {
+  const user = await getCurrentUser();
+  if (typeof code !== "string" || code.length > 32) return { ok: false, error: "invalidCode" };
+  const keys = [`totp:${user.id}`];
+  if (await isRateLimited(keys)) return { ok: false, error: "tooManyAttempts" };
+  const codes = await confirmSetup(user.id, code);
+  if (!codes) {
+    await recordFailure(keys);
+    return { ok: false, error: "invalidCode" };
+  }
+  await clearFailures(keys);
+  revalidatePath("/settings");
+  return { ok: true, codes };
+}
+
+/** Turning it off needs the password and a current code (or a backup code). */
+export async function turnOffTwoFactor(input: unknown): Promise<ActionResult> {
+  const user = await getCurrentUser();
+  const { password, code } = (input ?? {}) as { password?: unknown; code?: unknown };
+  if (typeof password !== "string" || typeof code !== "string" || code.length > 32) return { ok: false, error: "invalid" };
+  if (!(await isTwoFactorEnabled(user.id))) return { ok: true };
+
+  const check = await verifyPassword(user.id, password);
+  if (check === "limited") return { ok: false, error: "tooManyAttempts" };
+  if (check === "wrong") return { ok: false, error: "invalid", fieldErrors: { password: "wrongPassword" } };
+
+  const keys = [`totp:${user.id}`];
+  if (await isRateLimited(keys)) return { ok: false, error: "tooManyAttempts" };
+  if (!(await checkSecondFactor(user.id, code))) {
+    await recordFailure(keys);
+    return { ok: false, error: "invalid", fieldErrors: { code: "invalidCode" } };
+  }
+  await clearFailures(keys);
+  await disableTwoFactor(user.id);
+  revalidatePath("/settings");
   return { ok: true };
 }

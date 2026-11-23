@@ -6,6 +6,7 @@ import { db } from "@/lib/db/client";
 import { users } from "@/lib/db/schema";
 import { loginSchema } from "@/lib/validators/auth";
 import { attemptKeys, clearFailures, isRateLimited, recordFailure } from "@/lib/rate-limit";
+import { checkSecondFactor } from "@/lib/services/two-factor";
 
 declare module "next-auth" {
   interface Session {
@@ -15,6 +16,15 @@ declare module "next-auth" {
 
 export class TooManyAttempts extends CredentialsSignin {
   code = "too_many_attempts";
+}
+
+/** The password was right, and the account asks for the code from the authenticator app as well. */
+export class TotpRequired extends CredentialsSignin {
+  code = "totp_required";
+}
+
+export class InvalidCode extends CredentialsSignin {
+  code = "invalid_code";
 }
 
 // Compared when the email is unknown, so response time does not reveal which emails exist.
@@ -45,7 +55,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
   pages: { signIn: "/login" },
   providers: [
     Credentials({
-      credentials: { email: {}, password: {} },
+      credentials: { email: {}, password: {}, code: {} },
       async authorize(credentials, request) {
         const parsed = loginSchema.safeParse(credentials);
         if (!parsed.success) return null;
@@ -60,6 +70,15 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         if (!user || !ok) {
           await recordFailure(keys);
           return null;
+        }
+        if (user.totpEnabled) {
+          const code = typeof credentials?.code === "string" ? credentials.code.trim().slice(0, 32) : "";
+          if (!code) throw new TotpRequired(); // not a failure: the form now asks for the code
+          // A wrong code counts like a wrong password, so the code cannot be guessed either
+          if (!(await checkSecondFactor(user.id, code))) {
+            await recordFailure(keys);
+            throw new InvalidCode();
+          }
         }
         await clearFailures(keys);
         return { id: user.id, email: user.email, name: user.name, sessionVersion: user.sessionVersion };

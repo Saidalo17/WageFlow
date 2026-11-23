@@ -55,7 +55,9 @@
       "password": "Mot de passe",
       "passwordHint": "Au moins 8 caractères, avec des lettres et des chiffres",
       "showPassword": "Afficher le mot de passe",
-      "hidePassword": "Masquer le mot de passe"
+      "hidePassword": "Masquer le mot de passe",
+      "code": "Code de l'application d'authentification",
+      "codeHint": "6 chiffres ou un code de secours"
     },
     "errors": {
       "required": "Ce champ est obligatoire",
@@ -72,7 +74,9 @@
       "passwordEmail": "Le mot de passe ne doit pas contenir le nom de votre e-mail",
       "passwordChars": "Le mot de passe contient des caractères non autorisés",
       "emailDomain": "Ce domaine e-mail ne peut pas recevoir de messages. Vérifiez les fautes de frappe",
-      "emailProvider": "Utilisez une adresse Gmail, Mail.ru ou iCloud (@gmail.com, @mail.ru, @icloud.com)"
+      "emailProvider": "Utilisez une adresse Gmail, Mail.ru ou iCloud (@gmail.com, @mail.ru, @icloud.com)",
+      "invalidCode": "Le code est incorrect ou déjà utilisé",
+      "totpRequired": "Code de l'application d'authentification"
     }
   },
   "categories": {
@@ -456,7 +460,10 @@
       "passwordWeak": "Utilisez au moins une lettre et un chiffre",
       "passwordCommon": "Ce mot de passe est trop courant ou trop simple",
       "passwordEmail": "Le mot de passe ne doit pas contenir le nom de votre e-mail",
-      "passwordChars": "Le mot de passe contient des caractères non autorisés"
+      "passwordChars": "Le mot de passe contient des caractères non autorisés",
+      "invalidCode": "Le code est incorrect ou déjà utilisé",
+      "alreadyEnabled": "La connexion en deux étapes est déjà activée",
+      "notStarted": "Recommencez la configuration"
     },
     "profileCard": {
       "title": "Carte de profil",
@@ -480,7 +487,33 @@
       "save": "Enregistrer",
       "saved": "Carte de profil enregistrée"
     },
-    "countryHint": "Le calculateur de salaire démarre avec les impôts et cotisations de ce pays. Vous pouvez le changer pour chaque calcul."
+    "countryHint": "Le calculateur de salaire démarre avec les impôts et cotisations de ce pays. Vous pouvez le changer pour chaque calcul.",
+    "twoFactor": {
+      "title": "Connexion en deux étapes",
+      "intro": "Ajoutez une seconde étape à la connexion : un code à 6 chiffres d'une application d'authentification (Google Authenticator, Authy, 1Password). Même si quelqu'un connaît votre mot de passe, il ne peut pas entrer sans votre téléphone.",
+      "enable": "Activer",
+      "enabledTitle": "La connexion en deux étapes est activée",
+      "enabledHint": "Un code de l'application sera demandé à chaque connexion. Codes de secours restants : {count}.",
+      "disable": "Désactiver",
+      "disableHint": "Saisissez votre mot de passe et un code actuel de l'application (ou un code de secours) pour désactiver la connexion en deux étapes.",
+      "cancel": "Annuler",
+      "scanTitle": "1. Scannez le code QR",
+      "scanHint": "Ouvrez votre application d'authentification, ajoutez un compte et scannez ce code. Saisissez ensuite les 6 chiffres affichés.",
+      "qrAlt": "Code QR pour l'application d'authentification",
+      "manualKey": "Impossible de scanner ? Saisissez cette clé à la main :",
+      "codeLabel": "Code",
+      "codeHint": "6 chiffres de l'application",
+      "codeOrBackup": "6 chiffres de l'application ou un code de secours",
+      "confirm": "Confirmer et activer",
+      "enabledToast": "Connexion en deux étapes activée",
+      "disabledToast": "Connexion en deux étapes désactivée",
+      "passwordLabel": "Votre mot de passe",
+      "backupTitle": "Codes de secours",
+      "backupHint": "Conservez ces codes en lieu sûr. Chacun ne sert qu'une fois si vous perdez votre téléphone. Ils ne sont affichés que maintenant.",
+      "copy": "Copier",
+      "copied": "Copié",
+      "saved": "Je les ai enregistrés"
+    }
   },
   "errorPage": {
     "title": "Une erreur est survenue",

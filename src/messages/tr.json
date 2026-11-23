@@ -55,7 +55,9 @@
       "password": "Şifre",
       "passwordHint": "En az 8 karakter, harf ve rakamlarla",
       "showPassword": "Şifreyi göster",
-      "hidePassword": "Şifreyi gizle"
+      "hidePassword": "Şifreyi gizle",
+      "code": "Kimlik doğrulama uygulamasındaki kod",
+      "codeHint": "6 hane veya bir yedek kod"
     },
     "errors": {
       "required": "Bu alan zorunludur",
@@ -72,7 +74,9 @@
       "passwordEmail": "Parola e-postanızdaki adı içermemelidir",
       "passwordChars": "Parola izin verilmeyen karakterler içeriyor",
       "emailDomain": "Bu e-posta alan adı posta alamıyor. Yazım hatası olup olmadığını kontrol edin",
-      "emailProvider": "Gmail, Mail.ru veya iCloud adresi kullanın (@gmail.com, @mail.ru, @icloud.com)"
+      "emailProvider": "Gmail, Mail.ru veya iCloud adresi kullanın (@gmail.com, @mail.ru, @icloud.com)",
+      "invalidCode": "Kod yanlış veya daha önce kullanılmış",
+      "totpRequired": "Kimlik doğrulama uygulamasındaki kod"
     }
   },
   "categories": {
@@ -456,7 +460,10 @@
       "passwordWeak": "En az bir harf ve bir rakam kullanın",
       "passwordCommon": "Bu parola çok yaygın veya çok basit",
       "passwordEmail": "Parola e-postanızdaki adı içermemelidir",
-      "passwordChars": "Parola izin verilmeyen karakterler içeriyor"
+      "passwordChars": "Parola izin verilmeyen karakterler içeriyor",
+      "invalidCode": "Kod yanlış veya daha önce kullanılmış",
+      "alreadyEnabled": "İki adımlı giriş zaten açık",
+      "notStarted": "Kurulumu yeniden başlatın"
     },
     "profileCard": {
       "title": "Profil kartı",
@@ -480,7 +487,33 @@
       "save": "Kaydet",
       "saved": "Profil kartı kaydedildi"
     },
-    "countryHint": "Maaş hesaplayıcı bu ülkenin vergileri ve kesintileriyle başlar. Her hesaplama için değiştirebilirsiniz."
+    "countryHint": "Maaş hesaplayıcı bu ülkenin vergileri ve kesintileriyle başlar. Her hesaplama için değiştirebilirsiniz.",
+    "twoFactor": {
+      "title": "İki adımlı giriş",
+      "intro": "Girişe ikinci bir adım ekleyin: bir kimlik doğrulama uygulamasından (Google Authenticator, Authy, 1Password) 6 haneli kod. Biri şifrenizi öğrense bile telefonunuz olmadan giremez.",
+      "enable": "Aç",
+      "enabledTitle": "İki adımlı giriş açık",
+      "enabledHint": "Her girişte uygulamadan bir kod istenir. Kalan yedek kod: {count}.",
+      "disable": "Kapat",
+      "disableHint": "İki adımlı girişi kapatmak için şifrenizi ve uygulamadaki güncel kodu (veya bir yedek kodu) girin.",
+      "cancel": "İptal",
+      "scanTitle": "1. QR kodu tarayın",
+      "scanHint": "Kimlik doğrulama uygulamanızı açın, bir hesap ekleyin ve bu kodu tarayın. Sonra gösterdiği 6 haneyi girin.",
+      "qrAlt": "Kimlik doğrulama uygulaması için QR kod",
+      "manualKey": "Tarayamıyor musunuz? Bu anahtarı elle girin:",
+      "codeLabel": "Kod",
+      "codeHint": "Uygulamadaki 6 hane",
+      "codeOrBackup": "Uygulamadaki 6 hane veya bir yedek kod",
+      "confirm": "Onayla ve aç",
+      "enabledToast": "İki adımlı giriş açıldı",
+      "disabledToast": "İki adımlı giriş kapatıldı",
+      "passwordLabel": "Şifreniz",
+      "backupTitle": "Yedek kodlar",
+      "backupHint": "Bu kodları güvenli bir yerde saklayın. Telefonunuzu kaybederseniz her biri yalnızca bir kez çalışır. Sadece şimdi gösterilir.",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "saved": "Kaydettim"
+    }
   },
   "errorPage": {
     "title": "Bir şeyler ters gitti",

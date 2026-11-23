@@ -55,7 +55,9 @@
       "password": "Contraseña",
       "passwordHint": "Al menos 8 caracteres, con letras y números",
       "showPassword": "Mostrar contraseña",
-      "hidePassword": "Ocultar contraseña"
+      "hidePassword": "Ocultar contraseña",
+      "code": "Código de la app de autenticación",
+      "codeHint": "6 dígitos o un código de respaldo"
     },
     "errors": {
       "required": "Este campo es obligatorio",
@@ -72,7 +74,9 @@
       "passwordEmail": "La contraseña no debe contener el nombre de tu correo",
       "passwordChars": "La contraseña contiene caracteres no permitidos",
       "emailDomain": "Este dominio de correo no puede recibir mensajes. Revisa si hay errores",
-      "emailProvider": "Usa una dirección de Gmail, Mail.ru o iCloud (@gmail.com, @mail.ru, @icloud.com)"
+      "emailProvider": "Usa una dirección de Gmail, Mail.ru o iCloud (@gmail.com, @mail.ru, @icloud.com)",
+      "invalidCode": "El código es incorrecto o ya se usó",
+      "totpRequired": "Código de la app de autenticación"
     }
   },
   "categories": {
@@ -456,7 +460,10 @@
       "passwordWeak": "Usa al menos una letra y un número",
       "passwordCommon": "Esta contraseña es demasiado común o simple",
       "passwordEmail": "La contraseña no debe contener el nombre de tu correo",
-      "passwordChars": "La contraseña contiene caracteres no permitidos"
+      "passwordChars": "La contraseña contiene caracteres no permitidos",
+      "invalidCode": "El código es incorrecto o ya se usó",
+      "alreadyEnabled": "El inicio de sesión en dos pasos ya está activado",
+      "notStarted": "Empieza la configuración de nuevo"
     },
     "profileCard": {
       "title": "Tarjeta de perfil",
@@ -480,7 +487,33 @@
       "save": "Guardar",
       "saved": "Tarjeta de perfil guardada"
     },
-    "countryHint": "La calculadora de salario empieza con los impuestos y cotizaciones de este país. Puedes cambiarlo en cada cálculo."
+    "countryHint": "La calculadora de salario empieza con los impuestos y cotizaciones de este país. Puedes cambiarlo en cada cálculo.",
+    "twoFactor": {
+      "title": "Inicio de sesión en dos pasos",
+      "intro": "Añade un segundo paso al iniciar sesión: un código de 6 dígitos de una app de autenticación (Google Authenticator, Authy, 1Password). Aunque alguien conozca tu contraseña, no podrá entrar sin tu teléfono.",
+      "enable": "Activar",
+      "enabledTitle": "El inicio de sesión en dos pasos está activado",
+      "enabledHint": "Se pedirá un código de la app en cada inicio de sesión. Códigos de respaldo restantes: {count}.",
+      "disable": "Desactivar",
+      "disableHint": "Introduce tu contraseña y un código actual de la app (o un código de respaldo) para desactivar el inicio de sesión en dos pasos.",
+      "cancel": "Cancelar",
+      "scanTitle": "1. Escanea el código QR",
+      "scanHint": "Abre tu app de autenticación, añade una cuenta y escanea este código. Luego introduce los 6 dígitos que muestra.",
+      "qrAlt": "Código QR para la app de autenticación",
+      "manualKey": "¿No puedes escanear? Introduce esta clave a mano:",
+      "codeLabel": "Código",
+      "codeHint": "6 dígitos de la app",
+      "codeOrBackup": "6 dígitos de la app o un código de respaldo",
+      "confirm": "Confirmar y activar",
+      "enabledToast": "Inicio de sesión en dos pasos activado",
+      "disabledToast": "Inicio de sesión en dos pasos desactivado",
+      "passwordLabel": "Tu contraseña",
+      "backupTitle": "Códigos de respaldo",
+      "backupHint": "Guarda estos códigos en un lugar seguro. Cada uno sirve una vez si pierdes el teléfono. Solo se muestran ahora.",
+      "copy": "Copiar",
+      "copied": "Copiado",
+      "saved": "Ya los guardé"
+    }
   },
   "errorPage": {
     "title": "Algo salió mal",

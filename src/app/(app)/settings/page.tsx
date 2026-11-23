@@ -4,8 +4,10 @@ import { CountryForm } from "@/components/settings/country-form";
 import { DeleteAccount } from "@/components/settings/delete-account";
 import { ExportSection } from "@/components/settings/export-section";
 import { PasswordForm } from "@/components/settings/password-form";
+import { TwoFactor } from "@/components/settings/two-factor";
 import { ProfileCard } from "@/components/settings/profile-card";
 import { ProfileForm } from "@/components/settings/profile-form";
+import { backupCodesLeft, isTwoFactorEnabled } from "@/lib/services/two-factor";
 import { getCurrentUser } from "@/lib/session";
 import { isLocale } from "@/i18n/config";
 
@@ -17,6 +19,7 @@ export async function generateMetadata() {
 export default async function SettingsPage() {
   const user = await getCurrentUser();
   const t = await getTranslations("settings");
+  const [twoFactorOn, backupLeft] = await Promise.all([isTwoFactorEnabled(user.id), backupCodesLeft(user.id)]);
 
   return (
     <div className="space-y-6">
@@ -52,6 +55,10 @@ export default async function SettingsPage() {
 
       <Card title={t("sections.security")} index={3}>
         <PasswordForm />
+      </Card>
+
+      <Card title={t("twoFactor.title")} index={4}>
+        <TwoFactor enabled={twoFactorOn} backupLeft={backupLeft} />
       </Card>
 
       <Card title={t("sections.data")} index={4}>

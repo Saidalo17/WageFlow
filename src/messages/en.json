@@ -55,7 +55,9 @@
       "password": "Password",
       "passwordHint": "At least 8 characters, with letters and numbers",
       "showPassword": "Show password",
-      "hidePassword": "Hide password"
+      "hidePassword": "Hide password",
+      "code": "Code from the authenticator app",
+      "codeHint": "6 digits, or a backup code"
     },
     "errors": {
       "required": "This field is required",
@@ -72,7 +74,9 @@
       "passwordEmail": "The password must not contain your email name",
       "passwordChars": "The password contains characters that are not allowed",
       "emailDomain": "This email domain can not receive mail. Check for typos",
-      "emailProvider": "Use a Gmail, Mail.ru or iCloud address (@gmail.com, @mail.ru, @icloud.com)"
+      "emailProvider": "Use a Gmail, Mail.ru or iCloud address (@gmail.com, @mail.ru, @icloud.com)",
+      "invalidCode": "The code is wrong or already used",
+      "totpRequired": "Code from the authenticator app"
     }
   },
   "categories": {
@@ -456,7 +460,10 @@
       "passwordWeak": "Use at least one letter and one number",
       "passwordCommon": "This password is too common or too simple",
       "passwordEmail": "The password must not contain your email name",
-      "passwordChars": "The password contains characters that are not allowed"
+      "passwordChars": "The password contains characters that are not allowed",
+      "invalidCode": "The code is wrong or already used",
+      "alreadyEnabled": "Two-factor sign-in is already on",
+      "notStarted": "Start the setup again"
     },
     "profileCard": {
       "title": "Profile card",
@@ -480,7 +487,33 @@
       "save": "Save",
       "saved": "Profile card saved"
     },
-    "countryHint": "The salary calculator starts with this country’s taxes and contributions. You can change it for each calculation."
+    "countryHint": "The salary calculator starts with this country’s taxes and contributions. You can change it for each calculation.",
+    "twoFactor": {
+      "title": "Two-factor sign-in",
+      "intro": "Add a second step at sign-in: a 6-digit code from an authenticator app (Google Authenticator, Authy, 1Password). Even if someone learns your password, they can not get in without your phone.",
+      "enable": "Turn on",
+      "enabledTitle": "Two-factor sign-in is on",
+      "enabledHint": "You will be asked for a code from the app at every sign-in. Backup codes left: {count}.",
+      "disable": "Turn off",
+      "disableHint": "Enter your password and a current code from the app (or one backup code) to turn two-factor sign-in off.",
+      "cancel": "Cancel",
+      "scanTitle": "1. Scan the QR code",
+      "scanHint": "Open your authenticator app, add an account and scan this code. Then enter the 6 digits it shows.",
+      "qrAlt": "QR code for the authenticator app",
+      "manualKey": "Can not scan? Enter this key by hand:",
+      "codeLabel": "Code",
+      "codeHint": "6 digits from the app",
+      "codeOrBackup": "6 digits from the app, or a backup code",
+      "confirm": "Confirm and turn on",
+      "enabledToast": "Two-factor sign-in is on",
+      "disabledToast": "Two-factor sign-in is off",
+      "passwordLabel": "Your password",
+      "backupTitle": "Backup codes",
+      "backupHint": "Save these codes somewhere safe. Each works once if you lose your phone. They are shown only now.",
+      "copy": "Copy",
+      "copied": "Copied",
+      "saved": "I saved them"
+    }
   },
   "errorPage": {
     "title": "Something went wrong",
