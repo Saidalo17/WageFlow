@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import { markActive } from "@/lib/session-guard";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -32,6 +33,7 @@ export function LoginForm() {
     setFormError(null);
     const result = await loginUser(values);
     if (result.ok) {
+      markActive();
       router.replace("/");
       router.refresh();
     } else {

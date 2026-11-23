@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { DisplayNotice } from "@/components/nav/display-currency";
+import { SessionGuard } from "@/components/auth/session-guard";
 import { Sidebar } from "@/components/nav/sidebar";
 import { TopNav } from "@/components/nav/top-nav";
 import { PayReminders } from "@/components/salary/pay-reminders";
@@ -32,6 +33,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       >
         {t("skip")}
       </a>
+      <SessionGuard />
       <div className="flex min-h-screen">
         <Sidebar />
         <div className="flex min-w-0 flex-1 flex-col">
