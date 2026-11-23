@@ -25,7 +25,21 @@ function clientIp(request: Request): string | null {
   return request.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() || null;
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+// A page asks for the session several times; the version is looked up once per few seconds per user.
+const versionCache = new Map<string, { v: number | null; at: number }>();
+const VERSION_TTL_MS = 3_000;
+
+async function currentSessionVersion(userId: string, fresh = false): Promise<number | null> {
+  const hit = versionCache.get(userId);
+  if (!fresh && hit && Date.now() - hit.at < VERSION_TTL_MS) return hit.v;
+  const [row] = await db.select({ v: users.sessionVersion }).from(users).where(eq(users.id, userId));
+  const v = row ? row.v : null;
+  if (versionCache.size > 5000) versionCache.clear();
+  versionCache.set(userId, { v, at: Date.now() });
+  return v;
+}
+
+export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
   trustHost: true,
   session: { strategy: "jwt", maxAge: 60 * 60 * 12 },
   pages: { signIn: "/login" },
@@ -48,17 +62,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
         await clearFailures(keys);
-        return { id: user.id, email: user.email, name: user.name };
+        return { id: user.id, email: user.email, name: user.name, sessionVersion: user.sessionVersion };
       },
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
-      if (user?.id) token.uid = user.id;
+    async jwt({ token, user, trigger }) {
+      if (user?.id) {
+        token.uid = user.id;
+        token.sv = (user as { sessionVersion?: number }).sessionVersion ?? 0;
+      } else if (trigger === "update" && token.uid) {
+        // After a password change the current device takes the new version, every other one is signed out
+        const current = await currentSessionVersion(token.uid as string, true);
+        if (current !== null) token.sv = current;
+      }
       return token;
     },
-    session({ session, token }) {
-      if (token.uid) session.user.id = token.uid as string;
+    async session({ session, token }) {
+      const uid = token.uid as string | undefined;
+      if (!uid) return session;
+      // A cookie issued before the last password change (or for a deleted account) is no longer a session
+      const current = await currentSessionVersion(uid);
+      if (current === null || current !== ((token.sv as number | undefined) ?? 0)) {
+        return { expires: session.expires } as typeof session;
+      }
+      session.user.id = uid;
       return session;
     },
   },

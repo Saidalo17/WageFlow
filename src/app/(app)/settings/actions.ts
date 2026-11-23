@@ -1,10 +1,10 @@
 "use server";
 
 import bcrypt from "bcryptjs";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { signOut } from "@/lib/auth";
+import { signOut, unstable_update } from "@/lib/auth";
 import { db } from "@/lib/db/client";
 import { budgets, categories, loginAttempts, transactions, users } from "@/lib/db/schema";
 import { RatesUnavailableError } from "@/lib/fx";
@@ -105,10 +105,12 @@ export async function changePassword(input: unknown): Promise<ActionResult> {
     return { ok: false, error: "invalid", fieldErrors: { next: "passwordEmail" } };
   }
 
+  // Raising the session version signs out every other device; this one is re-issued below
   await db
     .update(users)
-    .set({ passwordHash: await bcrypt.hash(next, 12) })
+    .set({ passwordHash: await bcrypt.hash(next, 12), sessionVersion: sql`${users.sessionVersion} + 1` })
     .where(eq(users.id, user.id));
+  await unstable_update({ user: {} });
   return { ok: true };
 }
 

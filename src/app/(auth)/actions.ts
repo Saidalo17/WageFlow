@@ -3,7 +3,9 @@
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { cookies, headers } from "next/headers";
-import { isRateLimited, recordFailure } from "@/lib/rate-limit";
+import { isRateLimited, recordFailure, type Limit } from "@/lib/rate-limit";
+
+const HOUR_MS = 60 * 60 * 1000;
 import { getLocale } from "next-intl/server";
 import { AuthError } from "next-auth";
 import { signIn, signOut } from "@/lib/auth";
@@ -66,6 +68,11 @@ export async function registerUser(input: unknown): Promise<AuthResult> {
     if (await isRateLimited(key)) return { ok: false, error: "tooManyAttempts" };
     await recordFailure(key);
   }
+  // "Is this email registered?" is answered by the form, so asking it over and over is how a list of customers
+  // is collected. Answers that reveal an existing account are limited much harder: 3 per hour per address,
+  // and 60 per hour for everybody together.
+  const probes: Limit[] = [{ key: "regtaken:all", max: 60, windowMs: HOUR_MS }, ...(ip ? [{ key: `regtaken:${ip}`, max: 3, windowMs: HOUR_MS }] : [])];
+  if (await isRateLimited(probes)) return { ok: false, error: "tooManyAttempts" };
 
   // Is this address one that can receive mail at all? (production; see lib/email-check.ts)
   if (deliverabilityCheckEnabled()) {
@@ -75,7 +82,12 @@ export async function registerUser(input: unknown): Promise<AuthResult> {
   }
 
   const [existing] = await db.select({ id: users.id }).from(users).where(eq(users.email, email));
-  if (existing) return { ok: false, error: "emailTaken", fieldErrors: { email: "emailTaken" } };
+  if (existing) {
+    // Take as long as a real sign-up would, so the response time does not give the answer away either
+    await bcrypt.hash(password, 12);
+    await recordFailure(probes);
+    return { ok: false, error: "emailTaken", fieldErrors: { email: "emailTaken" } };
+  }
 
   const locale = await getLocale();
   const userId = crypto.randomUUID();

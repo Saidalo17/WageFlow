@@ -71,6 +71,13 @@
       "when": 1795450717513,
       "tag": "0009_minor_warbird",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1795452865115,
+      "tag": "0010_icy_leper_queen",
+      "breakpoints": true
     }
   ]
 }

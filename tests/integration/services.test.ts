@@ -254,9 +254,12 @@ describe("analytics", () => {
 });
 
 describe("sign-in rate limit", () => {
-  it("blocks after 5 failures and unblocks on success", async () => {
-    const keys = attemptKeys(`blocked-${Date.now()}@example.test`, "203.0.113.9");
-    expect(keys).toHaveLength(2);
+  const email = () => `blocked-${Date.now()}-${Math.random().toString(36).slice(2)}@example.test`;
+  const ip = () => `203.0.113.${Math.floor(Math.random() * 250)}-${Math.random().toString(36).slice(2)}`;
+
+  it("blocks one address on one email after 5 failures and unblocks on success", async () => {
+    const keys = attemptKeys(email(), ip());
+    expect(keys).toHaveLength(3);
     for (let i = 0; i < 4; i++) await recordFailure(keys);
     expect(await isRateLimited(keys)).toBe(false);
     await recordFailure(keys);
@@ -265,18 +268,48 @@ describe("sign-in rate limit", () => {
     expect(await isRateLimited(keys)).toBe(false);
   });
 
+  it("a stranger's failures do not lock the owner out (another address, same email)", async () => {
+    const mail = email();
+    const attacker = attemptKeys(mail, ip());
+    for (let i = 0; i < 6; i++) await recordFailure(attacker);
+    expect(await isRateLimited(attacker)).toBe(true);
+    expect(await isRateLimited(attemptKeys(mail, ip()))).toBe(false); // the owner, from his own address
+  });
+
+  it("still stops guesses spread over many addresses: 30 failures on one email lock it", async () => {
+    const mail = email();
+    for (let i = 0; i < 29; i++) await recordFailure(attemptKeys(mail, ip()));
+    expect(await isRateLimited(attemptKeys(mail, ip()))).toBe(false);
+    await recordFailure(attemptKeys(mail, ip()));
+    expect(await isRateLimited(attemptKeys(mail, ip()))).toBe(true);
+  });
+
+  it("stops one address that tries many emails: 20 failures", async () => {
+    const same = ip();
+    for (let i = 0; i < 19; i++) await recordFailure(attemptKeys(email(), same));
+    expect(await isRateLimited(attemptKeys(email(), same))).toBe(false);
+    await recordFailure(attemptKeys(email(), same));
+    expect(await isRateLimited(attemptKeys(email(), same))).toBe(true);
+  });
+
+  it("holds the email to 5 when the address is unknown", async () => {
+    const keys = attemptKeys(email(), null);
+    expect(keys).toHaveLength(1);
+    for (let i = 0; i < 5; i++) await recordFailure(keys);
+    expect(await isRateLimited(keys)).toBe(true);
+  });
+
   it("forgets failures older than 15 minutes", async () => {
     const key = `email:old-${Date.now()}@example.test`;
     await db.insert(loginAttempts).values(Array.from({ length: 5 }, () => ({ key, createdAt: Date.now() - 16 * 60 * 1000 })));
     expect(await isRateLimited([key])).toBe(false);
   });
 
-  it("counts an email and an IP address separately", async () => {
-    const ip = `ip:198.51.100.${Math.floor(Math.random() * 200)}`;
-    for (let i = 0; i < 5; i++) await recordFailure([ip]);
-    expect(await isRateLimited([ip])).toBe(true);
-    expect(await isRateLimited(["email:someone-else@example.test"])).toBe(false);
-    expect(await isRateLimited(["email:someone-else@example.test", ip])).toBe(true); // either one is enough
+  it("counters can have their own size and window", async () => {
+    const key = `custom-${Date.now()}-${Math.random()}`;
+    await db.insert(loginAttempts).values([{ key, createdAt: Date.now() - 30 * 60 * 1000 }, { key }, { key }]);
+    expect(await isRateLimited([{ key, max: 3, windowMs: 60 * 60 * 1000 }])).toBe(true);
+    expect(await isRateLimited([{ key, max: 3, windowMs: 15 * 60 * 1000 }])).toBe(false);
   });
 });
 

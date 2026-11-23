@@ -22,6 +22,8 @@ export const users = sqliteTable("users", {
   id: id(),
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
+  /** Raised when the password changes: every session issued before that stops working. */
+  sessionVersion: integer("session_version").notNull().default(0),
   name: text("name"),
   currency: text("currency").notNull().default("USD"),
   locale: text("locale").notNull().default("en"),
