@@ -9,6 +9,7 @@ import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, Comma
 import { useTransactionModal } from "@/components/transactions/transaction-modal-provider";
 import { formatDate } from "@/lib/format";
 import { formatMoney } from "@/lib/money";
+import { isCommandShortcut } from "@/lib/shortcuts";
 import { NAV_ITEMS, SETTINGS_ITEM } from "./nav-items";
 
 type CategoryLink = { id: string; name: string; systemKey: string | null; type: "income" | "expense"; isArchived: boolean };
@@ -40,7 +41,7 @@ export function CommandCenter({
   // Ctrl+K / ⌘K from anywhere
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      if (isCommandShortcut(e)) {
         e.preventDefault();
         onOpenChange(!open);
       }
