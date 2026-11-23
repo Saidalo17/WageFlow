@@ -467,6 +467,7 @@
       "remove": "Remove photo",
       "photoHint": "JPG, PNG or WebP. It is cropped to a square and shrunk before it is saved with your account.",
       "photoSaved": "Photo updated",
+      "viewPhoto": "View photo",
       "photoRemoved": "Photo removed",
       "emoji": "Emoji",
       "emojiHint": "Shown instead of your photo when you have none.",

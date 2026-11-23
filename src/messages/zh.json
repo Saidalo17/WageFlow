@@ -467,6 +467,7 @@
       "remove": "删除照片",
       "photoHint": "支持 JPG、PNG 或 WebP。保存前会裁剪为正方形并缩小。",
       "photoSaved": "照片已更新",
+      "viewPhoto": "查看照片",
       "photoRemoved": "照片已删除",
       "emoji": "表情符号",
       "emojiHint": "没有照片时显示。",

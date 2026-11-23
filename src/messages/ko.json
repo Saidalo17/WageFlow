@@ -467,6 +467,7 @@
       "remove": "사진 삭제",
       "photoHint": "JPG, PNG 또는 WebP. 저장하기 전에 정사각형으로 잘라 크기를 줄입니다.",
       "photoSaved": "사진을 변경했습니다",
+      "viewPhoto": "사진 보기",
       "photoRemoved": "사진을 삭제했습니다",
       "emoji": "이모지",
       "emojiHint": "사진이 없을 때 대신 표시됩니다.",

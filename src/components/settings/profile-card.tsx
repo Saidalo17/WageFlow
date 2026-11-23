@@ -9,6 +9,7 @@ import { deleteAvatar, updateProfileCard, uploadAvatar } from "@/app/(app)/setti
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { AvatarViewer } from "@/components/settings/avatar-viewer";
 import { UserAvatar } from "@/components/user-avatar";
 import { CATEGORY_COLORS } from "@/lib/category-meta";
 import { squareAvatar } from "@/lib/image-resize";
@@ -108,13 +109,24 @@ export function ProfileCard({ initial }: Props) {
         className="flex items-center gap-4 rounded-3xl p-5 sm:p-6"
         style={{ background: `linear-gradient(135deg, ${accentValue}33, ${accentValue}0d)`, boxShadow: `inset 0 0 0 1px ${accentValue}40` }}
       >
-        <UserAvatar
-          name={initial.name || null}
-          avatarVersion={initial.avatarVersion}
-          emoji={emoji || null}
-          accent={accentValue}
-          className="size-20 text-3xl ring-4 ring-card sm:size-24 sm:text-4xl"
-        />
+        {(() => {
+          const avatar = (
+            <UserAvatar
+              name={initial.name || null}
+              avatarVersion={initial.avatarVersion}
+              emoji={emoji || null}
+              accent={accentValue}
+              className="size-20 text-3xl ring-4 ring-card sm:size-24 sm:text-4xl"
+            />
+          );
+          return initial.avatarVersion ? (
+            <AvatarViewer label={t("viewPhoto")} version={initial.avatarVersion}>
+              {avatar}
+            </AvatarViewer>
+          ) : (
+            avatar
+          );
+        })()}
         <div className="min-w-0 flex-1">
           <p className="truncate text-xl font-extrabold">{initial.name || t("noName")}</p>
           <p className="break-words text-muted-foreground">{bio.trim() || t("bioEmpty")}</p>

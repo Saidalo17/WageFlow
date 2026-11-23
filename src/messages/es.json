@@ -467,6 +467,7 @@
       "remove": "Quitar foto",
       "photoHint": "JPG, PNG o WebP. Se recorta en cuadrado y se reduce antes de guardarla con tu cuenta.",
       "photoSaved": "Foto actualizada",
+      "viewPhoto": "Ver foto",
       "photoRemoved": "Foto eliminada",
       "emoji": "Emoji",
       "emojiHint": "Se muestra en lugar de tu foto si no tienes ninguna.",

@@ -467,6 +467,7 @@
       "remove": "Supprimer la photo",
       "photoHint": "JPG, PNG ou WebP. Elle est recadrée en carré et réduite avant d’être enregistrée avec votre compte.",
       "photoSaved": "Photo mise à jour",
+      "viewPhoto": "Voir la photo",
       "photoRemoved": "Photo supprimée",
       "emoji": "Émoji",
       "emojiHint": "Affiché à la place de votre photo si vous n’en avez pas.",

@@ -467,6 +467,7 @@
       "remove": "写真を削除",
       "photoHint": "JPG、PNG、WebPに対応。保存前に正方形に切り抜かれ、縮小されます。",
       "photoSaved": "写真を更新しました",
+      "viewPhoto": "写真を表示",
       "photoRemoved": "写真を削除しました",
       "emoji": "絵文字",
       "emojiHint": "写真がないときに表示されます。",
