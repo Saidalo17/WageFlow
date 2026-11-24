@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import { CircleDollarSign, CreditCard, Handshake, Home, Landmark, Loader2, MoreVertical, Pencil, Plus, ReceiptText, Trash2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -207,7 +208,7 @@ export function DebtsView({ debts, payments, currency }: { debts: DebtRow[]; pay
                     {d.interestRate > 0 && (
                       <div className="flex justify-between gap-3">
                         <dt className="text-muted-foreground">{t("interestShort")}</dt>
-                        <dd className="font-semibold">{new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 2 }).format(d.interestRate / 10_000)}</dd>
+                        <dd className="font-semibold">{new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 2 }).format(d.interestRate / 10_000)}</dd>
                       </div>
                     )}
                     {next && (
@@ -300,9 +301,9 @@ function MoneyInput({ id, label, hint, currency, value, onChange, error, big = t
           value={value}
           onValueChange={onChange}
           aria-invalid={!!error}
-          className={cn("amount pr-14", big ? "h-14 text-2xl font-extrabold" : "h-12 text-lg font-bold")}
+          className={cn("amount pe-14", big ? "h-14 text-2xl font-extrabold" : "h-12 text-lg font-bold")}
         />
-        <span className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center font-bold text-muted-foreground">{currencySymbol(locale, currency)}</span>
+        <span className="pointer-events-none absolute inset-y-0 end-4 grid place-items-center font-bold text-muted-foreground">{currencySymbol(locale, currency)}</span>
       </div>
       {error ? (
         <p role="alert" className="text-sm text-destructive">

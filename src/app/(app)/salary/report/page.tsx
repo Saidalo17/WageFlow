@@ -47,8 +47,8 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
         : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
     );
 
-  const th = "border-b border-neutral-300 py-2 text-left text-xs font-semibold tracking-wide text-neutral-500 uppercase";
-  const num = "amount py-2 text-right tabular-nums";
+  const th = "border-b border-neutral-300 py-2 text-start text-xs font-semibold tracking-wide text-neutral-500 uppercase";
+  const num = "amount py-2 text-end tabular-nums";
 
   return (
     <div className="mx-auto max-w-[820px] space-y-5">
@@ -129,9 +129,9 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
                 <thead>
                   <tr>
                     <th className={th}>{t("report.month")}</th>
-                    <th className={cn(th, "text-right")}>{t("gross")}</th>
-                    <th className={cn(th, "text-right")}>{t("deductions")}</th>
-                    <th className={cn(th, "text-right")}>{t("net")}</th>
+                    <th className={cn(th, "text-end")}>{t("gross")}</th>
+                    <th className={cn(th, "text-end")}>{t("deductions")}</th>
+                    <th className={cn(th, "text-end")}>{t("net")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -162,9 +162,9 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
                   <tr>
                     <th className={th}>{t("report.date")}</th>
                     <th className={th}>{t("report.name")}</th>
-                    <th className={cn(th, "text-right")}>{t("gross")}</th>
-                    <th className={cn(th, "text-right")}>{t("deductions")}</th>
-                    <th className={cn(th, "text-right")}>{t("net")}</th>
+                    <th className={cn(th, "text-end")}>{t("gross")}</th>
+                    <th className={cn(th, "text-end")}>{t("deductions")}</th>
+                    <th className={cn(th, "text-end")}>{t("net")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -173,7 +173,7 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
                     .map((r) => (
                       <tr key={r.id} className="break-inside-avoid border-b border-neutral-100">
                         <td className="py-2 whitespace-nowrap">{date(r.payDate)}</td>
-                        <td className="py-2 pr-2">{r.title || t(`modes.${r.mode}`)}</td>
+                        <td className="py-2 pe-2">{r.title || t(`modes.${r.mode}`)}</td>
                         <td className={num}>{money(r.gross)}</td>
                         <td className={num}>{money(r.deductionTotal)}</td>
                         <td className={cn(num, "font-semibold")}>{money(r.net)}</td>
@@ -193,7 +193,7 @@ export default async function SalaryReportPage({ searchParams }: PageProps<"/sal
                     {bonuses.map((b) => (
                       <tr key={b.id} className="border-b border-neutral-100">
                         <td className="py-2 whitespace-nowrap">{date(b.payDate)}</td>
-                        <td className="py-2 pr-2">{b.label}</td>
+                        <td className="py-2 pe-2">{b.label}</td>
                         <td className={num}>{money(b.amount)}</td>
                       </tr>
                     ))}

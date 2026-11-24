@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import { useLocale, useTranslations } from "next-intl";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { useCategoryName } from "@/components/categories/use-category-name";
@@ -41,7 +42,7 @@ export function DonutChart({
   const slices: Slice[] = rest > 0 ? [...head, { key: "_other", name: t("other"), value: rest, color: OTHER_COLOR }] : head;
 
   const percent = (v: number) =>
-    new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 1 }).format(total ? v / total : 0);
+    new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 1 }).format(total ? v / total : 0);
 
   return (
     <div className="space-y-4">
@@ -101,7 +102,7 @@ export function DonutChart({
             <span className="size-3 shrink-0 rounded-full" style={{ backgroundColor: s.color }} aria-hidden />
             <span className="min-w-0 flex-1 truncate font-semibold">{s.name}</span>
             <span className="amount text-muted-foreground">{percent(s.value)}</span>
-            <span className="amount w-28 shrink-0 text-right font-bold">{formatMoney(s.value, currency, locale)}</span>
+            <span className="amount w-28 shrink-0 text-end font-bold">{formatMoney(s.value, currency, locale)}</span>
           </li>
         ))}
       </ul>

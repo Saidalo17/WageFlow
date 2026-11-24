@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Card } from "@/components/card";
@@ -50,7 +51,7 @@ export default async function SalaryPage({ searchParams }: PageProps<"/salary">)
     const previous = sum(prev, key);
     return { key, current, change: percentChange(current, previous), hasPrev: previous > 0 };
   });
-  const percent = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 0, signDisplay: "exceptZero" });
+  const percent = new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 0, signDisplay: "exceptZero" });
 
   return (
     <div className="space-y-6">

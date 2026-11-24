@@ -94,14 +94,14 @@ export function TopNav({
           type="button"
           onClick={() => setCommandOpen(true)}
           aria-label={t("search")}
-          className="glass hidden h-11 max-w-md min-w-0 flex-1 items-center gap-3 rounded-full px-4 text-left text-sm text-muted-foreground transition-all hover:border-primary/40 hover:text-foreground hover:shadow-[var(--glow)] focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none md:flex"
+          className="glass hidden h-11 max-w-md min-w-0 flex-1 items-center gap-3 rounded-full px-4 text-start text-sm text-muted-foreground transition-all hover:border-primary/40 hover:text-foreground hover:shadow-[var(--glow)] focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none md:flex"
         >
           <Search className="size-4 shrink-0" />
           <span className="min-w-0 flex-1 truncate">{t("search")}</span>
           <kbd className="shrink-0 rounded-md border bg-background/60 px-1.5 py-0.5 text-xs font-semibold">{shortcut}</kbd>
         </button>
 
-        <div className="ml-auto flex items-center gap-1 sm:gap-2">
+        <div className="ms-auto flex items-center gap-1 sm:gap-2">
           <Button variant="ghost" size="icon" className="md:hidden" aria-label={t("search")} onClick={() => setCommandOpen(true)}>
             <Search className="size-5" />
           </Button>

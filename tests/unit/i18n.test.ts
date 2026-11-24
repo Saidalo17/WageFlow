@@ -8,7 +8,7 @@ import { checkMessages } from "../../scripts/i18n-check.mjs";
 const messagesDir = path.join(process.cwd(), "src", "messages");
 
 describe("translations", () => {
-  it("all nine languages have the same keys and placeholders as English", () => {
+  it("all ten languages have the same keys and placeholders as English", () => {
     expect(checkMessages()).toEqual([]);
   });
 
@@ -35,14 +35,14 @@ describe("language list", () => {
   it("shows every language by its name in the interface language, sorted alphabetically", async () => {
     const { languageOptions } = await import("@/i18n/language-names");
     const en = languageOptions("en").map((o) => o.label);
-    expect(en).toEqual(["Chinese", "English", "French", "German", "Japanese", "Korean", "Russian", "Spanish", "Turkish"]);
+    expect(en).toEqual(["Arabic", "Chinese", "English", "French", "German", "Japanese", "Korean", "Russian", "Spanish", "Turkish"]);
     expect(languageOptions("ru").map((o) => o.label)).toEqual([
-      "Испанский", "Китайский", "Корейский", "Немецкий", "Русский", "Турецкий", "Французский", "Английский", "Японский",
+      "Арабский", "Испанский", "Китайский", "Корейский", "Немецкий", "Русский", "Турецкий", "Французский", "Английский", "Японский",
     ].sort(new Intl.Collator("ru").compare));
     expect(languageOptions("de").map((o) => o.label)).toContain("Französisch");
     for (const ui of locales) {
       const options = languageOptions(ui);
-      expect(options.map((o) => o.code).sort()).toEqual([...locales].sort()); // all nine, once each
+      expect(options.map((o) => o.code).sort()).toEqual([...locales].sort()); // all ten, once each
       const collator = new Intl.Collator(ui);
       const labels = options.map((o) => o.label);
       expect(labels, ui).toEqual([...labels].sort(collator.compare));
@@ -52,7 +52,7 @@ describe("language list", () => {
 });
 
 describe("choosing the language", () => {
-  it("recognises the nine languages", () => {
+  it("recognises the ten languages", () => {
     for (const l of locales) expect(isLocale(l)).toBe(true);
     for (const l of ["it", "pl", "EN", "", undefined, null, 5]) expect(isLocale(l)).toBe(false);
   });

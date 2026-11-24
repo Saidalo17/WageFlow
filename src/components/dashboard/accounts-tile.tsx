@@ -68,7 +68,7 @@ export async function AccountsTile({
                         {tAcc(`kinds.${a.kind}`)} · {a.currency}
                       </span>
                     </span>
-                    <span className={cn("amount shrink-0 text-right text-sm font-bold", a.balance < 0 && "text-expense")}>{formatMoney(a.balance, a.currency, locale)}</span>
+                    <span className={cn("amount shrink-0 text-end text-sm font-bold", a.balance < 0 && "text-expense")}>{formatMoney(a.balance, a.currency, locale)}</span>
                   </Link>
                 </li>
               );

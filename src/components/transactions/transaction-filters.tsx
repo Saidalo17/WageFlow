@@ -68,14 +68,14 @@ export function TransactionFilters({
   return (
     <div className="space-y-3">
       <div className="relative">
-        <Search className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="pointer-events-none absolute top-1/2 start-4 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t("search")}
           aria-label={t("search")}
-          className="pr-10 pl-11"
+          className="pe-10 ps-11"
         />
         {search && (
           <button
@@ -85,7 +85,7 @@ export function TransactionFilters({
               update({ q: null });
             }}
             aria-label={t("clearSearch")}
-            className="absolute inset-y-0 right-0 grid w-11 place-items-center text-muted-foreground hover:text-foreground"
+            className="absolute inset-y-0 end-0 grid w-11 place-items-center text-muted-foreground hover:text-foreground"
           >
             <X className="size-4" />
           </button>

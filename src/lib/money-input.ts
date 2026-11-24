@@ -1,10 +1,11 @@
+import { intlLocale } from "@/lib/intl-locale";
 import { fromMinor, minorDigits, parseAmount } from "@/lib/money";
 import { MAX_AMOUNT_MAJOR } from "@/lib/validators/transaction";
 
 /** Symbol of a currency in the user's language: "₽", "$", "€", "¥". */
 export function currencySymbol(locale: string, currency: string) {
   return (
-    new Intl.NumberFormat(locale, { style: "currency", currency, currencyDisplay: "narrowSymbol" })
+    new Intl.NumberFormat(intlLocale(locale), { style: "currency", currency, currencyDisplay: "narrowSymbol" })
       .formatToParts(0)
       .find((p) => p.type === "currency")?.value ?? currency
   );
@@ -13,7 +14,7 @@ export function currencySymbol(locale: string, currency: string) {
 /** 125050 minor units -> "1250,50" in the user's language, without thousands separators, ready to edit. */
 export function editableAmount(minor: number, currency: string, locale: string) {
   const d = minorDigits(currency);
-  return new Intl.NumberFormat(locale, {
+  return new Intl.NumberFormat(intlLocale(locale), {
     useGrouping: false,
     minimumFractionDigits: d,
     maximumFractionDigits: d,

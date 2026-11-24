@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 import { ArrowDownRight, ArrowUpRight, Landmark, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -30,7 +31,7 @@ export default async function NetWorthPage() {
   ]);
   const money = (minor: number, cur = user.currency) => formatMoney(minor, cur, locale);
   const change = trend(snapshots);
-  const percent = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });
+  const percent = new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });
 
   return (
     <div className="space-y-6">

@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { AreaChart } from "@/components/charts/lazy";
@@ -93,7 +94,7 @@ export default async function OverviewPage({ searchParams }: PageProps<"/">) {
   const heatmap = buildHeatmap(convertSeries(display, heatSeries), today, HEAT_WEEKS);
 
   const money = (minor: number) => formatMoney(minor, display.currency, locale);
-  const percent = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });
+  const percent = new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });
   const balance = totals.income - totals.expense;
   const previousBalance = prevTotals.income - prevTotals.expense;
   const hasData = series.some((p) => p.income > 0 || p.expense > 0);

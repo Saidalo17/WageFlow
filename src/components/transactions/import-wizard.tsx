@@ -342,13 +342,13 @@ export function ImportWizard({ categories, accounts, currency }: { categories: C
             <div className="overflow-x-auto rounded-2xl border">
               <table className="w-full min-w-[640px] text-sm">
                 <thead>
-                  <tr className="border-b bg-muted text-left text-xs font-semibold text-muted-foreground">
+                  <tr className="border-b bg-muted text-start text-xs font-semibold text-muted-foreground">
                     <th className="w-10 px-3 py-2">
                       <span className="sr-only">{t("colInclude")}</span>
                     </th>
                     <th className="px-3 py-2">{t("colDate")}</th>
                     <th className="px-3 py-2">{t("colDescription")}</th>
-                    <th className="px-3 py-2 text-right">{t("amountShort")}</th>
+                    <th className="px-3 py-2 text-end">{t("amountShort")}</th>
                     <th className="px-3 py-2">{t("colCategory")}</th>
                   </tr>
                 </thead>
@@ -368,7 +368,7 @@ export function ImportWizard({ categories, accounts, currency }: { categories: C
                             <p className="text-xs font-semibold text-warning">{t("duplicate")}</p>
                           )}
                         </td>
-                        <td className={cn("amount px-3 py-2 text-right font-semibold whitespace-nowrap", r.amount > 0 ? "text-income" : "text-expense")}>
+                        <td className={cn("amount px-3 py-2 text-end font-semibold whitespace-nowrap", r.amount > 0 ? "text-income" : "text-expense")}>
                           {r.amount > 0 ? "+" : "−"}
                           {money(r.amount)}
                         </td>

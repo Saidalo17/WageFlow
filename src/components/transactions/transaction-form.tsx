@@ -194,9 +194,9 @@ export function TransactionForm({
               onValueChange={setAmountText}
               aria-invalid={!!errors.amount}
               aria-describedby={errors.amount ? "tx-amount-error" : undefined}
-              className="amount h-14 pr-12 text-2xl font-extrabold"
+              className="amount h-14 pe-12 text-2xl font-extrabold"
             />
-            <span className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-bold text-muted-foreground">
+            <span className="pointer-events-none absolute inset-y-0 end-4 grid place-items-center text-lg font-bold text-muted-foreground">
               {symbol}
             </span>
           </div>

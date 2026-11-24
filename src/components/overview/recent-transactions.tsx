@@ -42,7 +42,7 @@ export function RecentTransactions({ items, currency }: { items: TxItem[]; curre
             <button
               type="button"
               onClick={() => openEdit(item)}
-              className="flex w-full items-center gap-3 rounded-2xl px-2 py-3 text-left transition-colors hover:bg-muted/50 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="flex w-full items-center gap-3 rounded-2xl px-2 py-3 text-start transition-colors hover:bg-muted/50 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
               <CategoryBadge icon={item.categoryIcon} color={item.categoryColor} />
               <span className="min-w-0 flex-1">
@@ -54,7 +54,7 @@ export function RecentTransactions({ items, currency }: { items: TxItem[]; curre
                   {item.note ? ` · ${item.note}` : ""}
                 </span>
               </span>
-              <span className="shrink-0 text-right">
+              <span className="shrink-0 text-end">
                 <span className={cn("amount block font-extrabold", isIncome ? "text-income" : "text-expense")}>
                   {isIncome ? "+" : "−"}
                   {formatMoney(item.amount, currency, locale)}

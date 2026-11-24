@@ -253,7 +253,7 @@ export function ProfileCard({ initial }: Props) {
           placeholder={t("bioPlaceholder")}
           onChange={(e) => setBio(e.target.value)}
         />
-        <p className="text-right text-xs text-muted-foreground">
+        <p className="text-end text-xs text-muted-foreground">
           {bio.length}/{BIO_MAX}
         </p>
       </div>

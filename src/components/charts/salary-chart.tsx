@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import { useLocale } from "next-intl";
 import {
   Bar,
@@ -41,7 +42,7 @@ export function SalaryChart({
   const locale = useLocale();
   const reduced = useReducedMotion();
   const mobile = useIsMobile();
-  const compact = new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 });
+  const compact = new Intl.NumberFormat(intlLocale(locale), { notation: "compact", maximumFractionDigits: 1 });
   const axisStyle = { fill: "var(--muted-foreground)", fontSize: 12 } as const;
   const dense = data.length > 8;
 

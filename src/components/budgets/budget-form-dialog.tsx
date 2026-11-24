@@ -177,9 +177,9 @@ function BudgetForm({
             onValueChange={setAmountText}
             aria-invalid={!!errors.limit}
             aria-describedby={errors.limit ? "budget-limit-error" : "budget-limit-hint"}
-            className="amount h-14 pr-14 text-2xl font-extrabold"
+            className="amount h-14 pe-14 text-2xl font-extrabold"
           />
-          <span className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-bold text-muted-foreground">
+          <span className="pointer-events-none absolute inset-y-0 end-4 grid place-items-center text-lg font-bold text-muted-foreground">
             {currencySymbol(locale, currency)}
           </span>
         </div>

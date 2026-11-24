@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 import { ArrowDownLeft, ArrowUpRight, Minus, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -101,8 +102,8 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
     change: changeOf(c.total, prevAmounts.get(c.categoryId) ?? 0),
   }));
 
-  const pct = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });
-  const pctPlain = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 1 });
+  const pct = new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 1, signDisplay: "exceptZero" });
+  const pctPlain = new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 1 });
 
   return (
     <div className="space-y-6">
@@ -228,14 +229,14 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
             <table className="w-full min-w-[460px] text-sm">
               <caption className="sr-only">{t("topCaption")}</caption>
               <thead>
-                <tr className="text-left text-muted-foreground">
+                <tr className="text-start text-muted-foreground">
                   <th scope="col" className="pb-2 font-semibold">
                     {t("colCategory")}
                   </th>
-                  <th scope="col" className="pb-2 text-right font-semibold">
+                  <th scope="col" className="pb-2 text-end font-semibold">
                     {t("colAmount")}
                   </th>
-                  <th scope="col" className="pb-2 text-right font-semibold">
+                  <th scope="col" className="pb-2 text-end font-semibold">
                     {t("colChange")}
                   </th>
                 </tr>
@@ -243,15 +244,15 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analyt
               <tbody className="divide-y">
                 {topRows.map((r) => (
                   <tr key={r.id}>
-                    <td className="py-2.5 pr-2">
+                    <td className="py-2.5 pe-2">
                       <span className="flex items-center gap-2">
                         <span className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: r.color }} aria-hidden />
                         <span className="truncate font-semibold">{r.name}</span>
                       </span>
-                      <span className="amount ml-[18px] text-xs text-muted-foreground">{pctPlain.format(r.share)}</span>
+                      <span className="amount ms-[18px] text-xs text-muted-foreground">{pctPlain.format(r.share)}</span>
                     </td>
-                    <td className="amount py-2.5 text-right font-bold whitespace-nowrap">{money(r.total)}</td>
-                    <td className="py-2.5 pl-2 text-right whitespace-nowrap">
+                    <td className="amount py-2.5 text-end font-bold whitespace-nowrap">{money(r.total)}</td>
+                    <td className="py-2.5 ps-2 text-end whitespace-nowrap">
                       <ChangeBadge value={r.change} upIsGood={false} pct={pct} newLabel={t("new")} />
                     </td>
                   </tr>

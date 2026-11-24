@@ -36,4 +36,5 @@ export const DEFAULT_CURRENCY_BY_LOCALE: Record<string, string> = {
   ja: "JPY",
   ko: "KRW",
   tr: "TRY",
+  ar: "SAR",
 };

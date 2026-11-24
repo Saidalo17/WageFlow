@@ -107,7 +107,7 @@ export function CommandCenter({
                   {h.type === "income" ? <ArrowUpRight className="size-4 text-income" /> : <ArrowDownLeft className="size-4 text-expense" />}
                   <span className="min-w-0 flex-1 truncate">
                     {h.note || (h.categorySystemKey ? tSys(h.categorySystemKey) : h.categoryName)}
-                    <span className="ml-2 text-xs text-muted-foreground">{formatDate(h.occurredOn, locale, { day: "numeric", month: "short" })}</span>
+                    <span className="ms-2 text-xs text-muted-foreground">{formatDate(h.occurredOn, locale, { day: "numeric", month: "short" })}</span>
                   </span>
                   <span className="amount text-sm font-semibold">
                     {h.type === "income" ? "+" : "−"}

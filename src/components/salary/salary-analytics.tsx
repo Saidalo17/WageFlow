@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -34,7 +35,7 @@ export async function SalaryAnalytics({
 }) {
   const [t, locale] = await Promise.all([getTranslations("salary"), getLocale()]);
   const money = (minor: number) => formatMoney(minor, currency, locale);
-  const percent = new Intl.NumberFormat(locale, {
+  const percent = new Intl.NumberFormat(intlLocale(locale), {
     style: "percent",
     maximumFractionDigits: 1,
     signDisplay: "exceptZero",
@@ -78,7 +79,7 @@ export async function SalaryAnalytics({
   const stat = (label: string, value: string) => (
     <div className="flex items-baseline justify-between gap-3 py-2 text-sm">
       <dt className="text-muted-foreground">{label}</dt>
-      <dd className="amount text-right font-semibold">{value}</dd>
+      <dd className="amount text-end font-semibold">{value}</dd>
     </div>
   );
 

@@ -46,11 +46,11 @@ export async function HeroBalance({
         width={427}
         height={426}
         sizes="320px"
-        className="pointer-events-none absolute inset-y-0 right-0 h-full w-3/5 object-cover object-[60%_40%] opacity-55 [mask-image:linear-gradient(to_left,black_20%,transparent)]"
+        className="pointer-events-none absolute inset-y-0 end-0 h-full w-3/5 object-cover object-[60%_40%] opacity-55 [mask-image:linear-gradient(to_left,black_20%,transparent)]"
       />
       {/* Soft light spots: decoration only */}
-      <div aria-hidden className="pointer-events-none absolute -top-16 -right-10 size-64 rounded-full bg-[radial-gradient(circle,rgba(214,181,109,0.28),transparent_65%)]" />
-      <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-[radial-gradient(circle,rgba(18,185,129,0.35),transparent_65%)]" />
+      <div aria-hidden className="pointer-events-none absolute -top-16 -end-10 size-64 rounded-full bg-[radial-gradient(circle,rgba(214,181,109,0.28),transparent_65%)]" />
+      <div aria-hidden className="pointer-events-none absolute -bottom-24 -start-10 size-72 rounded-full bg-[radial-gradient(circle,rgba(18,185,129,0.35),transparent_65%)]" />
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="min-w-0">

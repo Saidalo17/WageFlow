@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import { Loader2, Plus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useId, useMemo, useRef, useState } from "react";
@@ -249,9 +250,9 @@ export function SalaryCalculator({ currency, defaultCountry }: { currency: strin
                   onValueChange={setRateText}
                   aria-invalid={!!errors.rate}
                   aria-describedby={errors.rate ? `${uid}-rate-err` : undefined}
-                  className="amount h-14 pr-14 text-2xl font-extrabold"
+                  className="amount h-14 pe-14 text-2xl font-extrabold"
                 />
-                <span className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-bold text-muted-foreground">
+                <span className="pointer-events-none absolute inset-y-0 end-4 grid place-items-center text-lg font-bold text-muted-foreground">
                   {symbol}
                 </span>
               </div>
@@ -342,7 +343,7 @@ export function SalaryCalculator({ currency, defaultCountry }: { currency: strin
               >
                 {MULTIPLIERS.map((m) => (
                   <option key={m} value={m}>
-                    ×{(m / 100).toLocaleString(locale)}
+                    ×{(m / 100).toLocaleString(intlLocale(locale))}
                   </option>
                 ))}
               </NativeSelect>
@@ -608,7 +609,7 @@ function Row({
   return (
     <div className="flex items-baseline justify-between gap-3">
       <dt className={cn(muted && "text-muted-foreground", big && "text-base font-bold")}>{label}</dt>
-      <dd className={cn("text-right", strong && "font-bold", big && "text-xl font-extrabold", muted && "text-muted-foreground")}>
+      <dd className={cn("text-end", strong && "font-bold", big && "text-xl font-extrabold", muted && "text-muted-foreground")}>
         {value}
       </dd>
     </div>

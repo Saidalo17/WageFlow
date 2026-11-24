@@ -232,11 +232,11 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
                     const isIncome = item.type === "income";
                     const name = categoryName({ name: item.categoryName, systemKey: item.categorySystemKey });
                     return (
-                      <li key={item.id} className="flex items-center gap-1 pr-2">
+                      <li key={item.id} className="flex items-center gap-1 pe-2">
                         <button
                           type="button"
                           onClick={() => openEdit(item)}
-                          className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl p-4 text-left transition-colors hover:bg-muted/50 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                          className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl p-4 text-start transition-colors hover:bg-muted/50 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
                         >
                           <CategoryBadge icon={item.categoryIcon} color={item.categoryColor} />
                           <span className="min-w-0 flex-1">
@@ -245,7 +245,7 @@ export function TransactionsView({ items, hasMore, limit, totals, currency, cate
                               <span className="block truncate text-sm text-muted-foreground">{item.note}</span>
                             )}
                           </span>
-                          <span className="shrink-0 text-right">
+                          <span className="shrink-0 text-end">
                             <span
                               className={cn(
                                 "amount block font-extrabold",

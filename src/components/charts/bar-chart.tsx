@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import { useLocale } from "next-intl";
 import {
   Bar,
@@ -31,7 +32,7 @@ export function BarChart({
 }) {
   const locale = useLocale();
   const reduced = useReducedMotion();
-  const compact = new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 });
+  const compact = new Intl.NumberFormat(intlLocale(locale), { notation: "compact", maximumFractionDigits: 1 });
   const axisStyle = { fill: "var(--muted-foreground)", fontSize: 12 } as const;
 
   // Show the year only where it helps: the first month and every January.

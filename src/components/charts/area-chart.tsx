@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import { useId, useState } from "react";
 import { useLocale } from "next-intl";
 import {
@@ -46,7 +47,7 @@ export function AreaChart({ data, currency, granularity, labels, ariaLabel, heig
       ? formatDate(`${key}-01`, locale, { month: "short" })
       : formatDate(key, locale, { day: "numeric", month: "short" });
 
-  const compact = new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 });
+  const compact = new Intl.NumberFormat(intlLocale(locale), { notation: "compact", maximumFractionDigits: 1 });
   const axisStyle = { fill: "var(--muted-foreground)", fontSize: 12 } as const;
 
   return (

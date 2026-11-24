@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 /** Date formatting. Dates are stored as "YYYY-MM-DD" strings. */
 
 export function formatDate(
@@ -6,7 +7,7 @@ export function formatDate(
   options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" },
 ): string {
   const [y, m, d] = isoDate.split("-").map(Number);
-  return new Intl.DateTimeFormat(locale, { ...options, timeZone: "UTC" }).format(
+  return new Intl.DateTimeFormat(intlLocale(locale), { ...options, timeZone: "UTC" }).format(
     new Date(Date.UTC(y, m - 1, d)),
   );
 }

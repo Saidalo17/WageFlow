@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import { useId } from "react";
 import { useLocale } from "next-intl";
 import { Area, AreaChart as RechartsAreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -28,7 +29,7 @@ export function NetWorthChart({
   const reduced = useReducedMotion();
   const mobile = useIsMobile();
   const uid = useId().replace(/:/g, "");
-  const compact = new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 });
+  const compact = new Intl.NumberFormat(intlLocale(locale), { notation: "compact", maximumFractionDigits: 1 });
   const axisStyle = { fill: "var(--muted-foreground)", fontSize: 12 } as const;
 
   return (

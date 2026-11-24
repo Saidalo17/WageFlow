@@ -85,7 +85,7 @@ export function SalaryHistory({ records }: { records: HistoryRecord[] }) {
                     {r.deductionTotal > 0 && ` · ${t("deductionsShort", { amount: formatMoney(r.deductionTotal, r.currency, locale) })}`}
                   </p>
                 </div>
-                <p className="amount text-right text-lg font-extrabold">{formatMoney(r.net, r.currency, locale)}</p>
+                <p className="amount text-end text-lg font-extrabold">{formatMoney(r.net, r.currency, locale)}</p>
                 <Button
                   variant="ghost"
                   size="icon"

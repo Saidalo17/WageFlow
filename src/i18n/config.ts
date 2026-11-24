@@ -1,11 +1,12 @@
 /** Shown in this order everywhere: alphabetical by the English name of the language. */
-export const locales = ["zh", "en", "fr", "de", "ja", "ko", "ru", "es", "tr"] as const;
+export const locales = ["ar", "zh", "en", "fr", "de", "ja", "ko", "ru", "es", "tr"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
 export const LOCALE_COOKIE = "NEXT_LOCALE";
 
 /** Language names are written in English, so they are readable whatever the interface language is. */
 export const localeLabels: Record<Locale, string> = {
+  ar: "Arabic",
   zh: "Chinese",
   en: "English",
   fr: "French",

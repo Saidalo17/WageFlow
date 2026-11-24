@@ -327,7 +327,7 @@ export function CategoriesView({
                   onPointerDown={(e) => onHandleDown(e, c.id)}
                   onKeyDown={(e) => onHandleKey(e, c.id)}
                   className={cn(
-                    "-ml-2 grid size-8 shrink-0 touch-none place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+                    "-ms-2 grid size-8 shrink-0 touch-none place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
                     dragId === c.id ? "cursor-grabbing" : "cursor-grab",
                   )}
                 >
@@ -344,7 +344,7 @@ export function CategoriesView({
                   >
                     {c.total === 0 ? "" : isIncome ? "+" : "−"}
                     {formatMoney(c.total, currency, locale)}
-                    <span className="ml-1.5 font-medium text-muted-foreground">· {t("thisMonth")}</span>
+                    <span className="ms-1.5 font-medium text-muted-foreground">· {t("thisMonth")}</span>
                   </p>
                   {c.isArchived && (
                     <span className="mt-1 inline-block rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">

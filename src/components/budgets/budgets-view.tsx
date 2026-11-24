@@ -1,5 +1,6 @@
 "use client";
 
+import { intlLocale } from "@/lib/intl-locale";
 import {
   CircleAlert,
   Loader2,
@@ -61,7 +62,7 @@ export function BudgetsView({ budgets, available, currency, periodLabel }: Props
   const [busy, setBusy] = useState(false);
 
   const money = (minor: number) => formatMoney(minor, currency, locale);
-  const percent = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 0 });
+  const percent = new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 0 });
 
   // The limits that are closest to being used up come first.
   const sorted = [...budgets].sort((a, b) => b.spent / b.limit - a.spent / a.limit);

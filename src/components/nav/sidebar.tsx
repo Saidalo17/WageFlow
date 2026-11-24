@@ -37,7 +37,7 @@ export function NavLink({ item, onNavigate, className }: { item: NavItem; onNavi
 export function Sidebar() {
   const tApp = useTranslations("app");
   return (
-    <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-2 border-r bg-card/60 p-4 backdrop-blur-xl lg:flex print:hidden">
+    <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-2 border-e bg-card/60 p-4 backdrop-blur-xl lg:flex print:hidden">
       <Link href="/" className="mb-4 flex items-center gap-3 px-2 pt-2 text-xl font-extrabold tracking-tight">
         <Image src="/logo.png" alt="" width={40} height={40} className="size-10 rounded-xl object-cover" priority />
         {tApp("name")}

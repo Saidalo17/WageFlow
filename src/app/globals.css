@@ -125,7 +125,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-manrope), var(--font-noto-sc), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), var(--font-noto-ar), var(--font-noto-sc), system-ui, sans-serif;
   --font-heading: var(--font-sans);
 
   --color-background: var(--background);
@@ -206,9 +206,18 @@
   }
 }
 
-/* Amounts: equal-width digits */
+/* Amounts: equal-width digits, and always read left to right, so "-$12.50" never turns inside out in Arabic */
 .amount {
   font-variant-numeric: tabular-nums;
+  unicode-bidi: isolate;
+}
+
+/* Right-to-left languages (Arabic): arrows that point "forward" point the other way, charts keep their own direction */
+[dir="rtl"] :is(.lucide-arrow-right, .lucide-arrow-left, .lucide-chevron-right, .lucide-chevron-left, .lucide-arrow-up-right, .lucide-arrow-down-left, .lucide-chevrons-right, .lucide-chevrons-left) {
+  transform: scaleX(-1);
+}
+[dir="rtl"] .recharts-wrapper {
+  direction: ltr;
 }
 
 /* Glassmorphism, used on a few elements only (hero, floating panels, the command center) */

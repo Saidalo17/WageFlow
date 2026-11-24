@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 import { Lightbulb, Sparkles, TrendingUp, TriangleAlert } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Card } from "@/components/card";
@@ -25,7 +26,7 @@ export async function InsightsTile({
   className?: string;
 }) {
   const [t, locale] = await Promise.all([getTranslations("overview.insights"), getLocale()]);
-  const percent = new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 0 });
+  const percent = new Intl.NumberFormat(intlLocale(locale), { style: "percent", maximumFractionDigits: 0 });
 
   return (
     <Card

@@ -155,7 +155,7 @@ export function PayPlanner({
                       <div className="min-w-0 flex-1">
                         <p className={cn("truncate font-semibold", !s.isActive && "text-muted-foreground")}>
                           {s.title}
-                          {!s.isActive && <span className="ml-2 text-xs font-medium">{t("paused")}</span>}
+                          {!s.isActive && <span className="ms-2 text-xs font-medium">{t("paused")}</span>}
                         </p>
                         <p className="truncate text-sm text-muted-foreground">
                           {describe(s)}

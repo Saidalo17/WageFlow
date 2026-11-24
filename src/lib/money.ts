@@ -1,3 +1,4 @@
+import { intlLocale } from "@/lib/intl-locale";
 /**
  * Money helpers. Amounts are stored as integers in minor units
  * (cents, kopecks...). The number of decimals depends on the currency:
@@ -33,7 +34,7 @@ export function formatMoney(
   locale: string,
   options: Intl.NumberFormatOptions = {},
 ): string {
-  return new Intl.NumberFormat(locale, {
+  return new Intl.NumberFormat(intlLocale(locale), {
     style: "currency",
     currency,
     ...options,
@@ -45,7 +46,7 @@ export function formatMoney(
  * separator. Returns null when the text is not a valid amount.
  */
 export function parseAmount(input: string, locale: string): number | null {
-  const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
+  const parts = new Intl.NumberFormat(intlLocale(locale)).formatToParts(12345.6);
   const decimal = parts.find((p) => p.type === "decimal")?.value ?? ".";
   let s = input.trim().replace(/[\s  ']/g, "");
   if (!s) return null;

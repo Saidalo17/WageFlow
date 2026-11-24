@@ -70,8 +70,8 @@ export function AccountsView({ accounts, currency }: { accounts: AccountRow[]; c
           a.isArchived && "opacity-65",
         )}
       >
-        <div aria-hidden className="pointer-events-none absolute -top-12 -right-12 size-48 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2),transparent_65%)]" />
-        <div aria-hidden className="pointer-events-none absolute -bottom-16 -left-10 size-48 rounded-full bg-[radial-gradient(circle,rgba(18,185,129,0.25),transparent_65%)]" />
+        <div aria-hidden className="pointer-events-none absolute -top-12 -end-12 size-48 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2),transparent_65%)]" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-16 -start-10 size-48 rounded-full bg-[radial-gradient(circle,rgba(18,185,129,0.25),transparent_65%)]" />
 
         <div className="relative flex items-start justify-between gap-3">
           <span className="grid size-11 place-items-center rounded-2xl bg-white/15 backdrop-blur-sm">
@@ -230,9 +230,9 @@ function BalanceField({
           value={amount}
           onValueChange={onAmount}
           aria-invalid={!!error}
-          className={cn("amount h-14 pr-14 text-2xl font-extrabold", negative && "text-expense")}
+          className={cn("amount h-14 pe-14 text-2xl font-extrabold", negative && "text-expense")}
         />
-        <span className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-bold text-muted-foreground">
+        <span className="pointer-events-none absolute inset-y-0 end-4 grid place-items-center text-lg font-bold text-muted-foreground">
           {currencySymbol(locale, currency)}
         </span>
       </div>
